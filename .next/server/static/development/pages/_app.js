@@ -114,7 +114,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const ColContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(antd__WEBPACK_IMPORTED_MODULE_1__["Col"]).withConfig({
   displayName: "Container__ColContainer",
-  componentId: "sc-17kkzsl-0"
+  componentId: "sc-6jx25w-0"
 })(["padding-top:25px;display:flex;flex-direction:column;align-items:center;"]);
 const Container = props => {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
@@ -162,11 +162,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const Title = styled_components__WEBPACK_IMPORTED_MODULE_7___default()(antd__WEBPACK_IMPORTED_MODULE_3__["Typography"].Title)`
-    padding-top: 15px;
-    padding-bottom: 35px;
-`;
+const Title = styled_components__WEBPACK_IMPORTED_MODULE_7___default()(antd__WEBPACK_IMPORTED_MODULE_3__["Typography"].Title).withConfig({
+  displayName: "Onboard__Title",
+  componentId: "sc-1f8dn92-0"
+})(["padding-top:15px;padding-bottom:35px;"]);
 const TOTAL_STEPS = [{
+  title: "Employer or Designer",
+  desc: "Are you an Employer or Desinger?"
+}, {
   title: "Get Started",
   desc: "Add Personal Data"
 }, {
@@ -174,7 +177,7 @@ const TOTAL_STEPS = [{
   desc: "Finish Up and Get Evaluated"
 }];
 const Onboard = props => {
-  const [currentStep, changeStep] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0);
+  const [currentStep, changeStep] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(1);
   const [currentUser, changeUser] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     const firebaseUser = _lib_firebase__WEBPACK_IMPORTED_MODULE_4__["myFirebase"].auth().currentUser;
@@ -195,6 +198,10 @@ const Onboard = props => {
   switch (currentStep) {
     case 0:
       title = TOTAL_STEPS[0].title;
+      break;
+
+    case 1:
+      title = TOTAL_STEPS[1].title;
       currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_FormPersonalData__WEBPACK_IMPORTED_MODULE_5__["default"], {
         changeStep: change => changeStep(currentStep + change),
         currentUser: currentUser,
@@ -202,8 +209,8 @@ const Onboard = props => {
       });
       break;
 
-    case 1:
-      title = TOTAL_STEPS[1].title;
+    case 2:
+      title = TOTAL_STEPS[2].title;
       currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_QuizScreen__WEBPACK_IMPORTED_MODULE_6__["default"], {
         changeStep: change => changeStep(currentStep + change),
         currentUser: currentUser,
@@ -526,14 +533,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const ModalContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div`
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0,0,0,0.5);
-    height: 100vh;
-`;
+const ModalContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
+  displayName: "PopupModal__ModalContainer",
+  componentId: "sc-5z2qlg-0"
+})(["flex:1;display:flex;align-items:center;justify-content:center;background-color:rgba(0,0,0,0.5);height:100vh;"]);
 const PopupModal = props => {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_modal__WEBPACK_IMPORTED_MODULE_1___default.a, {
     animationType: "fade",

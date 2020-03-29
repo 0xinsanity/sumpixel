@@ -14,12 +14,13 @@ const Title = styled(Typography.Title)`
 `
 
 const TOTAL_STEPS = [
+    {title: "Employer or Designer", desc: "Are you an Employer or Desinger?"},
     {title: "Get Started", desc: "Add Personal Data"},
     {title: "Take the Quiz", desc: "Finish Up and Get Evaluated"}
 ];
 
 export const Onboard: React.FC<{}> = props => {
-    const [currentStep, changeStep] = useState(0);
+    const [currentStep, changeStep] = useState(1);
     const [currentUser, changeUser] = useState<User | undefined>(undefined);
 
     useEffect(() => {
@@ -40,12 +41,15 @@ export const Onboard: React.FC<{}> = props => {
     switch (currentStep) {
         case 0:
             title = TOTAL_STEPS[0].title
-            currentForm = <FormPersonalData changeStep={(change) => changeStep(currentStep + change)}
-                                 currentUser={currentUser}
-                                 changeCurrentUser={(user) => changeUser(user)}/>;
             break;
         case 1:
             title = TOTAL_STEPS[1].title
+            currentForm = <FormPersonalData changeStep={(change) => changeStep(currentStep + change)}
+                                    currentUser={currentUser}
+                                    changeCurrentUser={(user) => changeUser(user)}/>;
+            break;
+        case 2:
+            title = TOTAL_STEPS[2].title
             currentForm = <QuizScreen changeStep={(change) => changeStep(currentStep + change)}
                                  currentUser={currentUser}
                                  changeCurrentUser={(user) => changeUser(user)}/>;
