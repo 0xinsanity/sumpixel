@@ -13,9 +13,13 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^4.0.4",
+    "firebase": "^7.13.1",
     "next": "^9.3.2-canary.9",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-firebaseui": "^4.1.0",
+    "react-jss": "^10.1.1",
+    "react-modal": "^3.11.2"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.9.4",

@@ -1,10 +1,42 @@
-import React from 'react'
-import { Button } from 'antd';
+import React, {useEffect, useState} from 'react'
+import {PopupModal} from '../components/PopupModal';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import {myFirebase} from '../lib/firebase'
+import {Onboard} from '../components/onboard'
+import firebase from 'firebase'
 
-export default function Index() {
+const uiConfig = {
+    signInFlow: 'popup',
+    callbacks: {
+        signInSuccessWithAuthResult: () => false
+    },
+    signInOptions: [
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ]
+};
+
+const Index: React.FC = (props) => {
+    const [isSignedIn, setIsSignedIn] = useState(false)
+    useEffect(() => {
+        myFirebase.auth().onAuthStateChanged(user => {
+                if (user != null) {
+                    setIsSignedIn(true)
+                }
+            });
+    });
+
     return (
         <div>
-            <Button href={'#/ms/login'} type={"link"}>Login</Button>
+            <PopupModal
+                visible={!isSignedIn}
+            >
+                <StyledFirebaseAuth
+                    uiConfig={uiConfig}
+                    firebaseAuth={myFirebase.auth()}/>
+            </PopupModal>
+            <Onboard/>
         </div>
     );
 }
+
+export default Index;
