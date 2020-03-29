@@ -4,14 +4,15 @@ export interface User {
     email: string;
     firstName: string;
     lastName: string;
-    phoneNumber: string;
-    portfolio: string;
-    location: string;
-    salary: string;
-    visa: VisaStatus;
-    preferred_role: string;
-    linkedin: string;
-    dribbble: string;
+    phoneNumber?: string;
+    portfolio?: string;
+    location?: string;
+    salary?: string;
+    visa?: VisaStatus;
+    preferred_role?: string;
+    linkedin?: string;
+    dribbble?: string;
+    resume?: string;
 }
 
 export enum VisaStatus {

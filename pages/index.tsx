@@ -26,7 +26,7 @@ const Index: React.FC = (props) => {
     });
 
     return (
-        <div>
+        <>
             <PopupModal
                 visible={!isSignedIn}
             >
@@ -35,7 +35,7 @@ const Index: React.FC = (props) => {
                     firebaseAuth={myFirebase.auth()}/>
             </PopupModal>
             <Onboard/>
-        </div>
+        </>
     );
 };
 

@@ -1,5 +1,6 @@
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
+import 'firebase/storage'
 
 const firebaseConfig = {
     apiKey: "AIzaSyAhADa1McBAdXoOmv4T32G7rSBQkATYJ3Q",
@@ -17,3 +18,4 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 export const myFirebase = firebase;
+export const storage_ref = firebase.storage().ref();

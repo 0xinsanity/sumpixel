@@ -118,16 +118,16 @@ const ColContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(an
 })(["padding-top:25px;display:flex;flex-direction:column;align-items:center;"]);
 const Container = props => {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
-    gutter: 16
+    gutter: 24
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
     className: 'gutter-row',
-    span: 4
+    span: 5
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ColContainer, {
     className: 'gutter-row',
-    span: 16
+    span: 14
   }, props.children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
     className: 'gutter-row',
-    span: 4
+    span: 5
   })));
 };
 
@@ -149,31 +149,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Container */ "./components/Container.tsx");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "antd");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../lib/firebase */ "./lib/firebase.tsx");
+/* harmony import */ var _OnboardingFlow_FormPersonalData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./OnboardingFlow/FormPersonalData */ "./components/OnboardingFlow/FormPersonalData.tsx");
+/* harmony import */ var _OnboardingFlow_QuizScreen__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./OnboardingFlow/QuizScreen */ "./components/OnboardingFlow/QuizScreen.tsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_7__);
 
 
 
 
+
+
+
+
+const Title = styled_components__WEBPACK_IMPORTED_MODULE_7___default()(antd__WEBPACK_IMPORTED_MODULE_3__["Typography"].Title)`
+    padding-top: 15px;
+    padding-bottom: 35px;
+`;
 const TOTAL_STEPS = [{
   title: "Get Started",
   desc: "Add Personal Data"
 }, {
-  title: "Add Socials",
-  desc: "Add Social Networks"
-}, {
   title: "Take the Quiz",
   desc: "Finish Up and Get Evaluated"
 }];
-function Onboard() {
+const Onboard = props => {
   const [currentStep, changeStep] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0);
+  const [currentUser, changeUser] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    const firebaseUser = _lib_firebase__WEBPACK_IMPORTED_MODULE_4__["myFirebase"].auth().currentUser;
+
+    if (firebaseUser !== null) {
+      console.log(firebaseUser.displayName);
+      changeUser({
+        email: firebaseUser.email,
+        firebaseId: firebaseUser.uid,
+        firstName: firebaseUser.displayName.substr(0, firebaseUser.displayName.indexOf(' ')),
+        lastName: firebaseUser.displayName.substr(firebaseUser.displayName.indexOf(' ') + 1)
+      });
+    }
+  }, [_lib_firebase__WEBPACK_IMPORTED_MODULE_4__["myFirebase"].auth().currentUser]);
+  var currentForm;
+  var title;
+
+  switch (currentStep) {
+    case 0:
+      title = TOTAL_STEPS[0].title;
+      currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_FormPersonalData__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        changeStep: change => changeStep(currentStep + change),
+        currentUser: currentUser,
+        changeCurrentUser: user => changeUser(user)
+      });
+      break;
+
+    case 1:
+      title = TOTAL_STEPS[1].title;
+      currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_QuizScreen__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        changeStep: change => changeStep(currentStep + change),
+        currentUser: currentUser,
+        changeCurrentUser: user => changeUser(user)
+      });
+      break;
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Container__WEBPACK_IMPORTED_MODULE_2__["Container"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardNavbar__WEBPACK_IMPORTED_MODULE_1__["OnboardNavbar"], {
     currentStep: currentStep,
     steps: TOTAL_STEPS
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-    style: {
-      width: 100
-    }
-  }, currentStep !== 2 ? 'Next Step' : 'Take the Quiz'));
-}
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Title, null, title), currentForm);
+};
 
 /***/ }),
 
@@ -218,6 +261,252 @@ const OnboardNavbar = props => {
 
 /***/ }),
 
+/***/ "./components/OnboardingFlow/FormPersonalData.tsx":
+/*!********************************************************!*\
+  !*** ./components/OnboardingFlow/FormPersonalData.tsx ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ant-design/icons */ "@ant-design/icons");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../model/model */ "./model/model.tsx");
+/* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../lib/firebase */ "./lib/firebase.tsx");
+
+
+
+
+
+
+const {
+  Option
+} = antd__WEBPACK_IMPORTED_MODULE_1__["Select"];
+
+const FormPersonalData = props => {
+  const {
+    currentUser,
+    changeCurrentUser,
+    changeStep
+  } = props;
+  const [fileList, updateFileList] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  const [form] = antd__WEBPACK_IMPORTED_MODULE_1__["Form"].useForm();
+
+  if (currentUser == undefined) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+  }
+
+  const onFinish = values => {
+    const res = values.resume.file;
+    _lib_firebase__WEBPACK_IMPORTED_MODULE_5__["storage_ref"].child('resumes/' + currentUser.firebaseId + '.pdf').put(res["originFileObj"]).then(snapshot => {
+      console.log("Uploaded File");
+      const newUser = {
+        email: currentUser.email,
+        firebaseId: currentUser.firebaseId,
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+        phoneNumber: values.phoneNumber,
+        location: values.location,
+        salary: values.salary,
+        portfolio: values.portfolio,
+        visa: values.visa_status,
+        linkedin: values.linkedin,
+        dribbble: values.dribbble,
+        resume: currentUser.firebaseId + '.pdf'
+      };
+      changeCurrentUser(newUser);
+      changeStep(1);
+    });
+  };
+
+  const onFinishFailed = () => {
+    antd__WEBPACK_IMPORTED_MODULE_1__["message"].error('There was an error completing your account. Ensure every field is filled out.');
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
+    name: "basic",
+    initialValues: {
+      remember: true
+    },
+    onFinish: onFinish,
+    onFinishFailed: onFinishFailed,
+    style: {
+      marginBottom: 50
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Name",
+    name: "firstName"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"].Group, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 11
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    disabled: true,
+    defaultValue: currentUser.firstName
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 2
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    span: 11
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    disabled: true,
+    defaultValue: currentUser.lastName
+  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Email",
+    name: "email"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    disabled: true,
+    defaultValue: currentUser.email
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Phone Number",
+    name: "phoneNumber",
+    rules: [{
+      required: true,
+      message: 'Phone Number is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    placeholder: "+1 (555) 555-5555"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Location",
+    name: "location",
+    rules: [{
+      required: true,
+      message: 'Location is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    placeholder: "New York City"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Desired Salary",
+    name: "salary",
+    rules: [{
+      required: true,
+      message: 'Desired Salary is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    placeholder: "$100,000-$150,000 per year"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Preferred Role",
+    name: "preferred_role",
+    rules: [{
+      required: true,
+      message: 'Preferred Role is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    placeholder: "UI/UX Designer"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Portfolio",
+    name: "portfolio",
+    rules: [{
+      required: true,
+      message: 'Portfolio is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    placeholder: "https://www.myportfolio.com"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Resume",
+    name: "resume",
+    rules: [{
+      required: true,
+      message: 'Resume is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Upload"], {
+    name: 'file',
+    accept: ".pdf",
+    fileList: fileList,
+    onChange: info => {
+      let fileList_update = [...info.fileList];
+      fileList_update = fileList_update.slice(-1);
+      fileList_update = fileList_update.map(file => {
+        if (file.response) {
+          file.url = file.response.url;
+        }
+
+        return file;
+      });
+
+      if (info.file.status === 'done') {
+        antd__WEBPACK_IMPORTED_MODULE_1__["message"].success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        antd__WEBPACK_IMPORTED_MODULE_1__["message"].error(`${info.file.name} file upload failed.`);
+      }
+
+      updateFileList(fileList_update);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__["UploadOutlined"], null), " Click to Upload"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Visa Status",
+    name: "visa_status",
+    rules: [{
+      required: true,
+      message: 'Visa Status is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
+    placeholder: "Select an option:"
+  }, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.map(_model_model__WEBPACK_IMPORTED_MODULE_4__["VisaStatus"], status => {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+      value: status
+    }, status);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "LinkedIn",
+    name: "linkedin"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    placeholder: "https://www.linkedin.com/in/username"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Dribbble",
+    name: "dribbble"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    placeholder: "https://dribbble.com/username"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    rules: [{
+      required: true,
+      transform: value => value || undefined,
+      type: 'boolean',
+      message: 'Please agree to the terms and conditions.'
+    }],
+    valuePropName: 'checked'
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Checkbox"], null, "Agree to Terms and Services")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
+    justify: "center",
+    align: "middle"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    type: "primary",
+    htmlType: "submit"
+  }, "Take The Quiz"))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FormPersonalData);
+
+/***/ }),
+
+/***/ "./components/OnboardingFlow/QuizScreen.tsx":
+/*!**************************************************!*\
+  !*** ./components/OnboardingFlow/QuizScreen.tsx ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const {
+  Option
+} = antd__WEBPACK_IMPORTED_MODULE_1__["Select"];
+
+const QuizScreen = props => {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"], null, "You will now be redirected to TypeForm to take your quiz. Refresh this page when you complete the quiz.");
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (QuizScreen);
+
+/***/ }),
+
 /***/ "./components/PopupModal.tsx":
 /*!***********************************!*\
   !*** ./components/PopupModal.tsx ***!
@@ -232,42 +521,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-modal */ "react-modal");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_jss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-jss */ "react-jss");
-/* harmony import */ var react_jss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jss__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
-const useStyles = Object(react_jss__WEBPACK_IMPORTED_MODULE_2__["createUseStyles"])({
-  modal: {
-    content: {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      padding: 0,
-      border: 0,
-      borderRadius: 0
-    }
-  },
-  container: {
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    height: '100vh'
-  }
-});
+const ModalContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div`
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.5);
+    height: 100vh;
+`;
 const PopupModal = props => {
-  const classes = useStyles();
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_modal__WEBPACK_IMPORTED_MODULE_1___default.a, {
     animationType: "fade",
     transparent: true,
     isOpen: props.visible,
-    className: classes.modal
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: classes.container
-  }, props.children));
+    style: {
+      content: {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: 0,
+        border: 0,
+        borderRadius: 0
+      }
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ModalContainer, null, props.children));
 };
 
 /***/ }),
@@ -276,16 +559,20 @@ const PopupModal = props => {
 /*!**************************!*\
   !*** ./lib/firebase.tsx ***!
   \**************************/
-/*! exports provided: myFirebase */
+/*! exports provided: myFirebase, storage_ref */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "myFirebase", function() { return myFirebase; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "storage_ref", function() { return storage_ref; });
 /* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/app */ "firebase/app");
 /* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(firebase_app__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase/auth */ "firebase/auth");
 /* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(firebase_auth__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var firebase_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! firebase/storage */ "firebase/storage");
+/* harmony import */ var firebase_storage__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(firebase_storage__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 const firebaseConfig = {
@@ -304,6 +591,28 @@ if (!firebase_app__WEBPACK_IMPORTED_MODULE_0__["apps"].length) {
 }
 
 const myFirebase = firebase_app__WEBPACK_IMPORTED_MODULE_0__;
+const storage_ref = firebase_app__WEBPACK_IMPORTED_MODULE_0__["storage"]().ref();
+
+/***/ }),
+
+/***/ "./model/model.tsx":
+/*!*************************!*\
+  !*** ./model/model.tsx ***!
+  \*************************/
+/*! exports provided: VisaStatus */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VisaStatus", function() { return VisaStatus; });
+let VisaStatus;
+
+(function (VisaStatus) {
+  VisaStatus["US_CITIZEN"] = "US Citizen/Green Card";
+  VisaStatus["VISA_HOLDER"] = "US Visa Holder";
+  VisaStatus["ELIGIBLE"] = "Eligible For US Visa";
+  VisaStatus["NOT_ELIGIBLE"] = "Not Eligible for US Visa";
+})(VisaStatus || (VisaStatus = {}));
 
 /***/ }),
 
@@ -348,7 +657,7 @@ const Index = props => {
       }
     });
   });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PopupModal__WEBPACK_IMPORTED_MODULE_1__["PopupModal"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PopupModal__WEBPACK_IMPORTED_MODULE_1__["PopupModal"], {
     visible: !isSignedIn
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_firebaseui_StyledFirebaseAuth__WEBPACK_IMPORTED_MODULE_2___default.a, {
     uiConfig: uiConfig,
@@ -369,6 +678,17 @@ const Index = props => {
 
 module.exports = __webpack_require__(/*! /Users/insanity/Documents/personalprojects/sumpixel-onboarding/pages/index.tsx */"./pages/index.tsx");
 
+
+/***/ }),
+
+/***/ "@ant-design/icons":
+/*!************************************!*\
+  !*** external "@ant-design/icons" ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("@ant-design/icons");
 
 /***/ }),
 
@@ -416,6 +736,17 @@ module.exports = require("firebase/auth");
 
 /***/ }),
 
+/***/ "firebase/storage":
+/*!***********************************!*\
+  !*** external "firebase/storage" ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("firebase/storage");
+
+/***/ }),
+
 /***/ "lodash":
 /*!*************************!*\
   !*** external "lodash" ***!
@@ -446,17 +777,6 @@ module.exports = require("react");
 /***/ (function(module, exports) {
 
 module.exports = require("react-firebaseui/StyledFirebaseAuth");
-
-/***/ }),
-
-/***/ "react-jss":
-/*!****************************!*\
-  !*** external "react-jss" ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("react-jss");
 
 /***/ }),
 
