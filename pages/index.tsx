@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {PopupModal} from '../components/PopupModal';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import {myFirebase} from '../lib/firebase'
-import {Onboard} from '../components/onboard'
+import {Onboard} from '../components/Onboard'
 import firebase from 'firebase'
 
 const uiConfig = {
@@ -16,7 +16,7 @@ const uiConfig = {
 };
 
 const Index: React.FC = (props) => {
-    const [isSignedIn, setIsSignedIn] = useState(false)
+    const [isSignedIn, setIsSignedIn] = useState(false);
     useEffect(() => {
         myFirebase.auth().onAuthStateChanged(user => {
                 if (user != null) {
@@ -37,6 +37,6 @@ const Index: React.FC = (props) => {
             <Onboard/>
         </div>
     );
-}
+};
 
 export default Index;
