@@ -7,6 +7,7 @@ import {myFirebase} from "../lib/firebase";
 import FormPersonalData from './OnboardingFlow/FormPersonalData'
 import QuizScreen from './OnboardingFlow/QuizScreen'
 import styled from 'styled-components'
+import {getUser} from '../lib/server'
 
 const Title = styled(Typography.Title)`
     padding-top: 15px;
@@ -20,19 +21,29 @@ const TOTAL_STEPS = [
 ];
 
 export const Onboard: React.FC<{}> = props => {
-    const [currentStep, changeStep] = useState(1);
+    const [currentStep, changeStep] = useState(0);
     const [currentUser, changeUser] = useState<User | undefined>(undefined);
 
     useEffect(() => {
+        async function findUser() {
+            const user = await getUser(firebaseUser.uid)
+
+            if (user['user_exists'] === undefined) {
+                changeUser(user as User);
+                changeStep(2)
+            } else {
+                changeUser({
+                    email: firebaseUser.email,
+                    id: firebaseUser.uid,
+                    firstName: firebaseUser.displayName.substr(0, firebaseUser.displayName.indexOf(' ')),
+                    lastName: firebaseUser.displayName.substr(firebaseUser.displayName.indexOf(' ')+1),
+                });
+            }
+        }
+
         const firebaseUser = myFirebase.auth().currentUser;
         if (firebaseUser !== null) {
-            console.log(firebaseUser.displayName)
-            changeUser({
-                email: firebaseUser.email,
-                firebaseId: firebaseUser.uid,
-                firstName: firebaseUser.displayName.substr(0, firebaseUser.displayName.indexOf(' ')),
-                lastName: firebaseUser.displayName.substr(firebaseUser.displayName.indexOf(' ')+1),
-            });
+            findUser()
         }
     }, [myFirebase.auth().currentUser]);
 

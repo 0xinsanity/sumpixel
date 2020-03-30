@@ -5,13 +5,18 @@ import _ from 'lodash'
 import {User, VisaStatus} from '../../model/model'
 import FormProps from './FormProps'
 import {UploadFile} from 'antd/lib/upload/interface'
-import {storage_ref} from '../../lib/firebase'
+import {storage_ref, myFirebase} from '../../lib/firebase'
+import {createUser} from '../../lib/server'
 const {Option} = Select
 
 const FormPersonalData: React.FC<FormProps> = (props) => {
     const {currentUser, changeCurrentUser, changeStep} = props
     const [fileList, updateFileList] = useState<UploadFile[]>([])
-    const [form] = Form.useForm();
+
+    const goBack = async () => {
+        await myFirebase.auth().signOut()
+        changeStep(-1)
+    }
 
     if (currentUser == undefined) {
         return (<></>)
@@ -19,22 +24,27 @@ const FormPersonalData: React.FC<FormProps> = (props) => {
 
     const onFinish = (values) => {
         const res = values.resume.file
-        storage_ref.child('resumes/' + currentUser.firebaseId + '.pdf').put(res["originFileObj"]).then((snapshot) => {
-            console.log("Uploaded File")
+        storage_ref.child('resumes/' + currentUser.id + '.pdf').put(res["originFileObj"]).then(async (snapshot) => {
             const newUser = {
                 email: currentUser.email,
-                firebaseId: currentUser.firebaseId,
+                id: currentUser.id,
                 firstName: currentUser.firstName,
                 lastName: currentUser.lastName,
                 phoneNumber: values.phoneNumber,
                 location: values.location,
                 salary: values.salary,
                 portfolio: values.portfolio,
+                preferredRole: values.preferredRole,
                 visa: values.visa_status,
-                linkedin: values.linkedin,
-                dribbble: values.dribbble,
-                resume: currentUser.firebaseId + '.pdf'
+                resume: currentUser.id + '.pdf'
             }
+            if (values.linkedin) {
+                newUser['linkedin'] = values.linkedin
+            }
+            if (values.dribbble) {
+                newUser['dribbble'] = values.dribbble
+            }
+            await createUser(newUser)
             changeCurrentUser(newUser)
             changeStep(1)
         })
@@ -102,7 +112,7 @@ const FormPersonalData: React.FC<FormProps> = (props) => {
 
             <Form.Item
                 label="Preferred Role"
-                name="preferred_role"
+                name="preferredRole"
                 rules={[{ required: true, message: 'Preferred Role is required' }]}
             >
                 <Input placeholder="UI/UX Designer"/>
@@ -191,7 +201,10 @@ const FormPersonalData: React.FC<FormProps> = (props) => {
             </Form.Item>
 
             <Form.Item>
-                <Row justify="center" align="middle">
+                <Row justify="space-between" align="middle">
+                    <Button type="default" onClick={goBack}>
+                        Back
+                    </Button>
                     <Button type="primary" htmlType="submit">
                         Take The Quiz
                     </Button>

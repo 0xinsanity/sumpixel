@@ -154,6 +154,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _OnboardingFlow_QuizScreen__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./OnboardingFlow/QuizScreen */ "./components/OnboardingFlow/QuizScreen.tsx");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "styled-components");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../lib/server */ "./lib/server.tsx");
+
 
 
 
@@ -177,19 +179,29 @@ const TOTAL_STEPS = [{
   desc: "Finish Up and Get Evaluated"
 }];
 const Onboard = props => {
-  const [currentStep, changeStep] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(1);
+  const [currentStep, changeStep] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0);
   const [currentUser, changeUser] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    async function findUser() {
+      const user = await Object(_lib_server__WEBPACK_IMPORTED_MODULE_8__["getUser"])(firebaseUser.uid);
+
+      if (user['user_exists'] === undefined) {
+        changeUser(user);
+        changeStep(2);
+      } else {
+        changeUser({
+          email: firebaseUser.email,
+          id: firebaseUser.uid,
+          firstName: firebaseUser.displayName.substr(0, firebaseUser.displayName.indexOf(' ')),
+          lastName: firebaseUser.displayName.substr(firebaseUser.displayName.indexOf(' ') + 1)
+        });
+      }
+    }
+
     const firebaseUser = _lib_firebase__WEBPACK_IMPORTED_MODULE_4__["myFirebase"].auth().currentUser;
 
     if (firebaseUser !== null) {
-      console.log(firebaseUser.displayName);
-      changeUser({
-        email: firebaseUser.email,
-        firebaseId: firebaseUser.uid,
-        firstName: firebaseUser.displayName.substr(0, firebaseUser.displayName.indexOf(' ')),
-        lastName: firebaseUser.displayName.substr(firebaseUser.displayName.indexOf(' ') + 1)
-      });
+      findUser();
     }
   }, [_lib_firebase__WEBPACK_IMPORTED_MODULE_4__["myFirebase"].auth().currentUser]);
   var currentForm;
@@ -287,6 +299,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../model/model */ "./model/model.tsx");
 /* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../lib/firebase */ "./lib/firebase.tsx");
+/* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../lib/server */ "./lib/server.tsx");
+
 
 
 
@@ -304,7 +318,11 @@ const FormPersonalData = props => {
     changeStep
   } = props;
   const [fileList, updateFileList] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
-  const [form] = antd__WEBPACK_IMPORTED_MODULE_1__["Form"].useForm();
+
+  const goBack = async () => {
+    await _lib_firebase__WEBPACK_IMPORTED_MODULE_5__["myFirebase"].auth().signOut();
+    changeStep(-1);
+  };
 
   if (currentUser == undefined) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
@@ -312,22 +330,30 @@ const FormPersonalData = props => {
 
   const onFinish = values => {
     const res = values.resume.file;
-    _lib_firebase__WEBPACK_IMPORTED_MODULE_5__["storage_ref"].child('resumes/' + currentUser.firebaseId + '.pdf').put(res["originFileObj"]).then(snapshot => {
-      console.log("Uploaded File");
+    _lib_firebase__WEBPACK_IMPORTED_MODULE_5__["storage_ref"].child('resumes/' + currentUser.id + '.pdf').put(res["originFileObj"]).then(async snapshot => {
       const newUser = {
         email: currentUser.email,
-        firebaseId: currentUser.firebaseId,
+        id: currentUser.id,
         firstName: currentUser.firstName,
         lastName: currentUser.lastName,
         phoneNumber: values.phoneNumber,
         location: values.location,
         salary: values.salary,
         portfolio: values.portfolio,
+        preferredRole: values.preferredRole,
         visa: values.visa_status,
-        linkedin: values.linkedin,
-        dribbble: values.dribbble,
-        resume: currentUser.firebaseId + '.pdf'
+        resume: currentUser.id + '.pdf'
       };
+
+      if (values.linkedin) {
+        newUser['linkedin'] = values.linkedin;
+      }
+
+      if (values.dribbble) {
+        newUser['dribbble'] = values.dribbble;
+      }
+
+      await Object(_lib_server__WEBPACK_IMPORTED_MODULE_6__["createUser"])(newUser);
       changeCurrentUser(newUser);
       changeStep(1);
     });
@@ -397,7 +423,7 @@ const FormPersonalData = props => {
     placeholder: "$100,000-$150,000 per year"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Preferred Role",
-    name: "preferred_role",
+    name: "preferredRole",
     rules: [{
       required: true,
       message: 'Preferred Role is required'
@@ -475,9 +501,12 @@ const FormPersonalData = props => {
     }],
     valuePropName: 'checked'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Checkbox"], null, "Agree to Terms and Services")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
-    justify: "center",
+    justify: "space-between",
     align: "middle"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    type: "default",
+    onClick: goBack
+  }, "Back"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     type: "primary",
     htmlType: "submit"
   }, "Take The Quiz"))));
@@ -500,14 +529,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/server */ "./lib/server.tsx");
 
 
-const {
-  Option
-} = antd__WEBPACK_IMPORTED_MODULE_1__["Select"];
+
 
 const QuizScreen = props => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"], null, "You will now be redirected to TypeForm to take your quiz. Refresh this page when you complete the quiz.");
+  const {
+    currentUser,
+    changeCurrentUser,
+    changeStep
+  } = props;
+
+  const goBack = async () => {
+    await Object(_lib_server__WEBPACK_IMPORTED_MODULE_2__["removeUser"])(currentUser.id);
+    changeStep(-1);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Title, {
+    style: {
+      textAlign: 'center'
+    },
+    level: 4
+  }, "You will now be redirected to TypeForm to take your quiz. Refresh this page when you complete the quiz. If you are not redirected, please go to the following link:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    type: "default",
+    onClick: goBack
+  }, "Back"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (QuizScreen);
@@ -595,6 +642,85 @@ if (!firebase_app__WEBPACK_IMPORTED_MODULE_0__["apps"].length) {
 
 const myFirebase = firebase_app__WEBPACK_IMPORTED_MODULE_0__;
 const storage_ref = firebase_app__WEBPACK_IMPORTED_MODULE_0__["storage"]().ref();
+
+/***/ }),
+
+/***/ "./lib/server.tsx":
+/*!************************!*\
+  !*** ./lib/server.tsx ***!
+  \************************/
+/*! exports provided: didCompleteQuiz, getUser, removeUser, createUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "didCompleteQuiz", function() { return didCompleteQuiz; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeUser", function() { return removeUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createUser", function() { return createUser; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+const SERVER_BASE = 'https://sumpixel-server.herokuapp.com/';
+var HTTP_Requests;
+
+(function (HTTP_Requests) {
+  HTTP_Requests["GET"] = "GET";
+  HTTP_Requests["POST"] = "POST";
+})(HTTP_Requests || (HTTP_Requests = {}));
+
+const request = async (url, params, method = HTTP_Requests.GET) => {
+  var response;
+
+  switch (method) {
+    case HTTP_Requests.GET:
+      response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(SERVER_BASE + url, {
+        params: params
+      });
+      break;
+
+    case HTTP_Requests.POST:
+      response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(SERVER_BASE + url, params);
+      break;
+  }
+
+  if (response.status !== 200) {
+    return generateErrorResponse('The server responded with an unexpected status.');
+  }
+
+  const result = response.data;
+  return result;
+};
+
+const objectToQueryString = obj => {
+  return Object.keys(obj).map(key => key + '=' + obj[key]).join('&');
+};
+
+const generateErrorResponse = message => {
+  return {
+    status: 'error',
+    message
+  };
+};
+
+const didCompleteQuiz = async id => {
+  return await request('user-finished-quiz', {
+    id: id
+  });
+};
+const getUser = async id => {
+  return await request('get-user', {
+    id: id
+  });
+};
+const removeUser = async id => {
+  return await request('remove-user', {
+    id: id
+  });
+};
+const createUser = async user => {
+  return await request('create-user', user, HTTP_Requests.POST);
+};
 
 /***/ }),
 
@@ -741,6 +867,17 @@ module.exports = require("@ant-design/icons");
 /***/ (function(module, exports) {
 
 module.exports = require("antd");
+
+/***/ }),
+
+/***/ "axios":
+/*!************************!*\
+  !*** external "axios" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
 
 /***/ }),
 

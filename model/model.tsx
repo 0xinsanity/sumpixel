@@ -1,6 +1,6 @@
 
 export interface User {
-    firebaseId: string;
+    id: string;
     email: string;
     firstName: string;
     lastName: string;
@@ -9,10 +9,12 @@ export interface User {
     location?: string;
     salary?: string;
     visa?: VisaStatus;
-    preferred_role?: string;
+    preferredRole?: string;
     linkedin?: string;
     dribbble?: string;
     resume?: string;
+    completedQuiz?: boolean;
+    communications?: string[];
 }
 
 export enum VisaStatus {
