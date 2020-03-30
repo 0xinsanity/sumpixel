@@ -6,6 +6,7 @@ import {User} from '../model/model'
 import {myFirebase} from "../lib/firebase";
 import FormPersonalData from './OnboardingFlow/FormPersonalData'
 import QuizScreen from './OnboardingFlow/QuizScreen'
+import EmployerDesigner from './OnboardingFlow/EmployerDesigner'
 import styled from 'styled-components'
 import {getUser} from '../lib/server'
 
@@ -22,6 +23,7 @@ const TOTAL_STEPS = [
 
 export const Onboard: React.FC<{}> = props => {
     const [currentStep, changeStep] = useState(0);
+    const [isDesigner, changeIsDesigner] = useState<boolean | undefined>(undefined);
     const [currentUser, changeUser] = useState<User | undefined>(undefined);
 
     useEffect(() => {
@@ -52,6 +54,11 @@ export const Onboard: React.FC<{}> = props => {
     switch (currentStep) {
         case 0:
             title = TOTAL_STEPS[0].title
+            currentForm = <EmployerDesigner 
+                                    changeIsDesigner={(isDesigner) => changeIsDesigner(isDesigner)}
+                                    changeStep={(change) => changeStep(currentStep + change)}
+                                    currentUser={currentUser}
+                                    changeCurrentUser={(user) => changeUser(user)}/>;
             break;
         case 1:
             title = TOTAL_STEPS[1].title

@@ -1,11 +1,24 @@
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message, Typography } from 'antd';
 import _ from 'lodash'
 import FormProps from './FormProps'
-import {removeUser} from '../../lib/server'
+import {removeUser, didCompleteQuiz} from '../../lib/server'
+import Router from 'next/router'
 
 const QuizScreen: React.FC<FormProps> = (props) => {
     const {currentUser, changeCurrentUser, changeStep} = props
+
+    useEffect(() => {
+        async function findUser() {
+            const user = await didCompleteQuiz(currentUser.id)
+
+            if (user['completed_quiz']) {
+                Router.replace('/dashboard_user')
+            }
+        }
+        findUser()
+    }, []);
+
     const goBack = async () => {
         await removeUser(currentUser.id)
         changeStep(-1)
