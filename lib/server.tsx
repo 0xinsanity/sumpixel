@@ -1,4 +1,4 @@
-import { User } from "../model/model";
+import { User, Employer } from "../model/model";
 import axios from 'axios';
 
 const SERVER_BASE = 'https://sumpixel-server.herokuapp.com/'
@@ -48,10 +48,22 @@ export const getUser = async (id: string): Promise<User | {user_exists: boolean}
     return await request('get-user', {id: id})
 }
 
+export const getEmployer = async (id: string): Promise<Employer | {user_exists: boolean}> => {
+    return await request('get-employer', {id: id})
+}
+
 export const removeUser = async (id: string) => {
     return await request('remove-user', {id: id})
 }
 
+export const removeEmployer = async (id: string) => {
+    return await request('remove-employer', {id: id})
+}
+
 export const createUser = async (user: User) => {
     return await request('create-user', user, HTTP_Requests.POST)
+}
+
+export const createEmployer = async (employer: Employer) => {
+    return await request('create-employer', employer, HTTP_Requests.POST)
 }

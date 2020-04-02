@@ -3,15 +3,12 @@ import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message, Typog
 import _ from 'lodash'
 import FormProps from './FormProps'
 import {removeUser} from '../../lib/server'
+import {NavBarStatus} from '../../model/model'
 
-interface EmployerDesignerProps extends FormProps {
-    changeIsDesigner: (isDesigner: boolean) => void
-}
-
-const EmployerDesigner: React.FC<EmployerDesignerProps> = (props) => {
-    const {currentUser, changeCurrentUser, changeStep, changeIsDesigner} = props
+const EmployerDesigner: React.FC<FormProps> = (props) => {
+    const {changeStep, changeNavbarStatus} = props
     const onClick = (isDesigner: boolean) => {
-        changeIsDesigner(isDesigner)
+        changeNavbarStatus(isDesigner ? NavBarStatus.Designer : NavBarStatus.Employer)
         changeStep(1)
     }
     return (

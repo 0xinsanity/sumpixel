@@ -1,8 +1,9 @@
 
-import {User} from '../../model/model'
+import {User, NavBarStatus, Employer} from '../../model/model'
 
 export default interface FormProps {
-    currentUser: User;
-    changeCurrentUser: (user: User) => void
+    currentUser?: User | Employer;
+    changeCurrentUser?: (user: User | Employer) => void
     changeStep: (change: number) => void
+    changeNavbarStatus?: (navBarStatus: NavBarStatus) => void
 }

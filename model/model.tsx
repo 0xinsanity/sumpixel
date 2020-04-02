@@ -13,7 +13,18 @@ export interface User {
     linkedin?: string;
     dribbble?: string;
     resume?: string;
+    designType?: string;
     completedQuiz?: boolean;
+    communications?: string[];
+}
+
+export interface Employer {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber?: string;
+    location?: string;
     communications?: string[];
 }
 
@@ -22,4 +33,10 @@ export enum VisaStatus {
     VISA_HOLDER = "US Visa Holder",
     ELIGIBLE = "Eligible For US Visa",
     NOT_ELIGIBLE = "Not Eligible for US Visa"
+}
+
+export enum NavBarStatus {
+    Undecided,
+    Employer,
+    Designer
 }
