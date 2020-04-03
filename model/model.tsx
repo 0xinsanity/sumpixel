@@ -31,6 +31,7 @@ export interface Employer {
     email: string;
     firstName: string;
     lastName: string;
+    companyName?: string
     phoneNumber?: string;
     location?: string;
     communications?: string[];
@@ -41,6 +42,13 @@ export interface Communication {
     designerId: string;
     employerId: string;
     designerApprovedTalk: DesignerDecisionTalk;
+    decision: EmployerDecisionHire
+}
+
+export interface CommDesigner {
+    communicationId: string
+    companyName: string
+    designerApprovedTalk: DesignerDecisionTalk
     decision: EmployerDecisionHire
 }
 

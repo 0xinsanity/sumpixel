@@ -8,13 +8,17 @@ import {UploadFile} from 'antd/lib/upload/interface'
 import {storage_ref, myFirebase} from '../../../lib/firebase'
 import {removeUser} from '../../../lib/server'
 import {UserContext} from '../../../lib/UserProvider'
+import Loading from '../../General/Loading'
 const {Option} = Select
 
-const FormPersonalData: React.FC<FormProps> = (props) => {
-    const {changeCurrentUser, changeStep, changeNavbarStatus} = props
+interface FormPersonalDataProps extends FormProps {
+    modifyProfile?: boolean
+}
+
+const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
+    const {changeCurrentUser, changeStep, changeNavbarStatus, modifyProfile} = props
     const {currentUser}  = useContext(UserContext)
     const [fileList, updateFileList] = useState<UploadFile[]>([])
-
     const goBack = async () => {
         await removeUser(currentUser.id)
         await myFirebase.auth().signOut()
@@ -23,38 +27,52 @@ const FormPersonalData: React.FC<FormProps> = (props) => {
         
     }
 
+    const isModifyProfilePage = modifyProfile !== null
+
     if (currentUser == undefined) {
-        return (<></>)
+        return (<Loading />)
+    }
+
+    const updateUser = (values) => {
+        const newUser = {
+            email: currentUser.email,
+            id: currentUser.id,
+            firstName: currentUser.firstName,
+            lastName: currentUser.lastName,
+            phoneNumber: values.phoneNumber,
+            location: values.location,
+            salary: values.salary,
+            portfolio: values.portfolio,
+            preferredRole: values.preferredRole,
+            visa: values.visa_status,
+            resume: currentUser.id + '.pdf',
+            linkedin: values.linkedin,
+            dribbble: values.dribbble
+        }
+        console.table(_.pickBy(newUser, _.identity))
+        changeCurrentUser(_.pickBy(newUser, _.identity))
+
+        if (isModifyProfilePage) {
+            message.success("Profile Updated")
+        } else {
+            changeStep(1)
+        }
     }
 
     const onFinish = (values) => {
-        const res = values.resume.file
-        storage_ref.child('resumes/' + currentUser.id + '.pdf').put(res["originFileObj"]).then((snapshot) => {
-            const newUser = {
-                email: currentUser.email,
-                id: currentUser.id,
-                firstName: currentUser.firstName,
-                lastName: currentUser.lastName,
-                phoneNumber: values.phoneNumber,
-                location: values.location,
-                salary: values.salary,
-                portfolio: values.portfolio,
-                preferredRole: values.preferredRole,
-                visa: values.visa_status,
-                resume: currentUser.id + '.pdf'
-            }
-            if (values.linkedin) {
-                newUser['linkedin'] = values.linkedin
-            }
-            if (values.dribbble) {
-                newUser['dribbble'] = values.dribbble
-            }
-            changeCurrentUser(newUser)
-            changeStep(1)
-        })
+        const res = values.resume
+        console.log(res)
+        if (res === undefined) {
+            updateUser(values)
+        } else {
+            storage_ref.child('resumes/' + currentUser.id + '.pdf').put(res.file["originFileObj"]).then((snapshot) => {
+                updateUser(values)
+            })
+        }    
     }
 
-    const onFinishFailed = () => {
+    const onFinishFailed = (values) => {
+        console.table(values)
         message.error('There was an error completing your account. Ensure every field is filled out.')
     }
 
@@ -66,74 +84,83 @@ const FormPersonalData: React.FC<FormProps> = (props) => {
             onFinishFailed={onFinishFailed}
             style={{marginBottom: 50}}
         >
-            <Form.Item
-                label="Name"
-                name="firstName"
-            >
-                <Input.Group>
-                    <Row>
-                        <Col span={11}>
-                            <Input disabled defaultValue={currentUser.firstName}/>
-                        </Col>
-                        <Col span={2}/>
-                        <Col span={11}>
-                            <Input disabled defaultValue={currentUser.lastName}/>
-                        </Col>
-                    </Row>
-                </Input.Group>
-            </Form.Item>
+            {!isModifyProfilePage ? 
+                <>
+                    <Input.Group>
+                        <Row>
+                            <Col span={11}>
+                                <Form.Item
+                                    label="First Name"
+                                    name="firstName"
+                                >
+                                    <Input disabled placeholder="First Name" defaultValue={currentUser.firstName}/>
+                                </Form.Item>
+                            </Col>
+                            <Col span={2}/>
+                            <Col span={11}>
+                                <Form.Item
+                                        label="Last Name"
+                                        name="lastName"
+                                >
+                                    <Input disabled placeholder="Last Name" defaultValue={currentUser.lastName}/>
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                    </Input.Group>
 
-            <Form.Item
-                label="Email"
-                name="email"
-            >
-                <Input disabled defaultValue={currentUser.email}/>
-            </Form.Item>
+                    <Form.Item
+                        label="Email"
+                        name="email"
+                    >
+                        <Input disabled defaultValue={currentUser.email}/>
+                    </Form.Item>
+                </>
+            : null}
 
             <Form.Item
                 label="Phone Number"
                 name="phoneNumber"
-                rules={[{ required: true, message: 'Phone Number is required' }]}
+                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Phone Number is required' : '' }]}
             >
-                <Input defaultValue={currentUser.phoneNumber || ""} placeholder="+1 (555) 555-5555"/>
+                <Input defaultValue={isModifyProfilePage ? '' : currentUser.phoneNumber || ""} placeholder="+1 (555) 555-5555"/>
             </Form.Item>
 
             <Form.Item
                 label="Location"
                 name="location"
-                rules={[{ required: true, message: 'Location is required' }]}
+                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Location is required' : '' }]}
             >
-                <Input defaultValue={currentUser.location || ""} placeholder="New York City"/>
+                <Input defaultValue={isModifyProfilePage ? '' : currentUser.location || ""} placeholder="New York City"/>
             </Form.Item>
 
             <Form.Item
                 label="Desired Salary"
                 name="salary"
-                rules={[{ required: true, message: 'Desired Salary is required'}]}
+                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Desired Salary is required' : ''}]}
             >
-                <Input defaultValue={(currentUser as User).salary || ""} placeholder="$100,000-$150,000 per year"/>
+                <Input defaultValue={isModifyProfilePage ? '' : (currentUser as User).salary || ""} placeholder="$100,000-$150,000 per year"/>
             </Form.Item>
 
             <Form.Item
                 label="Preferred Role"
                 name="preferredRole"
-                rules={[{ required: true, message: 'Preferred Role is required' }]}
+                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Preferred Role is required' : '' }]}
             >
-                <Input defaultValue={(currentUser as User).preferredRole || ""} placeholder="UI/UX Designer"/>
+                <Input defaultValue={isModifyProfilePage ? '' : (currentUser as User).preferredRole || ""} placeholder="UI/UX Designer"/>
             </Form.Item>
 
             <Form.Item
                 label="Portfolio"
                 name="portfolio"
-                rules={[{ required: true, message: 'Portfolio is required' }]}
+                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Portfolio is required' : '' }]}
             >
-                <Input defaultValue={(currentUser as User).portfolio || ""} placeholder="https://www.myportfolio.com"/>
+                <Input defaultValue={isModifyProfilePage ? '' : (currentUser as User).portfolio || ""} placeholder="https://www.myportfolio.com"/>
             </Form.Item>
 
             <Form.Item
                 label="Resume"
                 name="resume"
-                rules={[{ required: true, message: 'Resume is required' }]}
+                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Resume is required' : '' }]}
             >
                 <Upload 
                     name={'file'} 
@@ -159,7 +186,7 @@ const FormPersonalData: React.FC<FormProps> = (props) => {
                         updateFileList(fileList_update)
                     }}>
                     <Button>
-                        <UploadOutlined /> Click to Upload
+                        <UploadOutlined /> {!isModifyProfilePage ? "Click to Upload" : "Upload New Resume"}
                     </Button>
                 </Upload>
             </Form.Item>
@@ -167,10 +194,10 @@ const FormPersonalData: React.FC<FormProps> = (props) => {
             <Form.Item
                 label="Visa Status"
                 name="visa_status"
-                rules={[{ required: true, message: 'Visa Status is required' }]}
+                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Visa Status is required' : '' }]}
                 
             >
-                <Select defaultValue={(currentUser as User).visa || ""} placeholder="Select an option:">
+                <Select defaultValue={modifyProfile ? '' : (currentUser as User).visa || ""} placeholder="Select an option:">
                     {_.map(VisaStatus, (status) => {
                         return <Option value={status}>{status}</Option>
                     })}
@@ -181,39 +208,44 @@ const FormPersonalData: React.FC<FormProps> = (props) => {
                 label="LinkedIn"
                 name="linkedin"
             >
-                <Input defaultValue={(currentUser as User).linkedin || ""} placeholder="https://www.linkedin.com/in/username"/>
+                <Input defaultValue={modifyProfile ? '' : (currentUser as User).linkedin || ""} placeholder="https://www.linkedin.com/in/username"/>
             </Form.Item>
 
             <Form.Item
                 label="Dribbble"
                 name="dribbble"
             >
-                <Input defaultValue={(currentUser as User).dribbble || ""} placeholder="https://dribbble.com/username"/>
+                <Input defaultValue={modifyProfile ? '' : (currentUser as User).dribbble || ""} placeholder="https://dribbble.com/username"/>
             </Form.Item>
 
-            <Form.Item 
-                rules={[{
-                    required: true,
-                    transform: value => (value || undefined),
-                    type: 'boolean',                          
-                    message: 'Please agree to the terms and conditions.',
-                }]}
-                valuePropName={'checked'}
-                >
-                    {/* TODO: Requirement Not Working */}
-                    <Checkbox>Agree to The Terms and Services</Checkbox>
-            </Form.Item>
+            {modifyProfile === undefined ? 
+                <Form.Item 
+                    rules={[{
+                        required: true,
+                        transform: value => (value || undefined),
+                        type: 'boolean',                          
+                        message: 'Please agree to the terms and conditions.',
+                    }]}
+                    valuePropName={'checked'}
+                    >
+                        {/* TODO: Requirement Not Working */}
+                        <Checkbox>Agree to The Terms and Services</Checkbox>
+                </Form.Item>
+            : null}
 
-            <Form.Item>
-                <Row justify="space-between" align="middle">
-                    <Button type="default" onClick={goBack}>
-                        Back
-                    </Button>
-                    <Button type="primary" htmlType="submit">
-                        Take The Quiz
-                    </Button>
-                </Row>
-            </Form.Item>
+                <Form.Item>
+                    <Row justify="space-between" align="middle">
+                        {modifyProfile === undefined ? 
+                        <Button type="default" onClick={goBack}>
+                            Back
+                        </Button>
+                        : null}
+                        <Button type="primary" htmlType="submit">
+                            {modifyProfile === undefined ? "Take The Quiz" : "Update Profile" }
+                        </Button>
+                    </Row>
+                </Form.Item> 
+           
         </Form>
     );
 }

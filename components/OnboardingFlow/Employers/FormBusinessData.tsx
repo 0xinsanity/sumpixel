@@ -1,13 +1,14 @@
 import React, {useState, useContext} from 'react'
-import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message } from 'antd';
+import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message, Spin } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import _ from 'lodash'
-import {User, VisaStatus, NavBarStatus} from '../../../model/model'
+import {User, VisaStatus, NavBarStatus, Employer} from '../../../model/model'
 import FormProps from '../FormProps'
 import {UploadFile} from 'antd/lib/upload/interface'
 import {storage_ref, myFirebase} from '../../../lib/firebase'
 import {removeUser} from '../../../lib/server'
 import {UserContext} from '../../../lib/UserProvider'
+import Loading from '../../General/Loading'
 const {Option} = Select
 
 const FormBusinessData: React.FC<FormProps> = (props) => {
@@ -24,7 +25,7 @@ const FormBusinessData: React.FC<FormProps> = (props) => {
     }
 
     if (currentUser == undefined) {
-        return (<></>)
+        return (<Loading />)
     }
 
     const onFinish = (values) => {
@@ -33,6 +34,7 @@ const FormBusinessData: React.FC<FormProps> = (props) => {
             id: currentUser.id,
             firstName: currentUser.firstName,
             lastName: currentUser.lastName,
+            companyName: values.companyName,
             phoneNumber: values.phoneNumber,
             location: values.location
         }
@@ -74,6 +76,14 @@ const FormBusinessData: React.FC<FormProps> = (props) => {
                 name="email"
             >
                 <Input disabled defaultValue={currentUser.email}/>
+            </Form.Item>
+
+            <Form.Item
+                label="Company Name"
+                name="companyName"
+                rules={[{ required: true, message: 'Company Name is required' }]}
+            >
+                <Input defaultValue={(currentUser as Employer).companyName || ""} placeholder="Company Name"/>
             </Form.Item>
 
             <Form.Item

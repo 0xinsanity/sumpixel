@@ -1,4 +1,4 @@
-import { User, Employer, EmployerDecisionHire, DesignerDecisionTalk } from "../model/model";
+import { User, Employer, EmployerDecisionHire, DesignerDecisionTalk, CommDesigner } from "../model/model";
 import axios from 'axios';
 
 const SERVER_BASE = 'https://sumpixel-server.herokuapp.com/'
@@ -72,8 +72,16 @@ export const createUser = async (user: User) => {
     return await request('create-user', user, HTTP_Requests.POST)
 }
 
+export const modifyUser = async (user: User) => {
+    return await request('modify-user', user, HTTP_Requests.POST)
+}
+
 export const createEmployer = async (employer: Employer) => {
     return await request('create-employer', employer, HTTP_Requests.POST)
+}
+
+export const modifyEmployer = async (employer: Employer) => {
+    return await request('modify-employer', employer, HTTP_Requests.POST)
 }
 
 export const createCommunication = async (designerId: string, employerId: string) => {
@@ -86,4 +94,12 @@ export const updateDesignerDecision = async (commId: string, decision: DesignerD
 
 export const updateEmployerDecision = async (commId: string, decision: EmployerDecisionHire) => {
     return await request('update-designer-decision', {id: commId, decision: decision }, HTTP_Requests.POST)
+}
+
+export const gradeDesigner = async (designerId: string, response: string, score: number) => {
+    return await request('grade-designer', {designerId, response, score}, HTTP_Requests.POST)
+}
+
+export const getDesignCommunicationsList = async (id: string): Promise<CommDesigner[]> => {
+    return await request('get-all-designer-communications', {id})
 }

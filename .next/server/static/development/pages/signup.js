@@ -117,19 +117,59 @@ const ColContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(an
   componentId: "sc-1szewme-0"
 })(["padding-top:25px;display:flex;flex-direction:column;align-items:center;"]);
 const Container = props => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
     gutter: 24
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
     className: 'gutter-row',
-    span: 5
+    span: props.isDashboard !== undefined ? 2 : 5
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ColContainer, {
+    style: props.style,
     className: 'gutter-row',
-    span: 14
+    span: props.isDashboard !== undefined ? 20 : 14
   }, props.children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
     className: 'gutter-row',
-    span: 5
-  })));
+    span: props.isDashboard !== undefined ? 2 : 5
+  }));
 };
+
+/***/ }),
+
+/***/ "./components/General/Loading.tsx":
+/*!****************************************!*\
+  !*** ./components/General/Loading.tsx ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const Cont = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div`
+    position: fixed;
+    display: flex;
+    bottom: 0px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    justify-content: center;
+    align-items: center;
+`;
+
+const Loading = () => {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Cont, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Spin"], {
+    size: "large"
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Loading);
 
 /***/ }),
 
@@ -241,7 +281,7 @@ const LoginComponent = props => {
     name: "firstName",
     rules: [{
       required: true,
-      message: 'Location is required'
+      message: 'First Name is required'
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
     placeholder: "First Name"
@@ -254,7 +294,7 @@ const LoginComponent = props => {
     name: "lastName",
     rules: [{
       required: true,
-      message: 'Location is required'
+      message: 'Last Name is required'
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
     placeholder: "Last Name"
@@ -263,7 +303,7 @@ const LoginComponent = props => {
     name: "email",
     rules: [{
       required: true,
-      message: 'Location is required'
+      message: 'Email is required'
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
     prefix: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_1__["UserOutlined"], {
@@ -275,7 +315,7 @@ const LoginComponent = props => {
     name: "password",
     rules: [{
       required: true,
-      message: 'Location is required'
+      message: 'Password is required'
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
     prefix: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_1__["LockOutlined"], {
@@ -334,6 +374,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../lib/firebase */ "./lib/firebase.tsx");
 /* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../lib/server */ "./lib/server.tsx");
 /* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
+/* harmony import */ var _General_Loading__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../General/Loading */ "./components/General/Loading.tsx");
+
 
 
 
@@ -350,7 +392,8 @@ const FormPersonalData = props => {
   const {
     changeCurrentUser,
     changeStep,
-    changeNavbarStatus
+    changeNavbarStatus,
+    modifyProfile
   } = props;
   const {
     currentUser
@@ -364,41 +407,53 @@ const FormPersonalData = props => {
     changeStep(-1);
   };
 
+  const isModifyProfilePage = modifyProfile !== null;
+
   if (currentUser == undefined) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_Loading__WEBPACK_IMPORTED_MODULE_8__["default"], null);
   }
 
-  const onFinish = values => {
-    const res = values.resume.file;
-    _lib_firebase__WEBPACK_IMPORTED_MODULE_5__["storage_ref"].child('resumes/' + currentUser.id + '.pdf').put(res["originFileObj"]).then(snapshot => {
-      const newUser = {
-        email: currentUser.email,
-        id: currentUser.id,
-        firstName: currentUser.firstName,
-        lastName: currentUser.lastName,
-        phoneNumber: values.phoneNumber,
-        location: values.location,
-        salary: values.salary,
-        portfolio: values.portfolio,
-        preferredRole: values.preferredRole,
-        visa: values.visa_status,
-        resume: currentUser.id + '.pdf'
-      };
+  const updateUser = values => {
+    const newUser = {
+      email: currentUser.email,
+      id: currentUser.id,
+      firstName: currentUser.firstName,
+      lastName: currentUser.lastName,
+      phoneNumber: values.phoneNumber,
+      location: values.location,
+      salary: values.salary,
+      portfolio: values.portfolio,
+      preferredRole: values.preferredRole,
+      visa: values.visa_status,
+      resume: currentUser.id + '.pdf',
+      linkedin: values.linkedin,
+      dribbble: values.dribbble
+    };
+    console.table(lodash__WEBPACK_IMPORTED_MODULE_3___default.a.pickBy(newUser, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.identity));
+    changeCurrentUser(lodash__WEBPACK_IMPORTED_MODULE_3___default.a.pickBy(newUser, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.identity));
 
-      if (values.linkedin) {
-        newUser['linkedin'] = values.linkedin;
-      }
-
-      if (values.dribbble) {
-        newUser['dribbble'] = values.dribbble;
-      }
-
-      changeCurrentUser(newUser);
+    if (isModifyProfilePage) {
+      antd__WEBPACK_IMPORTED_MODULE_1__["message"].success("Profile Updated");
+    } else {
       changeStep(1);
-    });
+    }
   };
 
-  const onFinishFailed = () => {
+  const onFinish = values => {
+    const res = values.resume;
+    console.log(res);
+
+    if (res === undefined) {
+      updateUser(values);
+    } else {
+      _lib_firebase__WEBPACK_IMPORTED_MODULE_5__["storage_ref"].child('resumes/' + currentUser.id + '.pdf').put(res.file["originFileObj"]).then(snapshot => {
+        updateUser(values);
+      });
+    }
+  };
+
+  const onFinishFailed = values => {
+    console.table(values);
     antd__WEBPACK_IMPORTED_MODULE_1__["message"].error('There was an error completing your account. Ensure every field is filled out.');
   };
 
@@ -412,20 +467,25 @@ const FormPersonalData = props => {
     style: {
       marginBottom: 50
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Name",
-    name: "firstName"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"].Group, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+  }, !isModifyProfilePage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"].Group, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
     span: 11
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "First Name",
+    name: "firstName"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
     disabled: true,
+    placeholder: "First Name",
     defaultValue: currentUser.firstName
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
     span: 2
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
     span: 11
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Last Name",
+    name: "lastName"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
     disabled: true,
+    placeholder: "Last Name",
     defaultValue: currentUser.lastName
   }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Email",
@@ -433,62 +493,62 @@ const FormPersonalData = props => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
     disabled: true,
     defaultValue: currentUser.email
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+  }))) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Phone Number",
     name: "phoneNumber",
     rules: [{
-      required: true,
-      message: 'Phone Number is required'
+      required: !isModifyProfilePage,
+      message: !isModifyProfilePage ? 'Phone Number is required' : ''
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: currentUser.phoneNumber || "",
+    defaultValue: isModifyProfilePage ? '' : currentUser.phoneNumber || "",
     placeholder: "+1 (555) 555-5555"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Location",
     name: "location",
     rules: [{
-      required: true,
-      message: 'Location is required'
+      required: !isModifyProfilePage,
+      message: !isModifyProfilePage ? 'Location is required' : ''
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: currentUser.location || "",
+    defaultValue: isModifyProfilePage ? '' : currentUser.location || "",
     placeholder: "New York City"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Desired Salary",
     name: "salary",
     rules: [{
-      required: true,
-      message: 'Desired Salary is required'
+      required: !isModifyProfilePage,
+      message: !isModifyProfilePage ? 'Desired Salary is required' : ''
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: currentUser.salary || "",
+    defaultValue: isModifyProfilePage ? '' : currentUser.salary || "",
     placeholder: "$100,000-$150,000 per year"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Preferred Role",
     name: "preferredRole",
     rules: [{
-      required: true,
-      message: 'Preferred Role is required'
+      required: !isModifyProfilePage,
+      message: !isModifyProfilePage ? 'Preferred Role is required' : ''
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: currentUser.preferredRole || "",
+    defaultValue: isModifyProfilePage ? '' : currentUser.preferredRole || "",
     placeholder: "UI/UX Designer"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Portfolio",
     name: "portfolio",
     rules: [{
-      required: true,
-      message: 'Portfolio is required'
+      required: !isModifyProfilePage,
+      message: !isModifyProfilePage ? 'Portfolio is required' : ''
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: currentUser.portfolio || "",
+    defaultValue: isModifyProfilePage ? '' : currentUser.portfolio || "",
     placeholder: "https://www.myportfolio.com"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Resume",
     name: "resume",
     rules: [{
-      required: true,
-      message: 'Resume is required'
+      required: !isModifyProfilePage,
+      message: !isModifyProfilePage ? 'Resume is required' : ''
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Upload"], {
     name: 'file',
@@ -513,15 +573,15 @@ const FormPersonalData = props => {
 
       updateFileList(fileList_update);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__["UploadOutlined"], null), " Click to Upload"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__["UploadOutlined"], null), " ", !isModifyProfilePage ? "Click to Upload" : "Upload New Resume"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Visa Status",
     name: "visa_status",
     rules: [{
-      required: true,
-      message: 'Visa Status is required'
+      required: !isModifyProfilePage,
+      message: !isModifyProfilePage ? 'Visa Status is required' : ''
     }]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
-    defaultValue: currentUser.visa || "",
+    defaultValue: modifyProfile ? '' : currentUser.visa || "",
     placeholder: "Select an option:"
   }, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.map(_model_model__WEBPACK_IMPORTED_MODULE_4__["VisaStatus"], status => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
@@ -531,15 +591,15 @@ const FormPersonalData = props => {
     label: "LinkedIn",
     name: "linkedin"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: currentUser.linkedin || "",
+    defaultValue: modifyProfile ? '' : currentUser.linkedin || "",
     placeholder: "https://www.linkedin.com/in/username"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Dribbble",
     name: "dribbble"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: currentUser.dribbble || "",
+    defaultValue: modifyProfile ? '' : currentUser.dribbble || "",
     placeholder: "https://dribbble.com/username"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+  })), modifyProfile === undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     rules: [{
       required: true,
       transform: value => value || undefined,
@@ -547,16 +607,16 @@ const FormPersonalData = props => {
       message: 'Please agree to the terms and conditions.'
     }],
     valuePropName: 'checked'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Checkbox"], null, "Agree to The Terms and Services")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Checkbox"], null, "Agree to The Terms and Services")) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
     justify: "space-between",
     align: "middle"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+  }, modifyProfile === undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     type: "default",
     onClick: goBack
-  }, "Back"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+  }, "Back") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     type: "primary",
     htmlType: "submit"
-  }, "Take The Quiz"))));
+  }, modifyProfile === undefined ? "Take The Quiz" : "Update Profile"))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (FormPersonalData);
@@ -579,7 +639,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "lodash");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../lib/server */ "./lib/server.tsx");
-/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
+/* harmony import */ var react_typeform_embed__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-typeform-embed */ "react-typeform-embed");
+/* harmony import */ var react_typeform_embed__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_typeform_embed__WEBPACK_IMPORTED_MODULE_6__);
+
+
 
 
 
@@ -589,33 +655,41 @@ __webpack_require__.r(__webpack_exports__);
 const QuizScreen = props => {
   const {
     changeCurrentUser,
-    changeStep
+    changeStep,
+    isDashboard
   } = props;
   const {
     currentUser
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_4__["UserContext"]);
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__["UserContext"]);
   const designerTypes = [{
     name: "UI",
-    link: "https://sumpixelbiz.typeform.com/to/riENWs"
+    link: "https://sumpixelbiz.typeform.com/to/riENWs?id=" + currentUser.id
   }, {
     name: "UX",
-    link: "https://sumpixelbiz.typeform.com/to/TqV8Jo"
+    link: "https://sumpixelbiz.typeform.com/to/TqV8Jo?id=" + currentUser.id
   }, {
     name: "Brand",
-    link: "https://sumpixelbiz.typeform.com/to/BOBhxP"
+    link: "https://sumpixelbiz.typeform.com/to/BOBhxP?id=" + currentUser.id
   }, {
     name: "Product",
-    link: "https://sumpixelbiz.typeform.com/to/irGM8E"
+    link: "https://sumpixelbiz.typeform.com/to/irGM8E?id=" + currentUser.id
   }];
+  const [currentQuiz, changeQuiz] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(designerTypes[0]);
 
   const goBack = async () => {
     await Object(_lib_server__WEBPACK_IMPORTED_MODULE_3__["removeUser"])(currentUser.id);
     changeStep(-1);
   };
 
-  const clickedDesignButton = name => {
-    currentUser["designType"] = name;
+  const onChange = updateQuiz => {
+    changeQuiz(updateQuiz);
+  };
+
+  const submit = () => {
+    currentUser["designType"] = currentQuiz.name;
+    currentUser["completedQuiz"] = true;
     changeCurrentUser(currentUser);
+    next_router__WEBPACK_IMPORTED_MODULE_4___default.a.replace('/dashboard_user');
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Title, {
@@ -627,19 +701,21 @@ const QuizScreen = props => {
     style: {
       marginTop: 20
     }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Radio"].Group, {
+    onChange: e => onChange(e.target.value),
+    value: currentQuiz
   }, lodash__WEBPACK_IMPORTED_MODULE_2___default.a.map(designerTypes, type => {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-      onClick: () => clickedDesignButton(type.name),
-      target: "_blank",
-      href: type.link
-    }, type.name);
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Radio"].Button, null, type.name);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_typeform_embed__WEBPACK_IMPORTED_MODULE_6__["ReactTypeformEmbed"], {
+    url: currentQuiz.link,
+    onSubmit: submit
+  }), isDashboard === null ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     style: {
       marginTop: 20
     },
     type: "default",
     onClick: goBack
-  }, "Back"));
+  }, "Back") : null);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (QuizScreen);
@@ -715,6 +791,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../lib/firebase */ "./lib/firebase.tsx");
 /* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../lib/server */ "./lib/server.tsx");
 /* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
+/* harmony import */ var _General_Loading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../General/Loading */ "./components/General/Loading.tsx");
+
 
 
 
@@ -744,7 +822,7 @@ const FormBusinessData = props => {
   };
 
   if (currentUser == undefined) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_Loading__WEBPACK_IMPORTED_MODULE_6__["default"], null);
   }
 
   const onFinish = values => {
@@ -753,6 +831,7 @@ const FormBusinessData = props => {
       id: currentUser.id,
       firstName: currentUser.firstName,
       lastName: currentUser.lastName,
+      companyName: values.companyName,
       phoneNumber: values.phoneNumber,
       location: values.location
     };
@@ -795,6 +874,16 @@ const FormBusinessData = props => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
     disabled: true,
     defaultValue: currentUser.email
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Company Name",
+    name: "companyName",
+    rules: [{
+      required: true,
+      message: 'Company Name is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+    defaultValue: currentUser.companyName || "",
+    placeholder: "Company Name"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Phone Number",
     name: "phoneNumber",
@@ -1221,7 +1310,7 @@ const storage_ref = firebase_app__WEBPACK_IMPORTED_MODULE_0__["storage"]().ref()
 /*!************************!*\
   !*** ./lib/server.tsx ***!
   \************************/
-/*! exports provided: didCompleteQuiz, getUser, setUserCompletedQuiz, setUserQuizGraded, getEmployer, removeUser, removeEmployer, createUser, createEmployer, createCommunication, updateDesignerDecision, updateEmployerDecision */
+/*! exports provided: didCompleteQuiz, getUser, setUserCompletedQuiz, setUserQuizGraded, getEmployer, removeUser, removeEmployer, createUser, modifyUser, createEmployer, modifyEmployer, createCommunication, updateDesignerDecision, updateEmployerDecision, gradeDesigner, getDesignCommunicationsList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1234,10 +1323,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeUser", function() { return removeUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeEmployer", function() { return removeEmployer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createUser", function() { return createUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modifyUser", function() { return modifyUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEmployer", function() { return createEmployer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modifyEmployer", function() { return modifyEmployer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createCommunication", function() { return createCommunication; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateDesignerDecision", function() { return updateDesignerDecision; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateEmployerDecision", function() { return updateEmployerDecision; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gradeDesigner", function() { return gradeDesigner; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDesignCommunicationsList", function() { return getDesignCommunicationsList; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "axios");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -1322,8 +1415,14 @@ const removeEmployer = async id => {
 const createUser = async user => {
   return await request('create-user', user, HTTP_Requests.POST);
 };
+const modifyUser = async user => {
+  return await request('modify-user', user, HTTP_Requests.POST);
+};
 const createEmployer = async employer => {
   return await request('create-employer', employer, HTTP_Requests.POST);
+};
+const modifyEmployer = async employer => {
+  return await request('modify-employer', employer, HTTP_Requests.POST);
 };
 const createCommunication = async (designerId, employerId) => {
   return await request('create-new-communication', {
@@ -1342,6 +1441,18 @@ const updateEmployerDecision = async (commId, decision) => {
     id: commId,
     decision: decision
   }, HTTP_Requests.POST);
+};
+const gradeDesigner = async (designerId, response, score) => {
+  return await request('grade-designer', {
+    designerId,
+    response,
+    score
+  }, HTTP_Requests.POST);
+};
+const getDesignCommunicationsList = async id => {
+  return await request('get-all-designer-communications', {
+    id
+  });
 };
 
 /***/ }),
@@ -1583,6 +1694,17 @@ module.exports = require("react");
 /***/ (function(module, exports) {
 
 module.exports = require("react-modal");
+
+/***/ }),
+
+/***/ "react-typeform-embed":
+/*!***************************************!*\
+  !*** external "react-typeform-embed" ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-typeform-embed");
 
 /***/ }),
 

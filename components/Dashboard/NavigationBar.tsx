@@ -16,7 +16,6 @@ const NavigationBar: React.FC<NavigationBarProps> = (props) => {
 
     return (
         <PageHeader 
-                style={{border: '1px solid rgb(235, 237, 240)'}}
                 title={title}
                 subTitle={subtitle}
                 extra={[
@@ -27,8 +26,7 @@ const NavigationBar: React.FC<NavigationBarProps> = (props) => {
                         Logout
                     </Button>
                 ]}
-                footer={footer}
-            />
+                footer={footer} />
     )
 }
 

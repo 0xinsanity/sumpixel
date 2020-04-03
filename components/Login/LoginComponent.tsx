@@ -40,7 +40,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                                     <Form.Item
                                         label="First Name"
                                         name="firstName"
-                                        rules={[{ required: true, message: 'Location is required' }]}
+                                        rules={[{ required: true, message: 'First Name is required' }]}
                                     >
                                         <Input placeholder="First Name"/>
                                     </Form.Item>
@@ -50,7 +50,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                                     <Form.Item
                                             label="Last Name"
                                             name="lastName"
-                                            rules={[{ required: true, message: 'Location is required' }]}
+                                            rules={[{ required: true, message: 'Last Name is required' }]}
                                         >
                                         <Input placeholder="Last Name"/>
                                     </Form.Item>
@@ -63,7 +63,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                 <Form.Item
                     label="Email"
                     name="email"
-                    rules={[{ required: true, message: 'Location is required' }]}
+                    rules={[{ required: true, message: 'Email is required' }]}
                 >
                     <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email"/>
                 </Form.Item>
@@ -71,7 +71,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                 <Form.Item
                     label="Password"
                     name="password"
-                    rules={[{ required: true, message: 'Location is required' }]}
+                    rules={[{ required: true, message: 'Password is required' }]}
                 >
                     <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password"/>
                 </Form.Item>

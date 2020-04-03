@@ -11,17 +11,17 @@ const ColContainer = styled(Col)`
 
 interface ContainerProps {
     children: React.ReactNode
+    isDashboard?: boolean
+    style?: any
 }
 export const Container: React.FC<ContainerProps> = props => {
     return (
-        <>
-            <Row gutter={24}>
-                <Col className={'gutter-row'} span={5}/>
-                <ColContainer className={'gutter-row'} span={14}>
-                    {props.children}
-                </ColContainer>
-                <Col className={'gutter-row'} span={5}/>
-            </Row>
-        </>
+        <Row gutter={24}>
+            <Col className={'gutter-row'} span={props.isDashboard !== undefined ? 2 : 5}/>
+            <ColContainer style={props.style} className={'gutter-row'} span={props.isDashboard !== undefined ? 20 : 14}>
+                {props.children}
+            </ColContainer>
+            <Col className={'gutter-row'} span={props.isDashboard !== undefined ? 2 : 5}/>
+        </Row>
     )
 }
