@@ -4,6 +4,11 @@ import _ from 'lodash'
 import FormProps from './FormProps'
 import {removeUser} from '../../lib/server'
 import {NavBarStatus} from '../../model/model'
+import styled from 'styled-components'
+
+const EMButton = styled(Button)`
+    margin-bottom: 30px
+`
 
 const EmployerDesigner: React.FC<FormProps> = (props) => {
     const {changeStep, changeNavbarStatus} = props
@@ -13,12 +18,15 @@ const EmployerDesigner: React.FC<FormProps> = (props) => {
     }
     return (
         <>
-            <Button type="default" onClick={() => onClick(false)}>
+            <EMButton type="default" onClick={() => onClick(false)}>
                 Employer
-            </Button>
-            <Button type="default" onClick={() => onClick(true)}>
+            </EMButton>
+            <EMButton type="default" onClick={() => onClick(true)}>
                 Designer
-            </Button>
+            </EMButton>
+            <EMButton type="default" onClick={props.deleteUser}>
+                Change Email or Name
+            </EMButton>
         </>
     );
 }

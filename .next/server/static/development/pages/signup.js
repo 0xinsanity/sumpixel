@@ -133,6 +133,139 @@ const Container = props => {
 
 /***/ }),
 
+/***/ "./components/LoginComponent.tsx":
+/*!***************************************!*\
+  !*** ./components/LoginComponent.tsx ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ant-design/icons */ "@ant-design/icons");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ant_design_icons__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../model/model */ "./model/model.tsx");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+
+const LoginComponent = props => {
+  const {
+    isSignUp,
+    onFinish,
+    title
+  } = props;
+  const [status, setStatus] = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(_model_model__WEBPACK_IMPORTED_MODULE_3__["NavBarStatus"].Undecided);
+
+  const updateStatus = ({
+    newStatus
+  }) => {
+    setStatus(newStatus);
+  };
+
+  const onClick = () => {
+    next_router__WEBPACK_IMPORTED_MODULE_4___default.a.replace('/signup');
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Card"], {
+    title: title
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"], {
+    name: "basic",
+    initialValues: {
+      remember: true
+    },
+    onFinish: onFinish,
+    onValuesChange: updateStatus,
+    style: {
+      marginBottom: 50
+    }
+  }, isSignUp ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"].Group, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 11
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    label: "First Name",
+    name: "firstName",
+    rules: [{
+      required: true,
+      message: 'Location is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    placeholder: "First Name"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 2
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Col"], {
+    span: 11
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    label: "Last Name",
+    name: "lastName",
+    rules: [{
+      required: true,
+      message: 'Location is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    placeholder: "Last Name"
+  }))))) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    label: "Email",
+    name: "email",
+    rules: [{
+      required: true,
+      message: 'Location is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    prefix: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_1__["UserOutlined"], {
+      className: "site-form-item-icon"
+    }),
+    placeholder: "Email"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    label: "Password",
+    name: "password",
+    rules: [{
+      required: true,
+      message: 'Location is required'
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
+    prefix: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_1__["LockOutlined"], {
+      className: "site-form-item-icon"
+    }),
+    type: "password",
+    placeholder: "Password"
+  })), !isSignUp ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    label: "You are",
+    name: "newStatus"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Radio"].Group, {
+    value: status
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Radio"].Button, {
+    value: _model_model__WEBPACK_IMPORTED_MODULE_3__["NavBarStatus"].Employer
+  }, "Employer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Radio"].Button, {
+    value: _model_model__WEBPACK_IMPORTED_MODULE_3__["NavBarStatus"].Designer
+  }, "Designer"))) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Row"], {
+    justify: "center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
+    style: {
+      width: '60%'
+    },
+    type: "primary",
+    htmlType: "submit"
+  }, title)), !isSignUp ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Button"], {
+    onClick: onClick,
+    style: {
+      paddingTop: 10
+    },
+    type: "link"
+  }, "Haven't made an account? Click here to sign up") : null)));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (LoginComponent);
+
+/***/ }),
+
 /***/ "./components/Onboard.tsx":
 /*!********************************!*\
   !*** ./components/Onboard.tsx ***!
@@ -150,14 +283,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "antd");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../model/model */ "./model/model.tsx");
-/* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../lib/firebase */ "./lib/firebase.tsx");
-/* harmony import */ var _OnboardingFlow_Designers_FormPersonalData__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./OnboardingFlow/Designers/FormPersonalData */ "./components/OnboardingFlow/Designers/FormPersonalData.tsx");
-/* harmony import */ var _OnboardingFlow_Employers_FormBusinessData__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./OnboardingFlow/Employers/FormBusinessData */ "./components/OnboardingFlow/Employers/FormBusinessData.tsx");
-/* harmony import */ var _OnboardingFlow_Designers_QuizScreen__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./OnboardingFlow/Designers/QuizScreen */ "./components/OnboardingFlow/Designers/QuizScreen.tsx");
-/* harmony import */ var _OnboardingFlow_Employers_Verification__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./OnboardingFlow/Employers/Verification */ "./components/OnboardingFlow/Employers/Verification.tsx");
-/* harmony import */ var _OnboardingFlow_EmployerDesigner__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./OnboardingFlow/EmployerDesigner */ "./components/OnboardingFlow/EmployerDesigner.tsx");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _OnboardingFlow_Designers_FormPersonalData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./OnboardingFlow/Designers/FormPersonalData */ "./components/OnboardingFlow/Designers/FormPersonalData.tsx");
+/* harmony import */ var _OnboardingFlow_Employers_FormBusinessData__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./OnboardingFlow/Employers/FormBusinessData */ "./components/OnboardingFlow/Employers/FormBusinessData.tsx");
+/* harmony import */ var _OnboardingFlow_Designers_QuizScreen__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./OnboardingFlow/Designers/QuizScreen */ "./components/OnboardingFlow/Designers/QuizScreen.tsx");
+/* harmony import */ var _OnboardingFlow_Employers_Verification__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./OnboardingFlow/Employers/Verification */ "./components/OnboardingFlow/Employers/Verification.tsx");
+/* harmony import */ var _OnboardingFlow_EmployerDesigner__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./OnboardingFlow/EmployerDesigner */ "./components/OnboardingFlow/EmployerDesigner.tsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../lib/UserProvider */ "./lib/UserProvider.tsx");
 /* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../lib/server */ "./lib/server.tsx");
 
 
@@ -172,44 +305,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const Title = styled_components__WEBPACK_IMPORTED_MODULE_11___default()(antd__WEBPACK_IMPORTED_MODULE_3__["Typography"].Title).withConfig({
+const Title = styled_components__WEBPACK_IMPORTED_MODULE_10___default()(antd__WEBPACK_IMPORTED_MODULE_3__["Typography"].Title).withConfig({
   displayName: "Onboard__Title",
   componentId: "sc-1f8dn92-0"
 })(["padding-top:15px;padding-bottom:35px;"]);
 const Onboard = props => {
   const [currentStep, changeStep] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0);
   const [navBarStatus, changeNavbarStatus] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(_model_model__WEBPACK_IMPORTED_MODULE_4__["NavBarStatus"].Undecided);
-  const [currentUser, changeUser] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined);
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    async function findUser() {
-      const user = await Object(_lib_server__WEBPACK_IMPORTED_MODULE_12__["getUser"])(firebaseUser.uid);
-      const employer = await Object(_lib_server__WEBPACK_IMPORTED_MODULE_12__["getEmployer"])(firebaseUser.uid);
-
-      if (user['user_exists'] == undefined) {
-        changeUser(user);
-        changeNavbarStatus(_model_model__WEBPACK_IMPORTED_MODULE_4__["NavBarStatus"].Designer);
-        changeStep(2);
-      } else if (employer['employer_exists'] == undefined) {
-        changeUser(employer);
-        changeNavbarStatus(_model_model__WEBPACK_IMPORTED_MODULE_4__["NavBarStatus"].Employer);
-        changeStep(2);
-      } else {
-        // Works for both
-        changeUser({
-          email: firebaseUser.email,
-          id: firebaseUser.uid,
-          firstName: firebaseUser.displayName.substr(0, firebaseUser.displayName.indexOf(' ')),
-          lastName: firebaseUser.displayName.substr(firebaseUser.displayName.indexOf(' ') + 1)
-        });
-      }
-    }
-
-    const firebaseUser = _lib_firebase__WEBPACK_IMPORTED_MODULE_5__["myFirebase"].auth().currentUser;
-
-    if (firebaseUser !== null) {
-      findUser();
-    }
-  }, [_lib_firebase__WEBPACK_IMPORTED_MODULE_5__["myFirebase"].auth().currentUser]);
+  const {
+    currentUser,
+    changeUser
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_11__["UserContext"]);
 
   const updateUser = async updatedUser => {
     changeUser(updatedUser);
@@ -226,7 +332,8 @@ const Onboard = props => {
 
   switch (currentStep) {
     case 0:
-      currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_EmployerDesigner__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_EmployerDesigner__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        deleteUser: props.deleteUser,
         changeNavbarStatus: newStatus => changeNavbarStatus(newStatus),
         changeStep: change => changeStep(currentStep + change)
       });
@@ -234,17 +341,15 @@ const Onboard = props => {
 
     case 1:
       if (navBarStatus == _model_model__WEBPACK_IMPORTED_MODULE_4__["NavBarStatus"].Designer) {
-        currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_Designers_FormPersonalData__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_Designers_FormPersonalData__WEBPACK_IMPORTED_MODULE_5__["default"], {
           changeNavbarStatus: newStatus => changeNavbarStatus(newStatus),
           changeStep: change => changeStep(currentStep + change),
-          currentUser: currentUser,
           changeCurrentUser: async user => await updateUser(user)
         });
       } else {
-        currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_Employers_FormBusinessData__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_Employers_FormBusinessData__WEBPACK_IMPORTED_MODULE_6__["default"], {
           changeNavbarStatus: newStatus => changeNavbarStatus(newStatus),
           changeStep: change => changeStep(currentStep + change),
-          currentUser: currentUser,
           changeCurrentUser: async user => await updateEmployer(user)
         });
       }
@@ -253,15 +358,13 @@ const Onboard = props => {
 
     case 2:
       if (navBarStatus == _model_model__WEBPACK_IMPORTED_MODULE_4__["NavBarStatus"].Designer) {
-        currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_Designers_QuizScreen__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_Designers_QuizScreen__WEBPACK_IMPORTED_MODULE_7__["default"], {
           changeStep: change => changeStep(currentStep + change),
-          currentUser: currentUser,
           changeCurrentUser: async user => await updateUser(user)
         });
       } else {
-        currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_Employers_Verification__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardingFlow_Employers_Verification__WEBPACK_IMPORTED_MODULE_8__["default"], {
           changeStep: change => changeStep(currentStep + change),
-          currentUser: currentUser,
           changeCurrentUser: async user => await updateEmployer(user)
         });
       }
@@ -377,6 +480,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../model/model */ "./model/model.tsx");
 /* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../lib/firebase */ "./lib/firebase.tsx");
 /* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../lib/server */ "./lib/server.tsx");
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
+
 
 
 
@@ -390,11 +495,13 @@ const {
 
 const FormPersonalData = props => {
   const {
-    currentUser,
     changeCurrentUser,
     changeStep,
     changeNavbarStatus
   } = props;
+  const {
+    currentUser
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_7__["UserContext"]);
   const [fileList, updateFileList] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
 
   const goBack = async () => {
@@ -619,8 +726,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "lodash");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../lib/server */ "./lib/server.tsx");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/router */ "next/router");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
 
 
 
@@ -629,10 +735,12 @@ __webpack_require__.r(__webpack_exports__);
 
 const QuizScreen = props => {
   const {
-    currentUser,
     changeCurrentUser,
     changeStep
   } = props;
+  const {
+    currentUser
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_4__["UserContext"]);
   const designerTypes = [{
     name: "UI",
     link: "https://sumpixelbiz.typeform.com/to/riENWs"
@@ -646,17 +754,6 @@ const QuizScreen = props => {
     name: "Product",
     link: "https://sumpixelbiz.typeform.com/to/irGM8E"
   }];
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    async function findUser() {
-      const user = await Object(_lib_server__WEBPACK_IMPORTED_MODULE_3__["didCompleteQuiz"])(currentUser.id);
-
-      if (user['completed_quiz']) {
-        next_router__WEBPACK_IMPORTED_MODULE_4___default.a.replace('/dashboard_user');
-      }
-    }
-
-    findUser();
-  }, []);
 
   const goBack = async () => {
     await Object(_lib_server__WEBPACK_IMPORTED_MODULE_3__["removeUser"])(currentUser.id);
@@ -710,9 +807,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../model/model */ "./model/model.tsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
+
+const EMButton = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(antd__WEBPACK_IMPORTED_MODULE_1__["Button"]).withConfig({
+  displayName: "EmployerDesigner__EMButton",
+  componentId: "sc-1jnupa2-0"
+})(["margin-bottom:30px"]);
 
 const EmployerDesigner = props => {
   const {
@@ -725,13 +829,16 @@ const EmployerDesigner = props => {
     changeStep(1);
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EMButton, {
     type: "default",
     onClick: () => onClick(false)
-  }, "Employer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+  }, "Employer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EMButton, {
     type: "default",
     onClick: () => onClick(true)
-  }, "Designer"));
+  }, "Designer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EMButton, {
+    type: "default",
+    onClick: props.deleteUser
+  }, "Change Email or Name"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (EmployerDesigner);
@@ -754,6 +861,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../model/model */ "./model/model.tsx");
 /* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../lib/firebase */ "./lib/firebase.tsx");
 /* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../lib/server */ "./lib/server.tsx");
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
+
 
 
 
@@ -765,11 +874,13 @@ const {
 
 const FormBusinessData = props => {
   const {
-    currentUser,
     changeCurrentUser,
     changeStep,
     changeNavbarStatus
   } = props;
+  const {
+    currentUser
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__["UserContext"]);
   const [fileList, updateFileList] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
 
   const goBack = async () => {
@@ -891,6 +1002,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../lib/server */ "./lib/server.tsx");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/router */ "next/router");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
+
 
 
 
@@ -898,9 +1011,11 @@ __webpack_require__.r(__webpack_exports__);
 
 const Verification = props => {
   const {
-    currentUser,
     changeStep
   } = props;
+  const {
+    currentUser
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_4__["UserContext"]);
 
   const goBack = async () => {
     await Object(_lib_server__WEBPACK_IMPORTED_MODULE_2__["removeEmployer"])(currentUser.id);
@@ -954,6 +1069,9 @@ const ModalContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.
   componentId: "sc-5z2qlg-0"
 })(["flex:1;display:flex;align-items:center;justify-content:center;background-color:rgba(0,0,0,0.5);height:100vh;"]);
 const PopupModal = props => {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    react_modal__WEBPACK_IMPORTED_MODULE_1___default.a.setAppElement('body');
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_modal__WEBPACK_IMPORTED_MODULE_1___default.a, {
     animationType: "fade",
     transparent: true,
@@ -971,6 +1089,91 @@ const PopupModal = props => {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ModalContainer, null, props.children));
 };
+
+/***/ }),
+
+/***/ "./lib/UserProvider.tsx":
+/*!******************************!*\
+  !*** ./lib/UserProvider.tsx ***!
+  \******************************/
+/*! exports provided: UserContext, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserContext", function() { return UserContext; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _firebase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./firebase */ "./lib/firebase.tsx");
+/* harmony import */ var _server__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./server */ "./lib/server.tsx");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_3__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+const UserContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["createContext"])({
+  currentUser: null,
+  changeUser: () => {}
+});
+
+class UserProvider extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  constructor(...args) {
+    super(...args);
+
+    _defineProperty(this, "changeUser", newUser => {
+      this.setState({
+        currentUser: newUser
+      });
+    });
+
+    _defineProperty(this, "state", {
+      currentUser: null,
+      changeUser: this.changeUser
+    });
+
+    _defineProperty(this, "componentDidMount", () => {
+      _firebase__WEBPACK_IMPORTED_MODULE_1__["myFirebase"].auth().onAuthStateChanged(async userAuth => {
+        if (userAuth === null) {
+          return;
+        }
+
+        const user = await Object(_server__WEBPACK_IMPORTED_MODULE_2__["getUser"])(userAuth.uid);
+        const employer = await Object(_server__WEBPACK_IMPORTED_MODULE_2__["getEmployer"])(userAuth.uid);
+
+        if (user['user_exists'] == undefined) {
+          this.changeUser(user);
+          next_router__WEBPACK_IMPORTED_MODULE_3___default.a.replace('/dashboard_user');
+        } else if (employer['employer_exists'] == undefined) {
+          this.changeUser(employer);
+          next_router__WEBPACK_IMPORTED_MODULE_3___default.a.push('/dashboard_employer');
+        } else {
+          // TODO: Find alternate way to wait until names are updated
+          // Works for both
+          setTimeout(() => {
+            this.changeUser({
+              email: userAuth.email,
+              id: userAuth.uid,
+              firstName: userAuth.displayName.substr(0, userAuth.displayName.indexOf(' ')),
+              lastName: userAuth.displayName.substr(userAuth.displayName.indexOf(' ') + 1)
+            });
+          }, 500);
+        }
+      });
+    });
+  }
+
+  render() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UserContext.Provider, {
+      value: this.state
+    }, this.props.children);
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (UserProvider);
 
 /***/ }),
 
@@ -1150,42 +1353,59 @@ let NavBarStatus;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_PopupModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/PopupModal */ "./components/PopupModal.tsx");
-/* harmony import */ var react_firebaseui_StyledFirebaseAuth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-firebaseui/StyledFirebaseAuth */ "react-firebaseui/StyledFirebaseAuth");
-/* harmony import */ var react_firebaseui_StyledFirebaseAuth__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_firebaseui_StyledFirebaseAuth__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_PopupModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/PopupModal */ "./components/PopupModal.tsx");
 /* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lib/firebase */ "./lib/firebase.tsx");
 /* harmony import */ var _components_Onboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Onboard */ "./components/Onboard.tsx");
-/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! firebase */ "firebase");
-/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../lib/UserProvider */ "./lib/UserProvider.tsx");
+/* harmony import */ var _components_LoginComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/LoginComponent */ "./components/LoginComponent.tsx");
 
 
 
 
 
 
-const uiConfig = {
-  signInFlow: 'popup',
-  callbacks: {
-    signInSuccessWithAuthResult: () => false
-  },
-  signInOptions: [firebase__WEBPACK_IMPORTED_MODULE_5___default.a.auth.EmailAuthProvider.PROVIDER_ID]
-};
+
 
 const SignUp = props => {
+  const {
+    currentUser
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__["UserContext"]);
   const [isSignedIn, setIsSignedIn] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+  console.log(currentUser);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    _lib_firebase__WEBPACK_IMPORTED_MODULE_3__["myFirebase"].auth().onAuthStateChanged(user => {
-      if (user != null) {
+    if (currentUser !== null) {
+      setIsSignedIn(true);
+    }
+  }, [currentUser]);
+
+  const onFinish = values => {
+    _lib_firebase__WEBPACK_IMPORTED_MODULE_3__["myFirebase"].auth().createUserWithEmailAndPassword(values.email, values.password).then(() => {
+      _lib_firebase__WEBPACK_IMPORTED_MODULE_3__["myFirebase"].auth().currentUser.updateProfile({
+        displayName: `${values.firstName} ${values.lastName}`
+      }).then(() => {
         setIsSignedIn(true);
-      }
+      });
+    }).catch(error => {
+      antd__WEBPACK_IMPORTED_MODULE_1__["message"].error(error.message);
     });
-  });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PopupModal__WEBPACK_IMPORTED_MODULE_1__["PopupModal"], {
+  };
+
+  const deleteUser = async () => {
+    await _lib_firebase__WEBPACK_IMPORTED_MODULE_3__["myFirebase"].auth().currentUser.delete();
+    setIsSignedIn(false);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PopupModal__WEBPACK_IMPORTED_MODULE_2__["PopupModal"], {
     visible: !isSignedIn
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_firebaseui_StyledFirebaseAuth__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    uiConfig: uiConfig,
-    firebaseAuth: _lib_firebase__WEBPACK_IMPORTED_MODULE_3__["myFirebase"].auth()
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Onboard__WEBPACK_IMPORTED_MODULE_4__["Onboard"], null));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_LoginComponent__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    isSignUp: true,
+    title: "Sign Up",
+    onFinish: onFinish
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Onboard__WEBPACK_IMPORTED_MODULE_4__["Onboard"], {
+    deleteUser: deleteUser
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SignUp);
@@ -1234,17 +1454,6 @@ module.exports = require("antd");
 /***/ (function(module, exports) {
 
 module.exports = require("axios");
-
-/***/ }),
-
-/***/ "firebase":
-/*!***************************!*\
-  !*** external "firebase" ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("firebase");
 
 /***/ }),
 
@@ -1311,17 +1520,6 @@ module.exports = require("next/router");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
-
-/***/ }),
-
-/***/ "react-firebaseui/StyledFirebaseAuth":
-/*!******************************************************!*\
-  !*** external "react-firebaseui/StyledFirebaseAuth" ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("react-firebaseui/StyledFirebaseAuth");
 
 /***/ }),
 

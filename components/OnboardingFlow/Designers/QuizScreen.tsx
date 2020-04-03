@@ -1,28 +1,19 @@
-import React, {useEffect} from 'react'
+import React, {useContext} from 'react'
 import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message, Typography } from 'antd';
 import _ from 'lodash'
 import FormProps from '../FormProps'
 import {removeUser, didCompleteQuiz} from '../../../lib/server'
 import Router from 'next/router'
+import {UserContext} from '../../../lib/UserProvider'
 
 const QuizScreen: React.FC<FormProps> = (props) => {
-    const {currentUser, changeCurrentUser, changeStep} = props
+    const {changeCurrentUser, changeStep} = props
+    const {currentUser}  = useContext(UserContext)
 
     const designerTypes = [{name: "UI", link: "https://sumpixelbiz.typeform.com/to/riENWs"}, 
                             {name: "UX", link: "https://sumpixelbiz.typeform.com/to/TqV8Jo"}, 
                             {name: "Brand", link: "https://sumpixelbiz.typeform.com/to/BOBhxP"}, 
                             {name: "Product", link: "https://sumpixelbiz.typeform.com/to/irGM8E"}]
-
-    useEffect(() => {
-        async function findUser() {
-            const user = await didCompleteQuiz(currentUser.id)
-
-            if (user['completed_quiz']) {
-                Router.replace('/dashboard_user')
-            }
-        }
-        findUser()
-    }, []);
 
     const goBack = async () => {
         await removeUser(currentUser.id)

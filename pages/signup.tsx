@@ -1,40 +1,46 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
+import {message} from 'antd'
 import {PopupModal} from '../components/PopupModal';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import {myFirebase} from '../lib/firebase'
 import {Onboard} from '../components/Onboard'
-import firebase from 'firebase'
-
-const uiConfig = {
-    signInFlow: 'popup',
-    callbacks: {
-        signInSuccessWithAuthResult: () => false
-    },
-    signInOptions: [
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
-    ]
-};
+import { UserContext } from '../lib/UserProvider';
+import LoginComponent from '../components/LoginComponent'
 
 const SignUp: React.FC = (props) => {
+    const {currentUser} = useContext(UserContext)
     const [isSignedIn, setIsSignedIn] = useState(false);
+    console.log(currentUser)
     useEffect(() => {
-        myFirebase.auth().onAuthStateChanged(user => {
-                if (user != null) {
-                    setIsSignedIn(true)
-                }
-            });
-    });
+        if (currentUser !== null) {
+            setIsSignedIn(true)
+        }
+    }, [currentUser])
+
+    const onFinish = (values) => {
+        myFirebase.auth().createUserWithEmailAndPassword(values.email, values.password).then(() => {
+            myFirebase.auth().currentUser.updateProfile({
+                displayName: `${values.firstName} ${values.lastName}`
+            }).then(() => {
+                setIsSignedIn(true)
+            })
+        }).catch((error) => {
+            message.error(error.message)
+        })
+    }
+
+    const deleteUser = async () => {
+        await myFirebase.auth().currentUser.delete()
+        setIsSignedIn(false)
+    }
 
     return (
         <>
             <PopupModal
                 visible={!isSignedIn}
             >
-                <StyledFirebaseAuth
-                    uiConfig={uiConfig}
-                    firebaseAuth={myFirebase.auth()}/>
+                <LoginComponent isSignUp={true} title="Sign Up" onFinish={onFinish}/>
             </PopupModal>
-            <Onboard/>
+            <Onboard deleteUser={deleteUser}/>
         </>
     );
 };

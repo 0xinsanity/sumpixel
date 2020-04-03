@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Modal from 'react-modal'
 import styled from 'styled-components'
 
@@ -16,6 +16,9 @@ interface PopupModalProps {
     children: React.ReactNode
 }
 export const PopupModal: React.FC<PopupModalProps> = (props) => {
+    useEffect(() => {
+        Modal.setAppElement('body')
+    }, [])
     return (
         <Modal
             animationType="fade"

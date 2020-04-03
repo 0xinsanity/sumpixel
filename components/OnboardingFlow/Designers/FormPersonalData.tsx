@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import _ from 'lodash'
@@ -7,10 +7,12 @@ import FormProps from '../FormProps'
 import {UploadFile} from 'antd/lib/upload/interface'
 import {storage_ref, myFirebase} from '../../../lib/firebase'
 import {removeUser} from '../../../lib/server'
+import {UserContext} from '../../../lib/UserProvider'
 const {Option} = Select
 
 const FormPersonalData: React.FC<FormProps> = (props) => {
-    const {currentUser, changeCurrentUser, changeStep, changeNavbarStatus} = props
+    const {changeCurrentUser, changeStep, changeNavbarStatus} = props
+    const {currentUser}  = useContext(UserContext)
     const [fileList, updateFileList] = useState<UploadFile[]>([])
 
     const goBack = async () => {

@@ -5,23 +5,7 @@ import Router from 'next/router'
 import {getUser} from '../lib/server'
 
 const DashboardUser: React.FC = (props) => {
-    useEffect(() => {
-        async function findUser() {
-            console.log(myFirebase.auth().currentUser.uid)
-            const user = await getUser(myFirebase.auth().currentUser.uid)
-
-            if (user['user_exists'] === undefined) {
-                Router.replace('/')
-            }
-        }
-
-        const firebaseUser = myFirebase.auth().currentUser;
-        if (firebaseUser !== null) {
-            findUser()
-        } else {
-            Router.replace('/')
-        }
-    }, []);
+    // TODO: If user['completed_quiz'] is false, show screen that says, "Complete quiz first and then come back"
 
     return (
         <>

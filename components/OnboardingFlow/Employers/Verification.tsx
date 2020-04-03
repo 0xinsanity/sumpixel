@@ -1,12 +1,14 @@
-import React, {useEffect} from 'react'
+import React, {useContext} from 'react'
 import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message, Typography } from 'antd';
 import _ from 'lodash'
 import FormProps from '../FormProps'
 import {removeEmployer, didCompleteQuiz} from '../../../lib/server'
 import Router from 'next/router'
+import {UserContext} from '../../../lib/UserProvider'
 
 const Verification: React.FC<FormProps> = (props) => {
-    const {currentUser, changeStep} = props
+    const {changeStep} = props
+    const {currentUser}  = useContext(UserContext)
 
     const goBack = async () => {
         await removeEmployer(currentUser.id)
