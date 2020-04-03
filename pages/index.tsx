@@ -5,8 +5,8 @@ import {User, Employer, NavBarStatus} from '../model/model'
 import {getUser, getEmployer} from '../lib/server'
 import Router from 'next/router'
 import {UserContext} from '../lib/UserProvider'
-import { Container } from '../components/Container';
-import LoginComponent from '../components/LoginComponent';
+import { Container } from '../components/General/Container';
+import LoginComponent from '../components/Login/LoginComponent';
 
 const Index: React.FC = () => {
     const onFinish = (values) => {

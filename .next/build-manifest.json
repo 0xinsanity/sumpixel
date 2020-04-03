@@ -20,10 +20,6 @@
       "static/runtime/polyfills.js",
       "static/runtime/polyfills.js.map"
     ],
-    "/dashboard_employer": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
     "/dashboard_user": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"

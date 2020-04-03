@@ -127,18 +127,23 @@ const storage_ref = firebase_app__WEBPACK_IMPORTED_MODULE_0__["storage"]().ref()
 /*!************************!*\
   !*** ./lib/server.tsx ***!
   \************************/
-/*! exports provided: didCompleteQuiz, getUser, getEmployer, removeUser, removeEmployer, createUser, createEmployer */
+/*! exports provided: didCompleteQuiz, getUser, setUserCompletedQuiz, setUserQuizGraded, getEmployer, removeUser, removeEmployer, createUser, createEmployer, createCommunication, updateDesignerDecision, updateEmployerDecision */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "didCompleteQuiz", function() { return didCompleteQuiz; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserCompletedQuiz", function() { return setUserCompletedQuiz; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserQuizGraded", function() { return setUserQuizGraded; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEmployer", function() { return getEmployer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeUser", function() { return removeUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeEmployer", function() { return removeEmployer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createUser", function() { return createUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEmployer", function() { return createEmployer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createCommunication", function() { return createCommunication; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateDesignerDecision", function() { return updateDesignerDecision; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateEmployerDecision", function() { return updateEmployerDecision; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -148,6 +153,7 @@ var HTTP_Requests;
 (function (HTTP_Requests) {
   HTTP_Requests["GET"] = "GET";
   HTTP_Requests["POST"] = "POST";
+  HTTP_Requests["PUT"] = "PUT";
 })(HTTP_Requests || (HTTP_Requests = {}));
 
 const request = async (url, params, method = HTTP_Requests.GET) => {
@@ -163,6 +169,10 @@ const request = async (url, params, method = HTTP_Requests.GET) => {
     case HTTP_Requests.POST:
       response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(SERVER_BASE + url, params);
       break;
+
+    case HTTP_Requests.PUT:
+      response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(SERVER_BASE + url, params);
+      break;
   }
 
   if (response.status !== 200) {
@@ -171,10 +181,6 @@ const request = async (url, params, method = HTTP_Requests.GET) => {
 
   const result = response.data;
   return result;
-};
-
-const objectToQueryString = obj => {
-  return Object.keys(obj).map(key => key + '=' + obj[key]).join('&');
 };
 
 const generateErrorResponse = message => {
@@ -193,6 +199,16 @@ const getUser = async id => {
   return await request('get-user', {
     id: id
   });
+};
+const setUserCompletedQuiz = async id => {
+  return await request('user-completed-quiz', {
+    id: id
+  }, HTTP_Requests.PUT);
+};
+const setUserQuizGraded = async id => {
+  return await request('user-quiz-graded', {
+    id: id
+  }, HTTP_Requests.PUT);
 };
 const getEmployer = async id => {
   return await request('get-employer', {
@@ -214,6 +230,24 @@ const createUser = async user => {
 };
 const createEmployer = async employer => {
   return await request('create-employer', employer, HTTP_Requests.POST);
+};
+const createCommunication = async (designerId, employerId) => {
+  return await request('create-new-communication', {
+    designerId: designerId,
+    employerId: employerId
+  }, HTTP_Requests.POST);
+};
+const updateDesignerDecision = async (commId, decision) => {
+  return await request('update-designer-decision', {
+    id: commId,
+    designerApprovedTalk: decision
+  }, HTTP_Requests.POST);
+};
+const updateEmployerDecision = async (commId, decision) => {
+  return await request('update-designer-decision', {
+    id: commId,
+    decision: decision
+  }, HTTP_Requests.POST);
 };
 
 /***/ }),

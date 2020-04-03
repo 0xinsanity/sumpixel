@@ -1,10 +1,10 @@
 import React, {useEffect, useState, useContext} from 'react'
 import {message} from 'antd'
-import {PopupModal} from '../components/PopupModal';
+import {PopupModal} from '../components/General/PopupModal';
 import {myFirebase} from '../lib/firebase'
-import {Onboard} from '../components/Onboard'
+import {Onboard} from '../components/OnboardingFlow/Onboard'
 import { UserContext } from '../lib/UserProvider';
-import LoginComponent from '../components/LoginComponent'
+import LoginComponent from '../components/Login/LoginComponent'
 
 const SignUp: React.FC = (props) => {
     const {currentUser} = useContext(UserContext)

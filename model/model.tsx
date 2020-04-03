@@ -14,6 +14,7 @@ export interface User {
     resume?: string;
     designType?: string;
     completedQuiz?: boolean;
+    graded?: boolean;
     communications?: string[];
 }
 
@@ -25,6 +26,26 @@ export interface Employer {
     phoneNumber?: string;
     location?: string;
     communications?: string[];
+}
+
+export interface Communication {
+    id: string;
+    designerId: string;
+    employerId: string;
+    designerApprovedTalk: DesignerDecisionTalk;
+    decision: EmployerDecisionHire
+}
+
+export enum EmployerDecisionHire {
+    REJECT = "Reject",
+    HIRE = "Hire",
+    UNDECIDED = "UNDECIDED"
+}
+
+export enum DesignerDecisionTalk {
+    WILL_TALK = "WILL_TALK",
+    WILL_NOT_TALK = "WILL_NOT_TALK",
+    UNDECIDED = "UNDECIDED"
 }
 
 export enum VisaStatus {
