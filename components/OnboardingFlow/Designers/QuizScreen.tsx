@@ -1,11 +1,22 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect, useRef } from 'react'
 import { Form, Radio, Button, Checkbox, Row, Col, Select, Upload, message, Typography } from 'antd';
 import _ from 'lodash'
 import FormProps from '../FormProps'
 import {removeUser, didCompleteQuiz} from '../../../lib/server'
 import Router from 'next/router'
 import {UserContext} from '../../../lib/UserProvider'
-import { ReactTypeformEmbed } from 'react-typeform-embed';
+import styled from 'styled-components'
+import * as typeformEmbed from '@typeform/embed'
+
+const Cont = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    height: 60vh;
+`
+
 
 interface QuizScreenProps extends FormProps {
     isDashboard?: boolean
@@ -13,28 +24,21 @@ interface QuizScreenProps extends FormProps {
 
 interface QuizProp {
     link: string, 
-    name: string
+    name: string,
+    key: number
 }
 
 const QuizScreen: React.FC<QuizScreenProps> = (props) => {
     const {changeCurrentUser, changeStep, isDashboard} = props
     const {currentUser}  = useContext(UserContext)
+    var typeform = useRef(null)
 
-    const designerTypes = [{name: "UI", link: "https://sumpixelbiz.typeform.com/to/riENWs?id=" + currentUser.id}, 
-                            {name: "UX", link: "https://sumpixelbiz.typeform.com/to/TqV8Jo?id=" + currentUser.id}, 
-                            {name: "Brand", link: "https://sumpixelbiz.typeform.com/to/BOBhxP?id=" + currentUser.id}, 
-                            {name: "Product", link: "https://sumpixelbiz.typeform.com/to/irGM8E?id=" + currentUser.id}]
+    const designerTypes = [{key: 0, name: "UI", link: "https://sumpixelbiz.typeform.com/to/riENWs?id=" + currentUser.id}, 
+                            {key: 1, name: "UX", link: "https://sumpixelbiz.typeform.com/to/TqV8Jo?id=" + currentUser.id}, 
+                            {key: 2, name: "Brand", link: "https://sumpixelbiz.typeform.com/to/BOBhxP?id=" + currentUser.id}, 
+                            {key: 3, name: "Product", link: "https://sumpixelbiz.typeform.com/to/irGM8E?id=" + currentUser.id}]
 
     const [currentQuiz, changeQuiz] = useState<QuizProp>(designerTypes[0])
-
-    const goBack = async () => {
-        await removeUser(currentUser.id)
-        changeStep(-1)
-    }
-
-    const onChange = (updateQuiz: QuizProp) => {
-        changeQuiz(updateQuiz)
-    }
 
     const submit = () => {
         currentUser["designType"] = currentQuiz.name
@@ -42,27 +46,47 @@ const QuizScreen: React.FC<QuizScreenProps> = (props) => {
         changeCurrentUser(currentUser)
         Router.replace('/dashboard_user')
     }
-    
+
+    useEffect(() => {
+        if (typeform) {
+            typeformEmbed.makeWidget(typeform.current, currentQuiz.link, {
+                hideFooter: true,
+                hideHeaders: true,
+                opacity: 1,
+                onSubmit: submit
+            });
+        }
+    }, [currentQuiz])
+
+    const goBack = async () => {
+        await removeUser(currentUser.id)
+        changeStep(-1)
+    }
+
+    const onChange = (key: number) => {
+        changeQuiz(designerTypes[key])
+    }
+
     return (
-        <>
+        <Cont>
             <Typography.Title style={{textAlign: 'center'}} level={4}>
-                Click one of the following categories to be redirected to your quiz. When you complete your quiz, return here and refresh the page!
+                Choose a Design Type and Take Your Quiz!
             </Typography.Title>
-            <Col style={{marginTop: 20}}>
-                <Radio.Group onChange={(e) => onChange(e.target.value)} value={currentQuiz}>
+            <Col style={{marginTop: 10, marginBottom: 20, display: 'flex', justifyContent: 'center'}}>
+                <Radio.Group onChange={(e) => onChange(e.target.value)} value={currentQuiz.key}>
                     {_.map(designerTypes, (type: QuizProp) => {
-                        return <Radio.Button>{type.name}</Radio.Button>
+                        return <Radio.Button value={type.key}>{type.name}</Radio.Button>
                     })}
                 </Radio.Group>
                 
             </Col>
-            <ReactTypeformEmbed url={currentQuiz.link} onSubmit={submit}/>
+            <div style={{position: 'relative', width: '100%', height: '100%'}} ref={typeform}/>
             {isDashboard === null ? 
                 <Button style={{marginTop: 20}} type="default" onClick={goBack}>
                     Back
                 </Button> 
             : null}
-        </>
+        </Cont>
     );
 }
 

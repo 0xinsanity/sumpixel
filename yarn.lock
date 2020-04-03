@@ -1369,6 +1369,24 @@
     url-parse "^1.1.7"
     webfontloader "^1.6.27"
 
+"@typeform/embed@^0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@typeform/embed/-/embed-0.16.0.tgz#9cab5dc0d36a2df6e0ecc30e2cf70b6047648b2a"
+  integrity sha512-BW6UvJniu6KK6ksTYxDABJKizzcNnYqI5RSr7qJSyJ+In/Y6VjxFUECiu3jQx5Ybvsnaz7EdDZfvlYy9hADdow==
+  dependencies:
+    classnames "^2.2.5"
+    core-js "^3.6.4"
+    create-emotion "^9.0.2"
+    create-emotion-styled "^9.0.1"
+    custom-event "^1.0.1"
+    is-url "^1.2.2"
+    preact "^8.2.7"
+    preact-compat "^3.15.0"
+    prop-types "^15.7.2"
+    scrollbar-width "^3.1.1"
+    spin.js "^2.3.2"
+    url-parse "^1.4.5"
+
 "@types/bytebuffer@^5.0.40":
   version "5.0.40"
   resolved "https://registry.yarnpkg.com/@types/bytebuffer/-/bytebuffer-5.0.40.tgz#d6faac40dcfb09cd856cdc4c01d3690ba536d3ee"
@@ -2633,7 +2651,7 @@ core-js-compat@^3.1.1:
     browserslist "^4.8.3"
     semver "7.0.0"
 
-core-js@3.6.4, core-js@^3.0.1:
+core-js@3.6.4, core-js@^3.0.1, core-js@^3.6.4:
   version "3.6.4"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.4.tgz#440a83536b458114b9cb2ac1580ba377dc470647"
   integrity sha512-4paDGScNgZP2IXXilaffL9X7968RuvwlkK3xWtZRVqgd8SYNiVKRJvkFd1aqqEuPfN7E68ZHEp9hDj6lHj4Hyw==
@@ -7440,7 +7458,7 @@ urix@^0.1.0:
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
 
-url-parse@^1.1.7:
+url-parse@^1.1.7, url-parse@^1.4.5:
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
   integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==

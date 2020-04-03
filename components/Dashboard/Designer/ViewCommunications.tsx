@@ -28,7 +28,7 @@ const ViewCommunications: React.FC = (props) => {
         })
     }, [])
 
-    if (!(currentUser as User).completedQuiz) {
+    if (!((currentUser as User).completedQuiz)) {
         return (<QuizScreen isDashboard={true} changeCurrentUser={updateUser}/>)
     }
 

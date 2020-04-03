@@ -657,8 +657,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/router */ "next/router");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
-/* harmony import */ var react_typeform_embed__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-typeform-embed */ "react-typeform-embed");
-/* harmony import */ var react_typeform_embed__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_typeform_embed__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _typeform_embed__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @typeform/embed */ "@typeform/embed");
+/* harmony import */ var _typeform_embed__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_typeform_embed__WEBPACK_IMPORTED_MODULE_7__);
 
 
 
@@ -666,6 +668,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+const Cont = styled_components__WEBPACK_IMPORTED_MODULE_6___default.a.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    height: 60vh;
+`;
 
 const QuizScreen = props => {
   const {
@@ -676,29 +687,25 @@ const QuizScreen = props => {
   const {
     currentUser
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__["UserContext"]);
+  var typeform = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
   const designerTypes = [{
+    key: 0,
     name: "UI",
     link: "https://sumpixelbiz.typeform.com/to/riENWs?id=" + currentUser.id
   }, {
+    key: 1,
     name: "UX",
     link: "https://sumpixelbiz.typeform.com/to/TqV8Jo?id=" + currentUser.id
   }, {
+    key: 2,
     name: "Brand",
     link: "https://sumpixelbiz.typeform.com/to/BOBhxP?id=" + currentUser.id
   }, {
+    key: 3,
     name: "Product",
     link: "https://sumpixelbiz.typeform.com/to/irGM8E?id=" + currentUser.id
   }];
   const [currentQuiz, changeQuiz] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(designerTypes[0]);
-
-  const goBack = async () => {
-    await Object(_lib_server__WEBPACK_IMPORTED_MODULE_3__["removeUser"])(currentUser.id);
-    changeStep(-1);
-  };
-
-  const onChange = updateQuiz => {
-    changeQuiz(updateQuiz);
-  };
 
   const submit = () => {
     currentUser["designType"] = currentQuiz.name;
@@ -707,23 +714,52 @@ const QuizScreen = props => {
     next_router__WEBPACK_IMPORTED_MODULE_4___default.a.replace('/dashboard_user');
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Title, {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (typeform) {
+      _typeform_embed__WEBPACK_IMPORTED_MODULE_7__["makeWidget"](typeform.current, currentQuiz.link, {
+        hideFooter: true,
+        hideHeaders: true,
+        opacity: 1,
+        onSubmit: submit
+      });
+    }
+  }, [currentQuiz]);
+
+  const goBack = async () => {
+    await Object(_lib_server__WEBPACK_IMPORTED_MODULE_3__["removeUser"])(currentUser.id);
+    changeStep(-1);
+  };
+
+  const onChange = key => {
+    changeQuiz(designerTypes[key]);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Cont, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Title, {
     style: {
       textAlign: 'center'
     },
     level: 4
-  }, "Click one of the following categories to be redirected to your quiz. When you complete your quiz, return here and refresh the page!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+  }, "Choose a Design Type and Take Your Quiz!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
     style: {
-      marginTop: 20
+      marginTop: 10,
+      marginBottom: 20,
+      display: 'flex',
+      justifyContent: 'center'
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Radio"].Group, {
     onChange: e => onChange(e.target.value),
-    value: currentQuiz
+    value: currentQuiz.key
   }, lodash__WEBPACK_IMPORTED_MODULE_2___default.a.map(designerTypes, type => {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Radio"].Button, null, type.name);
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_typeform_embed__WEBPACK_IMPORTED_MODULE_6__["ReactTypeformEmbed"], {
-    url: currentQuiz.link,
-    onSubmit: submit
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Radio"].Button, {
+      value: type.key
+    }, type.name);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    style: {
+      position: 'relative',
+      width: '100%',
+      height: '100%'
+    },
+    ref: typeform
   }), isDashboard === null ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     style: {
       marginTop: 20
@@ -1179,6 +1215,17 @@ module.exports = require("@ant-design/icons");
 
 /***/ }),
 
+/***/ "@typeform/embed":
+/*!**********************************!*\
+  !*** external "@typeform/embed" ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("@typeform/embed");
+
+/***/ }),
+
 /***/ "antd":
 /*!***********************!*\
   !*** external "antd" ***!
@@ -1264,17 +1311,6 @@ module.exports = require("next/router");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
-
-/***/ }),
-
-/***/ "react-typeform-embed":
-/*!***************************************!*\
-  !*** external "react-typeform-embed" ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("react-typeform-embed");
 
 /***/ }),
 
