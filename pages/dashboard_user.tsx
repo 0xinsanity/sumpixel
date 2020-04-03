@@ -29,9 +29,6 @@ const DashboardUser: React.FC = (props) => {
                         </Tabs>
                 }
             />
-            <Container>
-                
-            </Container>
         </>
     );
 };

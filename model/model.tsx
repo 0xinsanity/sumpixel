@@ -15,7 +15,15 @@ export interface User {
     designType?: string;
     completedQuiz?: boolean;
     graded?: boolean;
+    gradeId?: string
     communications?: string[];
+}
+
+export interface DesignerGrade {
+    id: string;
+    designerId: string;
+    response: string;
+    score: number
 }
 
 export interface Employer {

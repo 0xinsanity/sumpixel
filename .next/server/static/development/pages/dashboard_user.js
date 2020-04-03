@@ -307,7 +307,7 @@ const DashboardUser = props => {
       tab: "Modify Profile",
       key: "2"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_General_Container__WEBPACK_IMPORTED_MODULE_2__["Container"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Dashboard_Designer_ModifyProfile__WEBPACK_IMPORTED_MODULE_4__["default"], null))))
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_General_Container__WEBPACK_IMPORTED_MODULE_2__["Container"], null));
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (DashboardUser);
