@@ -3,6 +3,7 @@ import { myFirebase } from "./firebase";
 import {User, Employer} from '../model/model'
 import {getEmployer, getUser} from './server'
 import Router from "next/router";
+import {message} from 'antd'
 
 interface ContextProps {
     currentUser: User | Employer | null,
@@ -28,14 +29,27 @@ class UserProvider extends Component {
         if (userAuth === null) {
             return
         }
-        const user = await getUser(userAuth.uid)
-        const employer = await getEmployer(userAuth.uid)
 
-        if (user['user_exists'] == undefined) {
-            this.changeUser(user as User)
+        // This is some of the worst code I've ever made
+        var current;
+        try {
+          current = await getUser(userAuth.uid)
+        } catch (error) {
+          try {
+            current = await getEmployer(userAuth.uid)
+            current["user_exists"] = false
+          } catch (error) {
+            message.error("There was an error trying to retrieve your account.")
+            return
+          }
+        }
+
+        if (current['user_exists'] === undefined) {
+          console.log(current['user_exists'])
+            this.changeUser(current as User)
             Router.replace('/dashboard_user')
-        } else if (employer['employer_exists'] == undefined) {
-            this.changeUser(employer as Employer)
+        } else if (current['employer_exists'] === undefined) {
+            this.changeUser(current as Employer)
             Router.push('/dashboard_employer')
         } else {
             // TODO: Find alternate way to wait until names are updated

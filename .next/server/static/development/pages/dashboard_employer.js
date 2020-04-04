@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -747,7 +747,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _server__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./server */ "./lib/server.tsx");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/router */ "next/router");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_4__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -777,16 +780,29 @@ class UserProvider extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       _firebase__WEBPACK_IMPORTED_MODULE_1__["myFirebase"].auth().onAuthStateChanged(async userAuth => {
         if (userAuth === null) {
           return;
+        } // This is some of the worst code I've ever made
+
+
+        var current;
+
+        try {
+          current = await Object(_server__WEBPACK_IMPORTED_MODULE_2__["getUser"])(userAuth.uid);
+        } catch (error) {
+          try {
+            current = await Object(_server__WEBPACK_IMPORTED_MODULE_2__["getEmployer"])(userAuth.uid);
+            current["user_exists"] = false;
+          } catch (error) {
+            antd__WEBPACK_IMPORTED_MODULE_4__["message"].error("There was an error trying to retrieve your account.");
+            return;
+          }
         }
 
-        const user = await Object(_server__WEBPACK_IMPORTED_MODULE_2__["getUser"])(userAuth.uid);
-        const employer = await Object(_server__WEBPACK_IMPORTED_MODULE_2__["getEmployer"])(userAuth.uid);
-
-        if (user['user_exists'] == undefined) {
-          this.changeUser(user);
+        if (current['user_exists'] === undefined) {
+          console.log(current['user_exists']);
+          this.changeUser(current);
           next_router__WEBPACK_IMPORTED_MODULE_3___default.a.replace('/dashboard_user');
-        } else if (employer['employer_exists'] == undefined) {
-          this.changeUser(employer);
+        } else if (current['employer_exists'] === undefined) {
+          this.changeUser(current);
           next_router__WEBPACK_IMPORTED_MODULE_3___default.a.push('/dashboard_employer');
         } else {
           // TODO: Find alternate way to wait until names are updated
@@ -860,14 +876,12 @@ const storage_ref = firebase_app__WEBPACK_IMPORTED_MODULE_0__["storage"]().ref()
 /*!************************!*\
   !*** ./lib/server.tsx ***!
   \************************/
-/*! exports provided: didCompleteQuiz, getUser, setUserCompletedQuiz, getEmployer, removeUser, removeEmployer, createUser, modifyUser, createEmployer, modifyEmployer, createCommunication, updateDesignerDecision, updateEmployerDecision, getDesignCommunicationsList, getEmployerCommunicationsList, getGradedDesigners */
+/*! exports provided: getUser, getEmployer, removeUser, removeEmployer, createUser, modifyUser, createEmployer, modifyEmployer, createCommunication, updateDesignerDecision, updateEmployerDecision, getDesignCommunicationsList, getEmployerCommunicationsList, getGradedDesigners */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "didCompleteQuiz", function() { return didCompleteQuiz; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserCompletedQuiz", function() { return setUserCompletedQuiz; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEmployer", function() { return getEmployer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeUser", function() { return removeUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeEmployer", function() { return removeEmployer; });
@@ -927,20 +941,10 @@ const generateErrorResponse = message => {
   };
 };
 
-const didCompleteQuiz = async id => {
-  return await request('user-finished-quiz', {
-    id: id
-  });
-};
 const getUser = async id => {
   return await request('get-user', {
     id: id
   });
-};
-const setUserCompletedQuiz = async id => {
-  return await request('user-completed-quiz', {
-    id: id
-  }, HTTP_Requests.PUT);
 };
 const getEmployer = async id => {
   return await request('get-employer', {
@@ -1141,7 +1145,7 @@ const DashboardEmployer = props => {
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /*!********************************************!*\
   !*** multi ./pages/dashboard_employer.tsx ***!
   \********************************************/
