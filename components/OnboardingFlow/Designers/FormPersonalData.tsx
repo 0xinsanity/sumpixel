@@ -17,6 +17,7 @@ interface FormPersonalDataProps extends FormProps {
 
 const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
     const {changeCurrentUser, changeStep, changeNavbarStatus, modifyProfile} = props
+    const isModifyProfilePage = modifyProfile !== undefined
     const {currentUser}  = useContext(UserContext)
     const [fileList, updateFileList] = useState<UploadFile[]>([])
     const goBack = async () => {
@@ -27,10 +28,12 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
         
     }
 
-    const isModifyProfilePage = modifyProfile !== null
-
     if (currentUser == undefined) {
         return (<Loading />)
+    }
+
+    const getRules = (name) => {
+        return [{ required: !isModifyProfilePage, message: !isModifyProfilePage ? `${name} is required` : '' }]
     }
 
     const updateUser = (values) => {
@@ -120,7 +123,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
             <Form.Item
                 label="Phone Number"
                 name="phoneNumber"
-                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Phone Number is required' : '' }]}
+                rules={getRules("Phone Number")}
             >
                 <Input defaultValue={isModifyProfilePage ? '' : currentUser.phoneNumber || ""} placeholder="+1 (555) 555-5555"/>
             </Form.Item>
@@ -128,7 +131,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
             <Form.Item
                 label="Location"
                 name="location"
-                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Location is required' : '' }]}
+                rules={getRules("Location")}
             >
                 <Input defaultValue={isModifyProfilePage ? '' : currentUser.location || ""} placeholder="New York City"/>
             </Form.Item>
@@ -136,7 +139,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
             <Form.Item
                 label="Desired Salary"
                 name="salary"
-                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Desired Salary is required' : ''}]}
+                rules={getRules("Desired Salary")}
             >
                 <Input defaultValue={isModifyProfilePage ? '' : (currentUser as User).salary || ""} placeholder="$100,000-$150,000 per year"/>
             </Form.Item>
@@ -144,7 +147,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
             <Form.Item
                 label="Preferred Role"
                 name="preferredRole"
-                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Preferred Role is required' : '' }]}
+                rules={getRules("Preferred Role")}
             >
                 <Input defaultValue={isModifyProfilePage ? '' : (currentUser as User).preferredRole || ""} placeholder="UI/UX Designer"/>
             </Form.Item>
@@ -152,7 +155,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
             <Form.Item
                 label="Portfolio"
                 name="portfolio"
-                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Portfolio is required' : '' }]}
+                rules={getRules("Portfolio")}
             >
                 <Input defaultValue={isModifyProfilePage ? '' : (currentUser as User).portfolio || ""} placeholder="https://www.myportfolio.com"/>
             </Form.Item>
@@ -160,7 +163,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
             <Form.Item
                 label="Resume"
                 name="resume"
-                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Resume is required' : '' }]}
+                rules={getRules("Resume")}
             >
                 <Upload 
                     name={'file'} 
@@ -194,7 +197,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
             <Form.Item
                 label="Visa Status"
                 name="visa_status"
-                rules={[{ required: !isModifyProfilePage, message: !isModifyProfilePage ? 'Visa Status is required' : '' }]}
+                rules={getRules("Visa Status")}
                 
             >
                 <Select defaultValue={modifyProfile ? '' : (currentUser as User).visa || ""} placeholder="Select an option:">
@@ -218,7 +221,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
                 <Input defaultValue={modifyProfile ? '' : (currentUser as User).dribbble || ""} placeholder="https://dribbble.com/username"/>
             </Form.Item>
 
-            {modifyProfile === undefined ? 
+            {!isModifyProfilePage ? 
                 <Form.Item 
                     rules={[{
                         required: true,
@@ -235,13 +238,13 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
 
                 <Form.Item>
                     <Row justify="space-between" align="middle">
-                        {modifyProfile === undefined ? 
+                        {!isModifyProfilePage ? 
                         <Button type="default" onClick={goBack}>
                             Back
                         </Button>
                         : null}
                         <Button type="primary" htmlType="submit">
-                            {modifyProfile === undefined ? "Take The Quiz" : "Update Profile" }
+                            {!isModifyProfilePage ? "Take The Quiz" : "Update Profile" }
                         </Button>
                     </Row>
                 </Form.Item> 

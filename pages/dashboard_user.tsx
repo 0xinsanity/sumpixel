@@ -16,18 +16,6 @@ interface TabWithCeilingProps {
     children: React.ReactNode
 }
 
-const TabWithCeiling: React.FC<TabWithCeilingProps> = props => {
-    return (
-        <TabPane tab={props.tab} key={props.key}>
-            <div style={{width: '100%', borderTop: '1px solid rgb(235, 237, 240)'}}>
-                <Container>
-                    {props.children}
-                </Container>
-            </div>
-        </TabPane>
-    )
-}
-
 const DashboardUser: React.FC = (props) => {
     const {currentUser, changeUser}  = useContext(UserContext)
 
@@ -36,12 +24,9 @@ const DashboardUser: React.FC = (props) => {
         await modifyUser(updatedUser)
     }
 
-
     if (currentUser === null) {
         return (<Loading />)
     }
-
-    // TODO: If user['completed_quiz'] is false, show screen that says, "Complete quiz first and then come back"
 
     return (
         <NavigationBar 
@@ -49,14 +34,14 @@ const DashboardUser: React.FC = (props) => {
             subtitle="Modify Profile and View Communications" 
             footer={
                     <Tabs defaultActiveKey="1">
-                        <TabPane tab={"View Communications"} key={"1"}>
+                        <TabPane tab={"Communications"} key={"1"}>
                             <div style={{borderTop: '1px solid rgb(235, 237, 240)'}}>
                                 <Container isDashboard={true}>
                                     <ViewCommunications/>
                                 </Container>
                             </div>
                         </TabPane>
-                        <TabPane tab={"Modify Profile"} key={"2"}>
+                        <TabPane tab={"Profile"} key={"2"}>
                             <div style={{borderTop: '1px solid rgb(235, 237, 240)'}}>
                                 <Container isDashboard={true}>
                                     <FormPersonalData changeCurrentUser={updateUser} modifyProfile={true} />

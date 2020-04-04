@@ -2,11 +2,11 @@ import React, {useContext} from 'react'
 import {UserContext} from '../../../lib/UserProvider'
 import QuizScreen from '../../OnboardingFlow/Designers/QuizScreen'
 import {createUser} from '../../../lib/server'
-import {User, DesignerDecisionTalk, EmployerDecisionHire, CommDesigner} from '../../../model/model'
+import {User, DesignerDecisionTalk, EmployerDecisionHire, CommForDesigner} from '../../../model/model'
 import {Typography, List, Radio} from 'antd'
 
 interface CommunicationsListProps {
-    communicationList: CommDesigner[]
+    communicationList: CommForDesigner[]
     updateDesignerText: (commId: string, update: DesignerDecisionTalk) => void
 }
 

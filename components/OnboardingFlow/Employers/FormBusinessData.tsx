@@ -11,21 +11,28 @@ import {UserContext} from '../../../lib/UserProvider'
 import Loading from '../../General/Loading'
 const {Option} = Select
 
-const FormBusinessData: React.FC<FormProps> = (props) => {
-    const {changeCurrentUser, changeStep, changeNavbarStatus} = props
+interface FormBusinessDataProps extends FormProps {
+    modifyProfile?: boolean
+}
+
+const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
+    const {changeCurrentUser, changeStep, changeNavbarStatus, modifyProfile} = props
     const {currentUser}  = useContext(UserContext)
-    const [fileList, updateFileList] = useState<UploadFile[]>([])
+    const isModifyProfilePage = modifyProfile !== undefined
 
     const goBack = async () => {
         await removeUser(currentUser.id)
         await myFirebase.auth().signOut()
         changeNavbarStatus(NavBarStatus.Undecided)
         changeStep(-1)
-        
     }
 
     if (currentUser == undefined) {
         return (<Loading />)
+    }
+
+    const getRules = (name) => {
+        return [{ required: !isModifyProfilePage, message: !isModifyProfilePage ? `${name} is required` : '' }]
     }
 
     const onFinish = (values) => {
@@ -38,8 +45,12 @@ const FormBusinessData: React.FC<FormProps> = (props) => {
             phoneNumber: values.phoneNumber,
             location: values.location
         }
-        changeCurrentUser(newEmployer)
-        changeStep(1)
+        changeCurrentUser(_.pickBy(newEmployer, _.identity))
+        if (isModifyProfilePage) {
+            message.success("Your profile has been updated")
+        } else {
+            changeStep(1)
+        }
     }
 
     const onFinishFailed = () => {
@@ -54,54 +65,60 @@ const FormBusinessData: React.FC<FormProps> = (props) => {
             onFinishFailed={onFinishFailed}
             style={{marginBottom: 50}}
         >
-            <Form.Item
-                label="Name"
-                name="firstName"
-            >
-                <Input.Group>
-                    <Row>
-                        <Col span={11}>
-                            <Input disabled defaultValue={currentUser.firstName}/>
-                        </Col>
-                        <Col span={2}/>
-                        <Col span={11}>
-                            <Input disabled defaultValue={currentUser.lastName}/>
-                        </Col>
-                    </Row>
-                </Input.Group>
-            </Form.Item>
+            {!isModifyProfilePage ? 
+            <>
+                <Form.Item
+                    label="Name"
+                    name="firstName"
+                >
+                    <Input.Group>
+                        <Row>
+                            <Col span={11}>
+                                <Input disabled defaultValue={currentUser.firstName}/>
+                            </Col>
+                            <Col span={2}/>
+                            <Col span={11}>
+                                <Input disabled defaultValue={currentUser.lastName}/>
+                            </Col>
+                        </Row>
+                    </Input.Group>
+                </Form.Item>
 
-            <Form.Item
-                label="Email"
-                name="email"
-            >
-                <Input disabled defaultValue={currentUser.email}/>
-            </Form.Item>
+                <Form.Item
+                    label="Email"
+                    name="email"
+                >
+                    <Input disabled defaultValue={currentUser.email}/>
+                </Form.Item>
+            </>
+            : null}
+            
 
             <Form.Item
                 label="Company Name"
                 name="companyName"
-                rules={[{ required: true, message: 'Company Name is required' }]}
+                rules={getRules("Company Name")}
             >
-                <Input defaultValue={(currentUser as Employer).companyName || ""} placeholder="Company Name"/>
+                <Input defaultValue={modifyProfile ? '' : (currentUser as Employer).companyName || ""} placeholder="Company Name"/>
             </Form.Item>
 
             <Form.Item
                 label="Phone Number"
                 name="phoneNumber"
-                rules={[{ required: true, message: 'Phone Number is required' }]}
+                rules={getRules("Phone Number")}
             >
-                <Input defaultValue={currentUser.phoneNumber || ""} placeholder="+1 (555) 555-5555"/>
+                <Input defaultValue={modifyProfile ? '' : (currentUser as Employer).phoneNumber || ""} placeholder="+1 (555) 555-5555"/>
             </Form.Item>
 
             <Form.Item
                 label="Location"
                 name="location"
-                rules={[{ required: true, message: 'Location is required' }]}
+                rules={getRules("Location")}
             >
-                <Input defaultValue={currentUser.location || ""} placeholder="New York City"/>
+                <Input defaultValue={modifyProfile ? '' : (currentUser as Employer).location || ""} placeholder="New York City"/>
             </Form.Item>
 
+            {!isModifyProfilePage ? 
             <Form.Item 
                 rules={[{
                     required: true,
@@ -113,15 +130,18 @@ const FormBusinessData: React.FC<FormProps> = (props) => {
                 >
                     {/* TODO: Requirement Not Working */}
                     <Checkbox>Agree to The Terms and Services</Checkbox>
-            </Form.Item>
+            </Form.Item> 
+            : null }
 
             <Form.Item>
                 <Row justify="space-between" align="middle">
-                    <Button type="default" onClick={goBack}>
-                        Back
-                    </Button>
+                    {!isModifyProfilePage ? 
+                        <Button type="default" onClick={goBack}>
+                            Back
+                        </Button>
+                    : null}
                     <Button type="primary" htmlType="submit">
-                        Finish Setup
+                        {isModifyProfilePage ? "Update Company Profile" : "Finish Setup"}
                     </Button>
                 </Row>
             </Form.Item>

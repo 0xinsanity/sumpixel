@@ -6,12 +6,23 @@ import {getUser, getEmployer} from '../lib/server'
 import Router from 'next/router'
 import {UserContext} from '../lib/UserProvider'
 import { Container } from '../components/General/Container';
+import Loading from '../components/General/Loading'
 import LoginComponent from '../components/Login/LoginComponent';
 
 const Index: React.FC = () => {
+    const [loading, setLoading] = useState(false)
+
+    if (loading) {
+        return (<Loading />)
+    }
+
     const onFinish = (values) => {
+        setLoading(true)
         myFirebase.auth().signInWithEmailAndPassword(values.email, values.password).catch(error => {
+            setLoading(false)
             message.error("Looks like your password or email is incorrect.");
+        }).then(() => {
+            setLoading(false)
         });
     }
 

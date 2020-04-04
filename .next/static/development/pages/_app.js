@@ -127,7 +127,7 @@ const storage_ref = firebase_app__WEBPACK_IMPORTED_MODULE_0__["storage"]().ref()
 /*!************************!*\
   !*** ./lib/server.tsx ***!
   \************************/
-/*! exports provided: didCompleteQuiz, getUser, setUserCompletedQuiz, setUserQuizGraded, getEmployer, removeUser, removeEmployer, createUser, modifyUser, createEmployer, modifyEmployer, createCommunication, updateDesignerDecision, updateEmployerDecision, gradeDesigner, getDesignCommunicationsList */
+/*! exports provided: didCompleteQuiz, getUser, setUserCompletedQuiz, setUserQuizGraded, getEmployer, removeUser, removeEmployer, createUser, modifyUser, createEmployer, modifyEmployer, createCommunication, updateDesignerDecision, updateEmployerDecision, getDesignCommunicationsList, getEmployerCommunicationsList, getGradedDesigners */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -146,8 +146,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createCommunication", function() { return createCommunication; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateDesignerDecision", function() { return updateDesignerDecision; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateEmployerDecision", function() { return updateEmployerDecision; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gradeDesigner", function() { return gradeDesigner; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDesignCommunicationsList", function() { return getDesignCommunicationsList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEmployerCommunicationsList", function() { return getEmployerCommunicationsList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGradedDesigners", function() { return getGradedDesigners; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -254,20 +255,23 @@ const updateDesignerDecision = async (commId, decision) => {
   }, HTTP_Requests.POST);
 };
 const updateEmployerDecision = async (commId, decision) => {
-  return await request('update-designer-decision', {
+  return await request('update-employer-decision', {
     id: commId,
     decision: decision
   }, HTTP_Requests.POST);
 };
-const gradeDesigner = async (designerId, response, score) => {
-  return await request('grade-designer', {
-    designerId,
-    response,
-    score
-  }, HTTP_Requests.POST);
-};
 const getDesignCommunicationsList = async id => {
   return await request('get-all-designer-communications', {
+    id
+  });
+};
+const getEmployerCommunicationsList = async id => {
+  return await request('get-all-employer-communications', {
+    id
+  });
+};
+const getGradedDesigners = async id => {
+  return await request('get-graded-designers', {
     id
   });
 };

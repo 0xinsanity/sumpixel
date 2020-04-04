@@ -9,7 +9,7 @@ import LoginComponent from '../components/Login/LoginComponent'
 const SignUp: React.FC = (props) => {
     const {currentUser} = useContext(UserContext)
     const [isSignedIn, setIsSignedIn] = useState(false);
-    console.log(currentUser)
+    
     useEffect(() => {
         if (currentUser !== null) {
             setIsSignedIn(true)
@@ -29,7 +29,11 @@ const SignUp: React.FC = (props) => {
     }
 
     const deleteUser = async () => {
-        await myFirebase.auth().currentUser.delete()
+        if (myFirebase.auth().currentUser === null) {
+            await myFirebase.auth().signOut()
+        } else {
+            await myFirebase.auth().currentUser.delete()
+        }
         setIsSignedIn(false)
     }
 

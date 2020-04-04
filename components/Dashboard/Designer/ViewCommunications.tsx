@@ -1,15 +1,15 @@
 import React, {useContext, useState, useEffect} from 'react'
 import {UserContext} from '../../../lib/UserProvider'
 import QuizScreen from '../../OnboardingFlow/Designers/QuizScreen'
-import {createUser, getDesignCommunicationsList, updateDesignerDecision} from '../../../lib/server'
-import {User, CommDesigner, DesignerDecisionTalk} from '../../../model/model'
+import {getDesignCommunicationsList, updateDesignerDecision, createUser} from '../../../lib/server'
+import {User, CommForDesigner, DesignerDecisionTalk} from '../../../model/model'
 import {Typography, message} from 'antd'
 import Loading from '../../General/Loading'
 import CommunicationsList from './CommunicationsList'
 
 const ViewCommunications: React.FC = (props) => {
     const {currentUser, changeUser}  = useContext(UserContext)
-    const [commList, setCommList] = useState<CommDesigner[] | undefined>(undefined)
+    const [commList, setCommList] = useState<CommForDesigner[] | undefined>(undefined)
 
     const updateUser = async (updatedUser: User) => {
         changeUser(updatedUser)
@@ -23,7 +23,7 @@ const ViewCommunications: React.FC = (props) => {
     }
 
     useEffect(() => {
-        getDesignCommunicationsList(currentUser.id).then((commList: CommDesigner[]) => {
+        getDesignCommunicationsList(currentUser.id).then((commList: CommForDesigner[]) => {
             setCommList(commList)
         })
     }, [])

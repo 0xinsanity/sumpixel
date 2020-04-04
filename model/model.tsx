@@ -15,13 +15,10 @@ export interface User {
     designType?: string;
     completedQuiz?: boolean;
     graded?: boolean;
-    gradeId?: string
     communications?: string[];
 }
 
 export interface DesignerGrade {
-    id: string;
-    designerId: string;
     response: string;
     score: number
 }
@@ -45,16 +42,28 @@ export interface Communication {
     decision: EmployerDecisionHire
 }
 
-export interface CommDesigner {
+export interface CommForDesigner {
     communicationId: string
     companyName: string
     designerApprovedTalk: DesignerDecisionTalk
     decision: EmployerDecisionHire
 }
 
+export interface CommForEmployer {
+    communicationId: string
+    fullName: string
+    designerApprovedTalk: DesignerDecisionTalk
+    decision: EmployerDecisionHire
+}
+
+export interface UserAndGrade {
+    grade: DesignerGrade,
+    designer: User
+}
+
 export enum EmployerDecisionHire {
-    REJECT = "Reject",
-    HIRE = "Hire",
+    REJECT = "REJECT",
+    HIRE = "HIRE",
     UNDECIDED = "UNDECIDED"
 }
 

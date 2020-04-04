@@ -1,4 +1,4 @@
-import { User, Employer, EmployerDecisionHire, DesignerDecisionTalk, CommDesigner } from "../model/model";
+import { User, Employer, EmployerDecisionHire, DesignerDecisionTalk, CommForDesigner, UserAndGrade, Communication, CommForEmployer } from "../model/model";
 import axios from 'axios';
 
 const SERVER_BASE = 'https://sumpixel-server.herokuapp.com/'
@@ -84,7 +84,7 @@ export const modifyEmployer = async (employer: Employer) => {
     return await request('modify-employer', employer, HTTP_Requests.POST)
 }
 
-export const createCommunication = async (designerId: string, employerId: string) => {
+export const createCommunication = async (designerId: string, employerId: string): Promise<Communication> => {
     return await request('create-new-communication', {designerId: designerId, employerId: employerId }, HTTP_Requests.POST)
 }
 
@@ -93,13 +93,17 @@ export const updateDesignerDecision = async (commId: string, decision: DesignerD
 }
 
 export const updateEmployerDecision = async (commId: string, decision: EmployerDecisionHire) => {
-    return await request('update-designer-decision', {id: commId, decision: decision }, HTTP_Requests.POST)
+    return await request('update-employer-decision', {id: commId, decision: decision }, HTTP_Requests.POST)
 }
 
-export const gradeDesigner = async (designerId: string, response: string, score: number) => {
-    return await request('grade-designer', {designerId, response, score}, HTTP_Requests.POST)
-}
-
-export const getDesignCommunicationsList = async (id: string): Promise<CommDesigner[]> => {
+export const getDesignCommunicationsList = async (id: string): Promise<CommForDesigner[]> => {
     return await request('get-all-designer-communications', {id})
+}
+
+export const getEmployerCommunicationsList = async (id: string): Promise<CommForEmployer[]> => {
+    return await request('get-all-employer-communications', {id})
+}
+
+export const getGradedDesigners = async (id: string): Promise<UserAndGrade[]> => {
+    return await request('get-graded-designers', {id})
 }

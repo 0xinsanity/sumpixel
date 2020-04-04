@@ -12,11 +12,6 @@ interface LoginComponentProps {
 
 const LoginComponent: React.FC<LoginComponentProps> = (props) => {
     const {isSignUp, onFinish, title} = props
-    const [status, setStatus] = useState<NavBarStatus>(NavBarStatus.Undecided)
-
-    const updateStatus = ({newStatus}) => {
-        setStatus(newStatus)
-    }
 
     const onClick = () => {
         Router.replace('/signup')
@@ -28,7 +23,6 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                 name="basic"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
-                onValuesChange={updateStatus}
                 style={{marginBottom: 50}}
             >
 
@@ -75,13 +69,6 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                 >
                     <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password"/>
                 </Form.Item>
-
-                {!isSignUp ? <Form.Item label="You are" name="newStatus">
-                    <Radio.Group value={status}>
-                        <Radio.Button value={NavBarStatus.Employer}>Employer</Radio.Button>
-                        <Radio.Button value={NavBarStatus.Designer}>Designer</Radio.Button>
-                    </Radio.Group>
-                </Form.Item> : null}
 
                 <Form.Item>
                     <Row justify="center">
