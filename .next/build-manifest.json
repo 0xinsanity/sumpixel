@@ -8,10 +8,6 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
     "/_app": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
@@ -25,18 +21,6 @@
       "static/runtime/polyfills.js.map"
     ],
     "/dashboard_employer": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/dashboard_user": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/index": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/signup": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

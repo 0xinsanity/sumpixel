@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message, Typography } from 'antd';
 import _ from 'lodash'
 import FormProps from '../FormProps'
-import {removeEmployer, didCompleteQuiz} from '../../../lib/server'
+import {removeEmployer} from '../../../lib/server'
 import Router from 'next/router'
 import {UserContext} from '../../../lib/UserProvider'
 

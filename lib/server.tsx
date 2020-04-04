@@ -40,10 +40,6 @@ const generateErrorResponse = (message) => {
     };
 }
 
-export const didCompleteQuiz = async (id: string) => {
-    return await request('user-finished-quiz', {id: id})
-}
-
 export const getUser = async (id: string): Promise<User | {user_exists: boolean}> => {
     return await request('get-user', {id: id})
 }
