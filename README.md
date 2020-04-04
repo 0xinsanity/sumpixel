@@ -1,1 +1,1 @@
-# SumPixel Onboarding
+# Sumpixel Web App
