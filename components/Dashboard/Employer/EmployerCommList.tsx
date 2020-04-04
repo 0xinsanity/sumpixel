@@ -3,7 +3,7 @@ import {UserContext} from '../../../lib/UserProvider'
 import QuizScreen from '../../OnboardingFlow/Designers/QuizScreen'
 import {createUser} from '../../../lib/server'
 import {User, DesignerDecisionTalk, EmployerDecisionHire, CommForEmployer} from '../../../model/model'
-import {Typography, List, Radio, Popconfirm} from 'antd'
+import {Typography, List, Radio, Popconfirm, Button} from 'antd'
 
 interface CommunicationsListProps {
     communicationList: CommForEmployer[]
@@ -18,7 +18,7 @@ const EmployerCommList: React.FC<CommunicationsListProps> = (props) => {
             case DesignerDecisionTalk.UNDECIDED:
                 return ''
             case DesignerDecisionTalk.WILL_TALK:
-                return `They are interested in working for you. You will soon be in contact with them.`
+                return `You will soon be in contact with them.`
             case DesignerDecisionTalk.WILL_NOT_TALK:
                 return `They are not interested in your offer`
         }
@@ -43,7 +43,6 @@ const EmployerCommList: React.FC<CommunicationsListProps> = (props) => {
                     : designerApprovedTalk === DesignerDecisionTalk.UNDECIDED ? 
                     <Typography.Text>We are contacting {fullName} to inform them you are interested.</Typography.Text>
                     : null}
-                    
                 </List.Item>
             )}
         />

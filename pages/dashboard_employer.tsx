@@ -31,7 +31,7 @@ const DashboardEmployer: React.FC = (props) => {
         await modifyEmployer(updatedUser)
     }
 
-    if (currentUser === null) {
+    if (currentUser === undefined || currentUser === null) {
         return (<Loading />)
     }
 

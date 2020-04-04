@@ -1,4 +1,4 @@
-import { User, Employer, EmployerDecisionHire, DesignerDecisionTalk, CommForDesigner, UserAndGrade, Communication, CommForEmployer } from "../model/model";
+import { User, Employer, EmployerDecisionHire, DesignerDecisionTalk, CommForDesigner, Communication, CommForEmployer } from "../model/model";
 import axios from 'axios';
 
 const SERVER_BASE = 'https://sumpixel-server.herokuapp.com/'
@@ -52,10 +52,6 @@ export const setUserCompletedQuiz = async (id: string) => {
     return await request('user-completed-quiz', {id: id}, HTTP_Requests.PUT)
 }
 
-export const setUserQuizGraded = async (id: string) => {
-    return await request('user-quiz-graded', {id: id}, HTTP_Requests.PUT)
-}
-
 export const getEmployer = async (id: string): Promise<Employer | {user_exists: boolean}> => {
     return await request('get-employer', {id: id})
 }
@@ -104,6 +100,6 @@ export const getEmployerCommunicationsList = async (id: string): Promise<CommFor
     return await request('get-all-employer-communications', {id})
 }
 
-export const getGradedDesigners = async (id: string): Promise<UserAndGrade[]> => {
+export const getGradedDesigners = async (id: string): Promise<User[]> => {
     return await request('get-graded-designers', {id})
 }

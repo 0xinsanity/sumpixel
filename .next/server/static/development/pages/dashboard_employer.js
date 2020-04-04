@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -106,27 +106,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../lib/firebase */ "./lib/firebase.tsx");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
 
 const DesignerInfoModal = props => {
   const {
-    info,
+    designer,
     visible,
-    onConnect
+    onConnect,
+    setInvisible
   } = props;
 
-  if (info === undefined) {
+  if (designer === undefined) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
   }
 
   const {
-    designer,
     grade
-  } = info;
+  } = designer;
   const showInfo = {
     "Portfolio": designer.portfolio,
     "Location": designer.location,
@@ -138,7 +140,17 @@ const DesignerInfoModal = props => {
     onConnect(designer.id);
   };
 
+  const downloadResume = () => {
+    _lib_firebase__WEBPACK_IMPORTED_MODULE_2__["storage_ref"].child('resumes/' + designer.resume).getDownloadURL().then(url => {
+      console.log(url);
+      window.open(url, '_blank');
+    }).catch(error => {
+      console.error(error);
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
+    onCancel: setInvisible,
     title: designer.firstName + " " + designer.lastName,
     visible: visible,
     footer: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
@@ -160,9 +172,11 @@ const DesignerInfoModal = props => {
       display: 'flex',
       flexDirection: 'column'
     }
-  }, lodash__WEBPACK_IMPORTED_MODULE_2___default.a.map(lodash__WEBPACK_IMPORTED_MODULE_2___default.a.keys(showInfo), key => {
+  }, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.map(lodash__WEBPACK_IMPORTED_MODULE_3___default.a.keys(showInfo), key => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Text, null, key, ": ", showInfo[key], '\n');
-  })));
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    onClick: downloadResume
+  }, "Download Resume"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (DesignerInfoModal);
@@ -202,8 +216,8 @@ const DesignerList = props => {
   const [showModal, setModalVisibility] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
   const [currentDesigner, setCurrentDesigner] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined);
 
-  const onMoreInfo = userAndGrade => {
-    setCurrentDesigner(userAndGrade);
+  const onMoreInfo = user => {
+    setCurrentDesigner(user);
     setModalVisibility(true);
   };
 
@@ -217,8 +231,9 @@ const DesignerList = props => {
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DesignerInfoModal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    setInvisible: () => setModalVisibility(false),
     visible: showModal,
-    info: currentDesigner,
+    designer: currentDesigner,
     onConnect: onConnect
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"], {
     style: {
@@ -226,17 +241,12 @@ const DesignerList = props => {
     },
     dataSource: designerList,
     bordered: true,
-    renderItem: userAndGrade => {
-      console.log(userAndGrade);
-      const {
-        designer,
-        grade
-      } = userAndGrade;
+    renderItem: designer => {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"].Item.Meta, {
         title: designer.firstName + " " + designer.lastName,
-        description: "Score: " + grade.score
+        description: "Score: " + designer.grade.score
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-        onClick: () => onMoreInfo(userAndGrade)
+        onClick: () => onMoreInfo(designer)
       }, "More Info"));
     }
   }));
@@ -276,7 +286,7 @@ const EmployerCommList = props => {
         return '';
 
       case _model_model__WEBPACK_IMPORTED_MODULE_1__["DesignerDecisionTalk"].WILL_TALK:
-        return `They are interested in working for you. You will soon be in contact with them.`;
+        return `You will soon be in contact with them.`;
 
       case _model_model__WEBPACK_IMPORTED_MODULE_1__["DesignerDecisionTalk"].WILL_NOT_TALK:
         return `They are not interested in your offer`;
@@ -429,6 +439,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/router */ "next/router");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _General_Loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../General/Loading */ "./components/General/Loading.tsx");
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../lib/UserProvider */ "./lib/UserProvider.tsx");
+
 
 
 
@@ -444,6 +456,10 @@ const NavigationBar = props => {
     subtitle,
     footer
   } = props;
+  const {
+    currentUser,
+    changeUser
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__["UserContext"]);
   const [loading, setLoading] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
 
   if (loading) {
@@ -457,9 +473,13 @@ const NavigationBar = props => {
       type: "primary",
       onClick: async () => {
         setLoading(true);
-        await _lib_firebase__WEBPACK_IMPORTED_MODULE_2__["myFirebase"].auth().signOut();
-        setLoading(false);
-        next_router__WEBPACK_IMPORTED_MODULE_3___default.a.replace('/');
+        _lib_firebase__WEBPACK_IMPORTED_MODULE_2__["myFirebase"].auth().signOut().then(() => {
+          changeUser(undefined);
+          setLoading(false);
+          next_router__WEBPACK_IMPORTED_MODULE_3___default.a.replace('/');
+        }).catch(error => {
+          antd__WEBPACK_IMPORTED_MODULE_1__["message"].error(error.message);
+        });
       }
     }, "Logout")],
     footer: footer
@@ -588,13 +608,15 @@ const FormBusinessData = props => {
     modifyProfile
   } = props;
   const {
-    currentUser
+    currentUser,
+    changeUser
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_6__["UserContext"]);
   const isModifyProfilePage = modifyProfile !== undefined;
 
   const goBack = async () => {
     await Object(_lib_server__WEBPACK_IMPORTED_MODULE_5__["removeUser"])(currentUser.id);
     await _lib_firebase__WEBPACK_IMPORTED_MODULE_4__["myFirebase"].auth().signOut();
+    changeUser(undefined);
     changeNavbarStatus(_model_model__WEBPACK_IMPORTED_MODULE_3__["NavBarStatus"].Undecided);
     changeStep(-1);
   };
@@ -838,7 +860,7 @@ const storage_ref = firebase_app__WEBPACK_IMPORTED_MODULE_0__["storage"]().ref()
 /*!************************!*\
   !*** ./lib/server.tsx ***!
   \************************/
-/*! exports provided: didCompleteQuiz, getUser, setUserCompletedQuiz, setUserQuizGraded, getEmployer, removeUser, removeEmployer, createUser, modifyUser, createEmployer, modifyEmployer, createCommunication, updateDesignerDecision, updateEmployerDecision, getDesignCommunicationsList, getEmployerCommunicationsList, getGradedDesigners */
+/*! exports provided: didCompleteQuiz, getUser, setUserCompletedQuiz, getEmployer, removeUser, removeEmployer, createUser, modifyUser, createEmployer, modifyEmployer, createCommunication, updateDesignerDecision, updateEmployerDecision, getDesignCommunicationsList, getEmployerCommunicationsList, getGradedDesigners */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -846,7 +868,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "didCompleteQuiz", function() { return didCompleteQuiz; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserCompletedQuiz", function() { return setUserCompletedQuiz; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserQuizGraded", function() { return setUserQuizGraded; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEmployer", function() { return getEmployer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeUser", function() { return removeUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeEmployer", function() { return removeEmployer; });
@@ -918,11 +939,6 @@ const getUser = async id => {
 };
 const setUserCompletedQuiz = async id => {
   return await request('user-completed-quiz', {
-    id: id
-  }, HTTP_Requests.PUT);
-};
-const setUserQuizGraded = async id => {
-  return await request('user-quiz-graded', {
     id: id
   }, HTTP_Requests.PUT);
 };
@@ -1074,10 +1090,10 @@ __webpack_require__.r(__webpack_exports__);
 const {
   TabPane
 } = antd__WEBPACK_IMPORTED_MODULE_1__["Tabs"];
-const ContAbove = styled_components__WEBPACK_IMPORTED_MODULE_10___default.a.div`
-    width: 100%;
-    border-top: 1px solid rgb(235, 237, 240);
-`;
+const ContAbove = styled_components__WEBPACK_IMPORTED_MODULE_10___default.a.div.withConfig({
+  displayName: "dashboard_employer__ContAbove",
+  componentId: "sc-1yrkndj-0"
+})(["width:100%;border-top:1px solid rgb(235,237,240);"]);
 
 const DashboardEmployer = props => {
   const {
@@ -1090,7 +1106,7 @@ const DashboardEmployer = props => {
     await Object(_lib_server__WEBPACK_IMPORTED_MODULE_9__["modifyEmployer"])(updatedUser);
   };
 
-  if (currentUser === null) {
+  if (currentUser === undefined || currentUser === null) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_General_Loading__WEBPACK_IMPORTED_MODULE_2__["default"], null);
   }
 
@@ -1125,7 +1141,7 @@ const DashboardEmployer = props => {
 
 /***/ }),
 
-/***/ 5:
+/***/ 3:
 /*!********************************************!*\
   !*** multi ./pages/dashboard_employer.tsx ***!
   \********************************************/

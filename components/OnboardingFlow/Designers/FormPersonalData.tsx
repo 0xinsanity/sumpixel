@@ -18,11 +18,12 @@ interface FormPersonalDataProps extends FormProps {
 const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
     const {changeCurrentUser, changeStep, changeNavbarStatus, modifyProfile} = props
     const isModifyProfilePage = modifyProfile !== undefined
-    const {currentUser}  = useContext(UserContext)
+    const {currentUser, changeUser}  = useContext(UserContext)
     const [fileList, updateFileList] = useState<UploadFile[]>([])
     const goBack = async () => {
         await removeUser(currentUser.id)
         await myFirebase.auth().signOut()
+        changeUser(undefined)
         changeNavbarStatus(NavBarStatus.Undecided)
         changeStep(-1)
         

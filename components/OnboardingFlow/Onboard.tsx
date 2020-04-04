@@ -11,6 +11,7 @@ import EmployerDesigner from './EmployerDesigner'
 import styled from 'styled-components'
 import {UserContext} from '../../lib/UserProvider'
 import {createUser, createEmployer} from '../../lib/server'
+import Router from 'next/router'
 
 const Title = styled(Typography.Title)`
     padding-top: 15px;
@@ -59,8 +60,7 @@ export const Onboard: React.FC<OnboardProps> = props => {
             break;
         case 2:
             if (navBarStatus == NavBarStatus.Designer) {
-                currentForm = <QuizScreen changeStep={(change) => changeStep(currentStep + change)}
-                                     changeCurrentUser={async (user) => await updateUser(user)}/>;
+                Router.push('/dashboard_user');
             } else {
                 currentForm = <Verification changeStep={(change) => changeStep(currentStep + change)}
                                      changeCurrentUser={async (user) => await updateEmployer(user)}/>;

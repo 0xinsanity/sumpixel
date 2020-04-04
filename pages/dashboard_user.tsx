@@ -24,7 +24,7 @@ const DashboardUser: React.FC = (props) => {
         await modifyUser(updatedUser)
     }
 
-    if (currentUser === null) {
+    if (currentUser === undefined || currentUser === null) {
         return (<Loading />)
     }
 

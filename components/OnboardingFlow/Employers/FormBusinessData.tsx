@@ -17,12 +17,13 @@ interface FormBusinessDataProps extends FormProps {
 
 const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
     const {changeCurrentUser, changeStep, changeNavbarStatus, modifyProfile} = props
-    const {currentUser}  = useContext(UserContext)
+    const {currentUser, changeUser}  = useContext(UserContext)
     const isModifyProfilePage = modifyProfile !== undefined
 
     const goBack = async () => {
         await removeUser(currentUser.id)
         await myFirebase.auth().signOut()
+        changeUser(undefined)
         changeNavbarStatus(NavBarStatus.Undecided)
         changeStep(-1)
     }

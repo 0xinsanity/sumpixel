@@ -1,21 +1,25 @@
 import React from 'react'
-import { UserAndGrade } from '../../../model/model'
+import { User } from '../../../model/model'
 import {Modal, Button, Typography} from 'antd'
 import {createCommunication} from '../../../lib/server'
+import {storage_ref} from '../../../lib/firebase'
 import _ from 'lodash'
 
 interface DesignerInfoModalProps {
-    info: UserAndGrade
+    designer: User
     visible: boolean
     onConnect: (designerId: string) => void
+    setInvisible: () => void
 }
 
 const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
-    const {info, visible, onConnect} = props
-    if (info === undefined) {
+    const {designer, visible, onConnect, setInvisible} = props
+
+    if (designer === undefined) {
         return <></>
     }
-    const {designer, grade} = info
+
+    const {grade} = designer
 
     const showInfo = {
         "Portfolio": designer.portfolio,
@@ -28,8 +32,18 @@ const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
         onConnect(designer.id)
     }
 
+    const downloadResume = () => {
+        storage_ref.child('resumes/' + designer.resume).getDownloadURL().then(url => {
+            console.log(url)
+            window.open(url, '_blank')
+        }).catch((error) => {
+            console.error(error)
+        })
+    }
+
     return (
         <Modal
+            onCancel={setInvisible}
             title={designer.firstName + " " + designer.lastName}
             visible={visible}
             footer={[
@@ -53,6 +67,9 @@ const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
                     return (<Typography.Text>{key}: {showInfo[key]}{'\n'}</Typography.Text>)
                 })}
             </div>
+            <Button onClick={downloadResume}>
+                Download Resume
+            </Button>
         </Modal>)
 }
 

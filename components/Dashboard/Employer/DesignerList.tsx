@@ -1,6 +1,6 @@
 import React, {useEffect, useContext, useState} from 'react'
 import { createCommunication } from '../../../lib/server'
-import { UserAndGrade, Employer } from '../../../model/model'
+import { User, Employer } from '../../../model/model'
 import {UserContext} from '../../../lib/UserProvider'
 import {Container} from '../../General/Container'
 import Loading from '../../General/Loading'
@@ -8,17 +8,17 @@ import {List, Button} from 'antd'
 import DesignerInfoModal from './DesignerInfoModal'
 
 interface DesignerListProps {
-    designerList: UserAndGrade[]
+    designerList: User[]
 }
 
 const DesignerList: React.FC<DesignerListProps> = (props) => {
     const {currentUser, changeUser}  = useContext(UserContext)
     const {designerList} = props
     const [showModal, setModalVisibility] = useState(false) 
-    const [currentDesigner, setCurrentDesigner] = useState<UserAndGrade>(undefined) 
+    const [currentDesigner, setCurrentDesigner] = useState<User>(undefined) 
 
-    const onMoreInfo = (userAndGrade: UserAndGrade) => {
-        setCurrentDesigner(userAndGrade)
+    const onMoreInfo = (user: User) => {
+        setCurrentDesigner(user)
         setModalVisibility(true)
     }
 
@@ -31,20 +31,19 @@ const DesignerList: React.FC<DesignerListProps> = (props) => {
 
     return (
         <>
-            <DesignerInfoModal visible={showModal}
-                               info={currentDesigner}
+            <DesignerInfoModal setInvisible={() => setModalVisibility(false)}
+                                visible={showModal}
+                               designer={currentDesigner}
                                onConnect={onConnect}/>
             <List
                 style={{width: '100%'}}
                 dataSource={designerList}
                 bordered
-                renderItem={(userAndGrade) => {
-                    console.log(userAndGrade)
-                    const {designer, grade} = userAndGrade
+                renderItem={(designer) => {
                     return (
                         <List.Item>
-                            <List.Item.Meta title={designer.firstName + " " + designer.lastName} description={"Score: " + grade.score}/>
-                            <Button onClick={() => onMoreInfo(userAndGrade)}>
+                            <List.Item.Meta title={designer.firstName + " " + designer.lastName} description={"Score: " + designer.grade.score}/>
+                            <Button onClick={() => onMoreInfo(designer)}>
                                 More Info
                             </Button>
                         </List.Item>
