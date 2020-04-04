@@ -44,10 +44,6 @@ export const getUser = async (id: string): Promise<User | {user_exists: boolean}
     return await request('get-user', {id: id})
 }
 
-export const setUserCompletedQuiz = async (id: string) => {
-    return await request('user-completed-quiz', {id: id}, HTTP_Requests.PUT)
-}
-
 export const getEmployer = async (id: string): Promise<Employer | {user_exists: boolean}> => {
     return await request('get-employer', {id: id})
 }

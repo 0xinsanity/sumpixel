@@ -17,19 +17,14 @@ const Cont = styled.div`
     height: 60vh;
 `
 
-
-interface QuizScreenProps extends FormProps {
-    isDashboard?: boolean
-}
-
 interface QuizProp {
     link: string, 
     name: string,
     key: number
 }
 
-const QuizScreen: React.FC<QuizScreenProps> = (props) => {
-    const {changeCurrentUser, changeStep, isDashboard} = props
+const QuizScreen: React.FC<FormProps> = (props) => {
+    const {changeCurrentUser} = props
     const {currentUser}  = useContext(UserContext)
     var typeform = useRef(null)
 
@@ -58,11 +53,6 @@ const QuizScreen: React.FC<QuizScreenProps> = (props) => {
         }
     }, [currentQuiz])
 
-    const goBack = async () => {
-        await removeUser(currentUser.id)
-        changeStep(-1)
-    }
-
     const onChange = (key: number) => {
         changeQuiz(designerTypes[key])
     }
@@ -81,11 +71,6 @@ const QuizScreen: React.FC<QuizScreenProps> = (props) => {
                 
             </Col>
             <div style={{position: 'relative', width: '100%', height: '100%'}} ref={typeform}/>
-            {isDashboard === null ? 
-                <Button style={{marginTop: 20}} type="default" onClick={goBack}>
-                    Back
-                </Button> 
-            : null}
         </Cont>
     );
 }
