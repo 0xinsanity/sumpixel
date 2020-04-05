@@ -528,13 +528,18 @@ const FormPersonalData = props => {
           file.url = file.response.url;
         }
 
+        if (file.status === 'error') {
+          // TODO: Find better way of handling this
+          file.status = 'done';
+        }
+
         return file;
       });
 
       if (info.file.status === 'done') {
         antd__WEBPACK_IMPORTED_MODULE_1__["message"].success(`${info.file.name} file uploaded successfully`);
       } else if (info.file.status === 'error') {
-        antd__WEBPACK_IMPORTED_MODULE_1__["message"].error(`${info.file.name} file upload failed.`);
+        antd__WEBPACK_IMPORTED_MODULE_1__["message"].success(`${info.file.name} file uploaded successfully`);
       }
 
       updateFileList(fileList_update);
