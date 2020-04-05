@@ -39,8 +39,7 @@ class UserProvider extends Component {
             current = await getEmployer(userAuth.uid)
             current["user_exists"] = false
           } catch (error) {
-            message.error("There was an error trying to retrieve your account.")
-            return
+            console.log("this better be a new user")
           }
         }
 
