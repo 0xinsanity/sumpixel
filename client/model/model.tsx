@@ -20,9 +20,8 @@ export interface User {
 }
 
 export interface DesignerGrade {
-    exists: boolean
     response?: string;
-    score?: number
+    score?: string
 }
 
 export interface Employer {

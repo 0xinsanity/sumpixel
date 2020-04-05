@@ -50,7 +50,7 @@ const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
             visible={visible}
             footer={[
                 <Button onClick={onClick} type="primary">
-                    Connect
+                    Connect To {designer.firstName}
                 </Button>]}
         >
             <Typography.Title level={3} underline>Our Evaluation</Typography.Title>
@@ -59,7 +59,7 @@ const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
                 This score is out of 10. 
                 It was carefully picked by our evaluators to give an indication of the ability of this designer related to others on the platform.
             </Typography.Text>
-            <Typography.Title level={3}>Response From Evaluator:</Typography.Title>
+            <Typography.Title level={4}>Response From Evaluator:</Typography.Title>
             <Typography.Text>
                 {grade.response}
             </Typography.Text>
@@ -69,7 +69,7 @@ const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
                     return (<Typography.Text>{key}: {showInfo[key]}{'\n'}</Typography.Text>)
                 })}
             </div>
-            <Button onClick={downloadResume}>
+            <Button style={{marginTop: 10}} onClick={downloadResume}>
                 Download Resume
             </Button>
         </Modal>)
