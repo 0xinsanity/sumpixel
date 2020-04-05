@@ -107,7 +107,7 @@ class Communication(BaseModel):
 class DesignerGrade(BaseModel):
     id: str
     response: str
-    score: int
+    score: float
 
 class UpdateDesignerDecision(BaseModel):
     id: str
@@ -404,6 +404,7 @@ def update_employer_decision(update: UpdateEmployerDecision):
 def get_graded_designers(id: str):
     employer = get_employer_helper(id)
 
+    # REMOVE ZEROES
     # Now we know id is correct, retrieve designers
     doc_users_all = db.collection('users').where('graded', '==', True).stream()
     if employer["communications"] != []:
@@ -416,9 +417,11 @@ def get_graded_designers(id: str):
     users = []
     for user in doc_final_users:
         user_dict = user.to_dict()
-        users.append(user_dict)
+
+        if user_dict["grade"]["score"] != 0:
+            users.append(user_dict)
     
-    return users
+    return sorted(users, key=lambda user: user["grade"]["score"], reverse=True)
 
 def get_user_helper(id: str):
     doc_ref = db.collection('users').document(id)
