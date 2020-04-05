@@ -26,6 +26,8 @@ const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
         "Location": designer.location,
         "Preferred Role": designer.preferredRole,
         "Desired Salary": designer.salary,
+        "Phone Number": designer.phoneNumber,
+        "Email": designer.email,
     }
 
     const onClick = () => {
