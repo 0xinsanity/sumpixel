@@ -25,7 +25,9 @@ origins = [
     'https://localhost:3000',
     'http://localhost:3000',
     'http://sumpixel-client.now.sh',
-    'https://sumpixel-client.now.sh'
+    'https://sumpixel-client.now.sh',
+    'http://app.sumpixel.com',
+    'https://app.sumpixel.com',
 ]
 
 app.add_middleware(

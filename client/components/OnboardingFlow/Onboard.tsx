@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import {OnboardNavbar} from './OnboardNavbar'
 import {Container} from '../General/Container'
 import {Typography} from 'antd'
-import {User, NavBarStatus} from '../../model/model'
+import {User, NavBarStatus, Employer} from '../../model/model'
 import FormPersonalData from './Designers/FormPersonalData'
 import FormBusinessData from './Employers/FormBusinessData'
 import QuizScreen from './Designers/QuizScreen'
@@ -32,7 +32,7 @@ export const Onboard: React.FC<OnboardProps> = props => {
         await createUser(updatedUser)
     }
 
-    const updateEmployer = async (updatedUser: User) => {
+    const updateEmployer = async (updatedUser: Employer) => {
         changeUser(updatedUser)
         await createEmployer(updatedUser)
     }

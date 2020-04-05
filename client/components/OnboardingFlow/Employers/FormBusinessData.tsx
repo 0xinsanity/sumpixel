@@ -17,13 +17,11 @@ interface FormBusinessDataProps extends FormProps {
 
 const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
     const {changeCurrentUser, changeStep, changeNavbarStatus, modifyProfile} = props
-    const {currentUser, changeUser}  = useContext(UserContext)
+    const {currentUser, changeUser} = useContext(UserContext)
+    const [checked, changeChecked] = useState(false)
     const isModifyProfilePage = modifyProfile !== undefined
 
     const goBack = async () => {
-        await removeUser(currentUser.id)
-        await myFirebase.auth().signOut()
-        changeUser(undefined)
         changeNavbarStatus(NavBarStatus.Undecided)
         changeStep(-1)
     }
@@ -37,6 +35,11 @@ const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
     }
 
     const onFinish = (values) => {
+        if (!isModifyProfilePage && !checked) {
+            message.error('Please agree to the Terms and Service')
+            return
+        }
+
         const newEmployer = {
             email: currentUser.email,
             id: currentUser.id,
@@ -46,6 +49,7 @@ const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
             phoneNumber: values.phoneNumber,
             location: values.location
         }
+
         changeCurrentUser(_.pickBy(newEmployer, _.identity))
         if (isModifyProfilePage) {
             message.success("Your profile has been updated")
@@ -121,16 +125,9 @@ const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
 
             {!isModifyProfilePage ? 
             <Form.Item 
-                rules={[{
-                    required: true,
-                    transform: value => (value || undefined),
-                    type: 'boolean',                          
-                    message: 'Please agree to the terms and conditions.',
-                }]}
                 valuePropName={'checked'}
                 >
-                    {/* TODO: Requirement Not Working */}
-                    <Checkbox>Agree to The Terms and Services</Checkbox>
+                    <Checkbox checked={checked} onChange={(e) => changeChecked(e.target.checked)}>Agree to The <a style={{color: '#0000FF'}} target={'_blank'} href={'/terms'}>Terms and Services</a></Checkbox>
             </Form.Item> 
             : null }
 
