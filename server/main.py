@@ -105,7 +105,7 @@ class Communication(BaseModel):
 class DesignerGrade(BaseModel):
     id: str
     response: str
-    score: str
+    score: int
 
 class UpdateDesignerDecision(BaseModel):
     id: str

@@ -21,7 +21,7 @@ export interface User {
 
 export interface DesignerGrade {
     response?: string;
-    score?: string
+    score?: number
 }
 
 export interface Employer {
