@@ -8,6 +8,7 @@ import {UserContext} from '../lib/UserProvider'
 import { Container } from '../components/General/Container';
 import Loading from '../components/General/Loading'
 import LoginComponent from '../components/Login/LoginComponent';
+import Head from 'next/head'
 
 const Index: React.FC = () => {
     const [loading, setLoading] = useState(false)
@@ -27,11 +28,16 @@ const Index: React.FC = () => {
     }
 
     return (
-        <Container>
-            <div style={{paddingTop: '10%'}}>
-                <LoginComponent title={"Login"} isSignUp={false} onFinish={onFinish} />
-            </div>
-        </Container>
+        <>
+            <Head>
+                <title>Login</title>
+            </Head>
+            <Container>
+                <div style={{paddingTop: '10%'}}>
+                    <LoginComponent title={"Login"} isSignUp={false} onFinish={onFinish} />
+                </div>
+            </Container>
+        </>
     );
 };
 

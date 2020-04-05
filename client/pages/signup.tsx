@@ -4,6 +4,7 @@ import {PopupModal} from '../components/General/PopupModal';
 import {myFirebase} from '../lib/firebase'
 import {Onboard} from '../components/OnboardingFlow/Onboard'
 import { UserContext } from '../lib/UserProvider';
+import Head from 'next/head'
 import LoginComponent from '../components/Login/LoginComponent'
 
 const SignUp: React.FC = (props) => {
@@ -35,6 +36,9 @@ const SignUp: React.FC = (props) => {
 
     return (
         <>
+            <Head>
+                <title>Sign Up</title>
+            </Head>
             <PopupModal
                 visible={!isSignedIn}
             >

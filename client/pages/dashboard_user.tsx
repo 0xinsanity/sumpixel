@@ -8,6 +8,7 @@ import ViewCommunications from '../components/Dashboard/Designer/ViewCommunicati
 import {UserContext} from '../lib/UserProvider'
 import {User} from '../model/model'
 import {modifyUser} from '../lib/server'
+import Head from 'next/head'
 const {TabPane} = Tabs
 
 interface TabWithCeilingProps {
@@ -29,28 +30,33 @@ const DashboardUser: React.FC = (props) => {
     }
 
     return (
-        <NavigationBar 
-            title={`${currentUser.firstName} ${currentUser.lastName}'s Dashboard`} 
-            subtitle="Modify Profile and View Communications" 
-            footer={
-                    <Tabs defaultActiveKey="1">
-                        <TabPane tab={"Communications"} key={"1"}>
-                            <div style={{borderTop: '1px solid rgb(235, 237, 240)'}}>
-                                <Container isDashboard={true}>
-                                    <ViewCommunications/>
-                                </Container>
-                            </div>
-                        </TabPane>
-                        <TabPane tab={"Profile"} key={"2"}>
-                            <div style={{borderTop: '1px solid rgb(235, 237, 240)'}}>
-                                <Container isDashboard={true}>
-                                    <FormPersonalData changeCurrentUser={updateUser} modifyProfile={true} />
-                                </Container>
-                            </div>
-                        </TabPane>
-                    </Tabs>
-            }
-        />
+        <>
+            <Head>
+                <title>Designer Dashboard</title>
+            </Head>
+            <NavigationBar 
+                title={`${currentUser.firstName} ${currentUser.lastName}'s Dashboard`} 
+                subtitle="Modify Profile and View Communications" 
+                footer={
+                        <Tabs defaultActiveKey="1">
+                            <TabPane tab={"Communications"} key={"1"}>
+                                <div style={{borderTop: '1px solid rgb(235, 237, 240)'}}>
+                                    <Container isDashboard={true}>
+                                        <ViewCommunications/>
+                                    </Container>
+                                </div>
+                            </TabPane>
+                            <TabPane tab={"Profile"} key={"2"}>
+                                <div style={{borderTop: '1px solid rgb(235, 237, 240)'}}>
+                                    <Container isDashboard={true}>
+                                        <FormPersonalData changeCurrentUser={updateUser} modifyProfile={true} />
+                                    </Container>
+                                </div>
+                            </TabPane>
+                        </Tabs>
+                }
+            />
+        </>
     );
 };
 
