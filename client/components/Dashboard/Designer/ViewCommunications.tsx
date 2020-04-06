@@ -39,9 +39,13 @@ const ViewCommunications: React.FC = (props) => {
         if ((currentUser as User).communications === null || (currentUser as User).communications === []) {
             return (<Typography>Our employers are currently taking a look at your profile and will reach out if they express interest in you.</Typography>)
         } else {
-            if (commList == undefined) {
+            if (commList === undefined) {
                 return (<Loading />)
             } else {
+                if ((currentUser as User).grade.score === 0) {
+                    return (<Typography>I'm sorry. We have chosen not to continue with your application. Please contact us if you have any questions about this decision.</Typography>)
+                }
+
                 return (<CommunicationsList communicationList={commList} updateDesignerText={updateDesignerText}/>)
             }
         }

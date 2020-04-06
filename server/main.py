@@ -187,6 +187,7 @@ def graded_designer(grading: DesignerGrade, Authorization: str = Header('')):
     doc = get_user_helper(grading.id)
 
     if doc["graded"] == False:
+        # TODO: Change Message if you have a grade of 0
         slack_message = "Grading for "+ doc["firstName"] + " " + doc["lastName"] + " is completed.\nID: " + grading.id + ".\n SendGrid email sent"
         doc["graded"] = True
         message = Mail(

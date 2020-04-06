@@ -26,6 +26,7 @@ const DashboardUser: React.FC = (props) => {
     }, [])
 
     const updateUser = async (updatedUser: User) => {
+        window.analytics.track('Modify Designer');
         changeUser(updatedUser)
         await modifyUser(updatedUser)
     }

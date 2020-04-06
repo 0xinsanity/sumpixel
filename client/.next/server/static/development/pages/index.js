@@ -197,6 +197,7 @@ const LoginComponent = props => {
   } = props;
 
   const onClick = () => {
+    window.analytics.track('Go to Sign Up');
     next_router__WEBPACK_IMPORTED_MODULE_3___default.a.replace('/signup');
   };
 
@@ -350,6 +351,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const Index = () => {
   const [loading, setLoading] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    window.analytics.page('Login');
+  }, []);
 
   if (loading) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_General_Loading__WEBPACK_IMPORTED_MODULE_4__["default"], null);
@@ -361,6 +365,7 @@ const Index = () => {
       setLoading(false);
       antd__WEBPACK_IMPORTED_MODULE_1__["message"].error("Looks like your password or email is incorrect.");
     }).then(() => {
+      window.analytics.track('Login');
       setLoading(false);
     });
   };
