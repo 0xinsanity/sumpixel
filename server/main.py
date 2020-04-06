@@ -274,8 +274,8 @@ def get_designer_communications(id: str):
     communicationList = []
     for commId in commIds:
         commObj = {}
-        doc_employer = get_employer_helper(doc_comm["employerId"])
         doc_comm = get_communication_helper(commId)
+        doc_employer = get_employer_helper(doc_comm["employerId"])
         
         commObj["communicationId"] = commId
         commObj["designerApprovedTalk"] = doc_comm["designerApprovedTalk"]
@@ -294,8 +294,8 @@ def get_employer_communications(id: str):
     communicationList = []
     for commId in commIds:
         commObj = {}
-        doc_user = get_user_helper(doc_comm["designerId"])
         doc_comm = get_communication_helper(commId)
+        doc_user = get_user_helper(doc_comm["designerId"])
 
         commObj["communicationId"] = commId
         commObj["designerApprovedTalk"] = doc_comm["designerApprovedTalk"]
