@@ -17,6 +17,7 @@ const ViewCommunications: React.FC = (props) => {
     }
 
     const updateDesignerText = async (commId: string, update: DesignerDecisionTalk) => {
+        window.analytics.track((currentUser as User).firstName + " " + (currentUser as User).lastName  + ' updated decision on company - ' + update);
         await updateDesignerDecision(commId, update)
         message.success("Updated Decision")
         setCommList(await getDesignCommunicationsList(currentUser.id))

@@ -1,16 +1,14 @@
-import React, {useContext, useState} from 'react'
-import {Button, Form, Input, Row, Radio, Card, message, Typography} from 'antd'
-import {myFirebase} from '../lib/firebase'
-import {User, Employer, NavBarStatus} from '../model/model'
-import {getUser, getEmployer} from '../lib/server'
-import Router from 'next/router'
-import {UserContext} from '../lib/UserProvider'
+import React, { useEffect} from 'react'
+import {Typography} from 'antd'
 import { Container } from '../components/General/Container';
-import Loading from '../components/General/Loading'
-import LoginComponent from '../components/Login/LoginComponent';
 import Head from 'next/head'
 
 const Terms: React.FC = () => {
+
+    useEffect(() => {
+        window.analytics.page('Terms of Service')
+    }, [])
+
     return (
         <>
             <Head>

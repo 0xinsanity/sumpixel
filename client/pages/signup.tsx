@@ -16,11 +16,16 @@ const SignUp: React.FC = (props) => {
         }
     }, [currentUser])
 
+    useEffect(() => {
+        window.analytics.page('Signup')
+    }, [])
+
     const onFinish = (values) => {
         myFirebase.auth().createUserWithEmailAndPassword(values.email, values.password).then(() => {
             myFirebase.auth().currentUser.updateProfile({
                 displayName: `${values.firstName} ${values.lastName}`
             }).then(() => {
+                window.analytics.track('Firebase Auth Signup');
                 setIsSignedIn(true)
             })
         }).catch((error) => {
@@ -29,6 +34,7 @@ const SignUp: React.FC = (props) => {
     }
 
     const deleteUser = async () => {
+        window.analytics.track('Go Back - Delete Firebase User');
         setTimeout(async () => await myFirebase.auth().currentUser.delete(), 1000)
         changeUser(undefined)
         setIsSignedIn(false)

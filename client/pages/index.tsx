@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import {Button, Form, Input, Row, Radio, Card, message} from 'antd'
 import {myFirebase} from '../lib/firebase'
 import {User, Employer, NavBarStatus} from '../model/model'
@@ -13,6 +13,10 @@ import Head from 'next/head'
 const Index: React.FC = () => {
     const [loading, setLoading] = useState(false)
 
+    useEffect(() => {
+        window.analytics.page('Login')
+    }, [])
+
     if (loading) {
         return (<Loading />)
     }
@@ -23,6 +27,7 @@ const Index: React.FC = () => {
             setLoading(false)
             message.error("Looks like your password or email is incorrect.");
         }).then(() => {
+            window.analytics.track('Login');
             setLoading(false)
         });
     }

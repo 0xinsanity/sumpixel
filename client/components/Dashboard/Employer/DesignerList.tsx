@@ -23,6 +23,7 @@ const DesignerList: React.FC<DesignerListProps> = (props) => {
     }
 
     const onConnect = async (designerId: string) => {
+        window.analytics.track((currentUser as Employer).companyName + ' connects to designer');
         const comm = await createCommunication(designerId, currentUser.id)
         setModalVisibility(false)
         const newUser = {...currentUser, communications: [...currentUser.communications, comm.id]}

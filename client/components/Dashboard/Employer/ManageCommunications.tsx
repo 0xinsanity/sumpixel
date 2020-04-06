@@ -11,6 +11,7 @@ const ManageCommunications: React.FC = (props) => {
     const [commList, setCommList] = useState<CommForEmployer[] | undefined>(undefined)
 
     const updateDecision = async (commId: string, update: EmployerDecisionHire) => {
+        window.analytics.track((currentUser as Employer).companyName + ' updated Decision on Designer - ' + update);
         await updateEmployerDecision(commId, update)
         message.success("Updated Decision")
         setCommList(await getEmployerCommunicationsList(currentUser.id))

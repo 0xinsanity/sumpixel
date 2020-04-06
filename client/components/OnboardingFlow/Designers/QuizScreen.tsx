@@ -36,6 +36,7 @@ const QuizScreen: React.FC<FormProps> = (props) => {
     const [currentQuiz, changeQuiz] = useState<QuizProp>(designerTypes[0])
 
     const submit = () => {
+        window.analytics.track('Completed Quiz');
         currentUser["designType"] = currentQuiz.name
         currentUser["completedQuiz"] = true
         changeCurrentUser(currentUser)

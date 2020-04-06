@@ -14,6 +14,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
     const {isSignUp, onFinish, title} = props
 
     const onClick = () => {
+        window.analytics.track('Go to Sign Up');
         Router.replace('/signup')
     }
 

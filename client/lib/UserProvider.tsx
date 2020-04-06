@@ -44,10 +44,17 @@ class UserProvider extends Component {
         }
 
         if (current !== undefined && current['user_exists'] === undefined) {
-          console.log(current['user_exists'])
             this.changeUser(current as User)
+            window.analytics.identify(current.id, {
+              name: current.name,
+              email: current.email
+            });
             Router.replace('/dashboard_user')
         } else if (current !== undefined && current['employer_exists'] === undefined) {
+            window.analytics.identify(current.id, {
+              name: current.name,
+              email: current.email
+            });
             this.changeUser(current as Employer)
             Router.push('/dashboard_employer')
         } else {

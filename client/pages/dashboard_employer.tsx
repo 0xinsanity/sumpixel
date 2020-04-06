@@ -27,7 +27,12 @@ interface TabWithCeilingProps {
 const DashboardEmployer: React.FC = (props) => {
     const {currentUser, changeUser}  = useContext(UserContext)
 
+    useEffect(() => {
+        window.analytics.page('Employer Dashboard')
+    }, [])
+
     const updateEmployer = async (updatedUser: Employer) => {
+        window.analytics.track('Modify Employer');
         changeUser(updatedUser)
         await modifyEmployer(updatedUser)
     }

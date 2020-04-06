@@ -20,6 +20,11 @@ interface TabWithCeilingProps {
 const DashboardUser: React.FC = (props) => {
     const {currentUser, changeUser}  = useContext(UserContext)
 
+
+    useEffect(() => {
+        window.analytics.page('Designer Dashboard')
+    }, [])
+
     const updateUser = async (updatedUser: User) => {
         changeUser(updatedUser)
         await modifyUser(updatedUser)

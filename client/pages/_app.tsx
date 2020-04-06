@@ -19,3 +19,7 @@ export default function App({ Component, pageProps }) {
         </>
     )
 }
+
+declare global {
+    interface Window { analytics: any; }
+}

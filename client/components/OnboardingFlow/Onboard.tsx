@@ -28,11 +28,13 @@ export const Onboard: React.FC<OnboardProps> = props => {
     const {currentUser, changeUser}  = useContext(UserContext)
 
     const updateUser = async (updatedUser: User) => {
+        window.analytics.track('Create User');
         changeUser(updatedUser)
         await createUser(updatedUser)
     }
 
     const updateEmployer = async (updatedUser: Employer) => {
+        window.analytics.track('Create Employer');
         changeUser(updatedUser)
         await createEmployer(updatedUser)
     }
