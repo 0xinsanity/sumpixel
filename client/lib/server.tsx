@@ -95,3 +95,7 @@ export const getEmployerCommunicationsList = async (id: string): Promise<CommFor
 export const getGradedDesigners = async (id: string): Promise<User[]> => {
     return await request('get-graded-designers', {id})
 }
+
+export const getDesignerFromCommunication = async (id: string): Promise<User> => {
+    return await request('get-designer-from-communication', {id})
+}

@@ -8,7 +8,7 @@ import _ from 'lodash'
 interface DesignerInfoModalProps {
     designer: User
     visible: boolean
-    onConnect: (designerId: string) => void
+    onConnect?: (designerId: string) => void
     setInvisible: () => void
 }
 
@@ -49,15 +49,16 @@ const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
             title={designer.firstName + " " + designer.lastName}
             visible={visible}
             footer={[
+                onConnect !== undefined ?
                 <Button onClick={onClick} type="primary">
                     Connect To {designer.firstName}
-                </Button>]}
+                </Button> : null]}
         >
             <Typography.Title level={3} underline>Our Evaluation</Typography.Title>
             <Typography.Title level={4}>Overall Score: {grade.score}</Typography.Title>
             <Typography.Text>
                 This score is out of 10. 
-                It was carefully picked by our evaluators to give an indication of the ability of this designer related to others on the platform.
+                To learn more about our scoring system, <a target={'_blank'} href={'https://sumpixel.com/manifesto'}>click here.</a>
             </Typography.Text>
             <Typography.Title level={4}>Response From Evaluator:</Typography.Title>
             <Typography.Text>

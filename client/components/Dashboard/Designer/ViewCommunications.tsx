@@ -6,6 +6,11 @@ import {User, CommForDesigner, DesignerDecisionTalk} from '../../../model/model'
 import {Typography, message} from 'antd'
 import Loading from '../../General/Loading'
 import CommunicationsList from './CommunicationsList'
+import styled from 'styled-components'
+
+const Message = styled(Typography)`
+    padding-bottom: 30px;
+`
 
 const ViewCommunications: React.FC = (props) => {
     const {currentUser, changeUser}  = useContext(UserContext)
@@ -34,16 +39,16 @@ const ViewCommunications: React.FC = (props) => {
     }
 
     if (!(currentUser as User).graded) {
-        return (<Typography>It looks you have not been reviewed by our staff yet. Check back later!</Typography>)
+        return (<Message>It looks you have not been reviewed by our staff yet. Check back later!</Message>)
     } else {
         if ((currentUser as User).communications === null || (currentUser as User).communications === []) {
-            return (<Typography>Our employers are currently taking a look at your profile and will reach out if they express interest in you.</Typography>)
+            return (<Message>Our employers are currently taking a look at your profile and will reach out if they express interest in you.</Message>)
         } else {
             if (commList === undefined) {
                 return (<Loading />)
             } else {
                 if ((currentUser as User).grade.score === 0) {
-                    return (<Typography>I'm sorry. We have chosen not to continue with your application. Please contact us if you have any questions about this decision.</Typography>)
+                    return (<Message>I'm sorry. We have chosen not to continue with your application. Please contact us if you have any questions about this decision.</Message>)
                 }
 
                 return (<CommunicationsList communicationList={commList} updateDesignerText={updateDesignerText}/>)

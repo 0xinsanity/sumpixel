@@ -1,9 +1,12 @@
-import React, {useContext} from 'react'
+import React, {useState} from 'react'
 import {UserContext} from '../../../lib/UserProvider'
 import QuizScreen from '../../OnboardingFlow/Designers/QuizScreen'
-import {createUser} from '../../../lib/server'
+import {getDesignerFromCommunication} from '../../../lib/server'
 import {User, DesignerDecisionTalk, EmployerDecisionHire, CommForEmployer} from '../../../model/model'
-import {Typography, List, Radio, Popconfirm, Button} from 'antd'
+import DesignerInfoModal from './DesignerInfoModal'
+import {Typography, List, Radio, Popconfirm, Table} from 'antd'
+import {BigBlackButton} from '../../General/BigBlackButton'
+const {Column} = Table
 
 interface CommunicationsListProps {
     communicationList: CommForEmployer[]
@@ -12,40 +15,59 @@ interface CommunicationsListProps {
 
 const EmployerCommList: React.FC<CommunicationsListProps> = (props) => {
     const {communicationList, updateDecision} = props
+    const [showModal, setModalVisibility] = useState(false) 
+    const [currentDesigner, setCurrentDesigner] = useState<User>(undefined) 
 
     const decisionToText = (dec: DesignerDecisionTalk): string => {
         switch (dec) {
             case DesignerDecisionTalk.UNDECIDED:
-                return ''
+                return 'Reviewing Your Request'
             case DesignerDecisionTalk.WILL_TALK:
-                return `You will soon be in contact with them.`
+                return `Willing to Talk`
             case DesignerDecisionTalk.WILL_NOT_TALK:
-                return `They are not interested in your offer`
+                return `Declines to Talk`
         }
     }
 
+    const onMoreInfo = async (commId: string) => {
+        const user = await getDesignerFromCommunication(commId)
+        setCurrentDesigner(user)
+        setModalVisibility(true)
+    }
+
+
     return (
-        <List
-            style={{width: '100%'}}
-            dataSource={communicationList}
-            bordered
-            renderItem={({communicationId, fullName, designerApprovedTalk, decision}) => (
-                <List.Item>
-                    <List.Item.Meta title={fullName} description={decisionToText(designerApprovedTalk)}/>
-                    {designerApprovedTalk === DesignerDecisionTalk.WILL_TALK ? 
+        <>
+        <DesignerInfoModal setInvisible={() => setModalVisibility(false)}
+                                visible={showModal}
+                               designer={currentDesigner}/>
+        <Table
+                style={{paddingBottom: 10, width: '100%', fontFamily: 'Mark Pro Bold', fontWeight: 'normal'}}
+                size={"large"}
+                dataSource={communicationList}
+                bordered={false}
+            >
+                <Column width={'35%'} title="Name" dataIndex="fullName" key="fullName" />
+                <Column title="Designer's Status" dataIndex="designerApprovedTalk" key="designerApprovedTalk" render={(text) => (
+                    <Typography.Text style={{color: '#000'}}>{decisionToText(text)}</Typography.Text>
+                )}/>
+                <Column align={'center'} title="Decision" dataIndex="decision" key="decision" render={(text, record, index) => (
                     <Popconfirm title={"Are you sure?"}>
-                        <Radio.Group onChange={(e) => updateDecision(communicationId, e.target.value)} value={decision}>
+                        <Radio.Group onChange={(e) => updateDecision(communicationList[index].communicationId, e.target.value)} value={text}>
                             <Radio.Button value={EmployerDecisionHire.UNDECIDED}>Still In Talks</Radio.Button>
                             <Radio.Button value={EmployerDecisionHire.REJECT}>Reject</Radio.Button>
                             <Radio.Button value={EmployerDecisionHire.HIRE}>Hire</Radio.Button>
                         </Radio.Group>
                     </Popconfirm> 
-                    : designerApprovedTalk === DesignerDecisionTalk.UNDECIDED ? 
-                    <Typography.Text>We are contacting {fullName} to inform them you are interested.</Typography.Text>
-                    : null}
-                </List.Item>
-            )}
-        />
+                )} />
+                <Column align={'center'} title="Info" dataIndex="communicationId" key="communicationId" render={(communicationId) => (
+                    <BigBlackButton onClick={() => onMoreInfo(communicationId)}>
+                        More Info
+                    </BigBlackButton>
+                )} />
+                 />
+            </Table>
+            </>
     )
 }
 

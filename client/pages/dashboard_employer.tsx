@@ -17,9 +17,7 @@ const TabObjs = [{name: "Designers", key: "1"},
                 {name: "Communications", key: "2"}, 
                 {name: "Profile", key: "3"}]
 
-
-
-const Background = styled.div`
+export const Background = styled.div`
     background-color: #f7f9fb;
     width: 100%;
 `
@@ -48,9 +46,9 @@ const DashboardEmployer: React.FC = (props) => {
             </Head>
             <NavigationBar 
                 isDesigner={false}
-                subtitle="Designers" 
+                subtitle={`${currentUser.firstName}'s Dashboard`}
                 footer={
-                        <Tabs tabBarGutter={40} tabBarStyle={{opacity: 0.5, paddingBottom: 32}} defaultActiveKey="1">
+                        <Tabs tabBarGutter={40} defaultActiveKey="1">
                             <TabPane tab={TabObjs[0].name} key={TabObjs[0].key}>
                                 <Background>
                                     <Container isDashboard={true}>
@@ -67,9 +65,9 @@ const DashboardEmployer: React.FC = (props) => {
                             </TabPane>
                             <TabPane tab={TabObjs[2].name} key={TabObjs[2].key}>
                                 <Background>
-                                    <Container isDashboard={true}>
+                                    <div style={{display: 'flex', padding: 40, justifyContent: 'left'}}>
                                         <FormBusinessData changeCurrentUser={updateEmployer} modifyProfile={true} />
-                                    </Container>
+                                    </div>
                                 </Background>
                             </TabPane>
                         </Tabs>

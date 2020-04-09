@@ -93,10 +93,10 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "./assets/fonts.css":
-/*!**************************!*\
-  !*** ./assets/fonts.css ***!
-  \**************************/
+/***/ "./assets/theme.less":
+/*!***************************!*\
+  !*** ./assets/theme.less ***!
+  \***************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -252,7 +252,7 @@ const storage_ref = firebase_app__WEBPACK_IMPORTED_MODULE_0__["storage"]().ref()
 /*!************************!*\
   !*** ./lib/server.tsx ***!
   \************************/
-/*! exports provided: getUser, getEmployer, removeUser, removeEmployer, createUser, modifyUser, createEmployer, modifyEmployer, createCommunication, updateDesignerDecision, updateEmployerDecision, getDesignCommunicationsList, getEmployerCommunicationsList, getGradedDesigners */
+/*! exports provided: getUser, getEmployer, removeUser, removeEmployer, createUser, modifyUser, createEmployer, modifyEmployer, createCommunication, updateDesignerDecision, updateEmployerDecision, getDesignCommunicationsList, getEmployerCommunicationsList, getGradedDesigners, getDesignerFromCommunication */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -271,6 +271,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDesignCommunicationsList", function() { return getDesignCommunicationsList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEmployerCommunicationsList", function() { return getEmployerCommunicationsList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGradedDesigners", function() { return getGradedDesigners; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDesignerFromCommunication", function() { return getDesignerFromCommunication; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "axios");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -382,17 +383,11 @@ const getGradedDesigners = async id => {
     id
   });
 };
-
-/***/ }),
-
-/***/ "./node_modules/antd/dist/antd.css":
-/*!*****************************************!*\
-  !*** ./node_modules/antd/dist/antd.css ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
+const getDesignerFromCommunication = async id => {
+  return await request('get-designer-from-communication', {
+    id
+  });
+};
 
 /***/ }),
 
@@ -408,23 +403,80 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return App; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd_dist_antd_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd/dist/antd.css */ "./node_modules/antd/dist/antd.css");
-/* harmony import */ var antd_dist_antd_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd_dist_antd_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/UserProvider */ "./lib/UserProvider.tsx");
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/head */ "next/head");
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _assets_fonts_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/fonts.css */ "./assets/fonts.css");
-/* harmony import */ var _assets_fonts_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_assets_fonts_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/UserProvider */ "./lib/UserProvider.tsx");
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/head */ "next/head");
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _assets_theme_less__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../assets/theme.less */ "./assets/theme.less");
+/* harmony import */ var _assets_theme_less__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_assets_theme_less__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
 
 
+const GlobalInjection = styled_components__WEBPACK_IMPORTED_MODULE_4__["createGlobalStyle"]`
+    .ant-tabs {
+        font-weight: bold;
+        &-nav {
+            padding-bottom: 20px;
+            .ant-tabs-tab {
+                &-active {
+                    font-weight: bold;
+                    color: #000;
+                }
+                &:hover {
+                    color: #000;
+                    opacity: 1.0
+                }
+            }
+        }
+    }
+
+    .ant-table {
+        background: rgba(0,0,0,0);
+        color: #000;
+    }
+
+    .ant-table thead > tr > th {
+        padding-top: 32px;
+        padding-bottom: 16px;
+        color: rgba(0,0,0,0.5);
+        font-family: 'Mark Pro';
+        border-bottom: 1px solid #DAE2EF;
+    }
+
+    .ant-table tbody > tr > th {
+        border-bottom: 1px solid #DAE2EF;
+    }
+
+    tbody {
+        background: rgba(0,0,0,0);
+    }
+
+    .ant-form-item-label {
+        font-family: 'Mark Pro Bold';
+        opacity: 0.8;
+    }
+
+    .ant-input {
+        font-family: 'Mark Pro';
+        border: none;
+        background-color: rgba(0,0,0,0) !important;
+        color: #000;
+        padding: 2px 11px;
+        border-bottom: 1px solid #DAE2EF;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+`;
 function App({
   Component,
   pageProps
 }) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_head__WEBPACK_IMPORTED_MODULE_3___default.a, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_head__WEBPACK_IMPORTED_MODULE_2___default.a, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
     rel: "icon",
     type: "image/png",
     href: "/favicon.png"
@@ -460,7 +512,7 @@ function App({
                         g._v="1.2.0";
                     })(window,document,window['_fs_namespace'],'script','user');`
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_2__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, pageProps)));
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(GlobalInjection, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_1__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, pageProps)));
 }
 
 /***/ }),
@@ -551,6 +603,17 @@ module.exports = require("next/router");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "styled-components":
+/*!************************************!*\
+  !*** external "styled-components" ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("styled-components");
 
 /***/ })
 

@@ -12,14 +12,12 @@ const {TabPane} = Tabs
 const SumpixelHeader = styled(PageHeader)`
     background: #DAE2EF;
     padding: 30px 8%;
+    min-height: 100vh;
 `
 
 const LogoutButton = styled(Button)`
     color: #000000;
     padding-top: 10px;
-    &:hover {
-        color: ${UNIVERSAL_COLOR} !important;
-    }
 `
 const Line = styled.div`
     border: 0.5px solid #000000;

@@ -9,6 +9,7 @@ import {UserContext} from '../lib/UserProvider'
 import {User} from '../model/model'
 import {modifyUser} from '../lib/server'
 import Head from 'next/head'
+import {Background} from './dashboard_employer'
 const {TabPane} = Tabs
 
 interface TabWithCeilingProps {
@@ -42,22 +43,22 @@ const DashboardUser: React.FC = (props) => {
             </Head>
             <NavigationBar 
                 isDesigner={true}
-                subtitle="Modify Profile and View Communications" 
+                subtitle={`${currentUser.firstName}'s Dashboard`} 
                 footer={
                         <Tabs defaultActiveKey="1">
                             <TabPane tab={"Communications"} key={"1"}>
-                                <div style={{borderTop: '1px solid rgb(235, 237, 240)'}}>
+                                <Background>
                                     <Container isDashboard={true}>
                                         <ViewCommunications/>
                                     </Container>
-                                </div>
+                                </Background>
                             </TabPane>
                             <TabPane tab={"Profile"} key={"2"}>
-                                <div style={{borderTop: '1px solid rgb(235, 237, 240)'}}>
-                                    <Container isDashboard={true}>
+                                <Background>
+                                    <div style={{display: 'flex', padding: 40, justifyContent: 'left'}}>
                                         <FormPersonalData changeCurrentUser={updateUser} modifyProfile={true} />
-                                    </Container>
-                                </div>
+                                    </div>
+                                </Background>
                             </TabPane>
                         </Tabs>
                 }

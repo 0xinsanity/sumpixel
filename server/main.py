@@ -308,6 +308,12 @@ def get_employer_communications(id: str):
     return communicationList
 
 
+@app.get("/get-designer-from-communication")
+def get_designer_from_communication(id: str):
+    comm = get_communication_helper(id)
+    user = get_user_helper(comm["designerId"])
+    return user
+
 @app.post("/update-designer-decision")
 def update_designer_decision(update: UpdateDesignerDecision):
     doc_ref = db.collection('communications').document(update.id)

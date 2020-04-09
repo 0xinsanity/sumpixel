@@ -9,6 +9,7 @@ import {storage_ref, myFirebase} from '../../../lib/firebase'
 import {removeUser} from '../../../lib/server'
 import {UserContext} from '../../../lib/UserProvider'
 import Loading from '../../General/Loading'
+import {BigBlackButton} from '../../General/BigBlackButton'
 const {Option} = Select
 
 interface FormPersonalDataProps extends FormProps {
@@ -245,9 +246,9 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
                             Back
                         </Button>
                         : null}
-                        <Button type="primary" htmlType="submit">
+                        <BigBlackButton style={{marginTop: 10}} htmlType="submit">
                             {!isModifyProfilePage ? "Take The Quiz" : "Update Profile" }
-                        </Button>
+                        </BigBlackButton>
                     </Row>
                 </Form.Item> 
            

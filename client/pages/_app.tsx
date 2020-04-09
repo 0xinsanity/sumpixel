@@ -1,8 +1,66 @@
 import React, {useEffect} from 'react'
-import 'antd/dist/antd.css'
 import UserProvider from '../lib/UserProvider'
 import Head from 'next/head'
-import '../assets/fonts.css'
+import '../assets/theme.less'
+import {createGlobalStyle} from 'styled-components'
+
+const GlobalInjection = createGlobalStyle`
+    .ant-tabs {
+        font-weight: bold;
+        &-nav {
+            padding-bottom: 20px;
+            .ant-tabs-tab {
+                &-active {
+                    font-weight: bold;
+                    color: #000;
+                }
+                &:hover {
+                    color: #000;
+                    opacity: 1.0
+                }
+            }
+        }
+    }
+
+    .ant-table {
+        background: rgba(0,0,0,0);
+        color: #000;
+    }
+
+    .ant-table thead > tr > th {
+        padding-top: 32px;
+        padding-bottom: 16px;
+        color: rgba(0,0,0,0.5);
+        font-family: 'Mark Pro';
+        border-bottom: 1px solid #DAE2EF;
+    }
+
+    .ant-table tbody > tr > th {
+        border-bottom: 1px solid #DAE2EF;
+    }
+
+    tbody {
+        background: rgba(0,0,0,0);
+    }
+
+    .ant-form-item-label {
+        font-family: 'Mark Pro Bold';
+        opacity: 0.8;
+    }
+
+    .ant-input {
+        font-family: 'Mark Pro';
+        border: none;
+        background-color: rgba(0,0,0,0) !important;
+        color: #000;
+        padding: 2px 11px;
+        border-bottom: 1px solid #DAE2EF;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+`
 
 export default function App({ Component, pageProps }) {
     return (
@@ -36,6 +94,7 @@ export default function App({ Component, pageProps }) {
                         g._v="1.2.0";
                     })(window,document,window['_fs_namespace'],'script','user');`}}/>
             </Head>
+            <GlobalInjection/>
             <UserProvider>
                 <Component {...pageProps} />
             </UserProvider>
