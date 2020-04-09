@@ -28,6 +28,8 @@ origins = [
     'https://sumpixel-client.now.sh',
     'http://app.sumpixel.com',
     'https://app.sumpixel.com',
+    'https://sumpixel-client-nhano0228.sumpixel.now.sh',
+    'http://sumpixel-client-nhano0228.sumpixel.now.sh',
 ]
 
 app.add_middleware(
