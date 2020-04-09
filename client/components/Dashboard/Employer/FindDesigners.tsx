@@ -16,8 +16,8 @@ const FindDesigners: React.FC = (props) => {
             setDesignerList(_.map(commList, (user: User) => ({
                 name_feedback: [(user.firstName + " " + user.lastName), user.grade.response],
                 score: user.grade.score,
-                expiration: '3 Days',
-                experience: '4 Years',
+                location: user.location,
+                experience: 4,
                 primary_skill: user.designType,
                 contact: user
             })))

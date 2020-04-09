@@ -72,12 +72,14 @@ const DesignerList: React.FC<DesignerListProps> = (props) => {
                         <ResponseTitle>{name_feedback[1]}</ResponseTitle>
                     </>
                 )}/>
-                <Column onCell={(data, index) => ({style: {color: UNIVERSAL_COLOR, fontWeight: 700}})} align={'center'} title="Score" dataIndex="score" key="score" />
-                <Column align={'center'} title="Expiration" dataIndex="expiration" key="expiration" />
+                <Column align={'center'} title="Score" dataIndex="score" key="score" render={(text) => (
+                    <Typography.Text style={{color: UNIVERSAL_COLOR}}><Typography.Text style={{color: UNIVERSAL_COLOR, fontFamily: 'Mark Pro Bold'}}>{text}</Typography.Text>/10</Typography.Text>
+                )} />
+                <Column align={'center'} title="Location" dataIndex="location" key="location" />
                 <Column align={'center'} title="Primary Skill" dataIndex="primary_skill" key="primary_skill" />
-                <Column align={'center'} title="Contact" dataIndex="contact" key="contact" render={(contact) => (
+                <Column align={'center'} title="More" dataIndex="contact" key="contact" render={(contact) => (
                     <BigBlackButton onClick={() => onMoreInfo(contact)}>
-                        Request Call
+                        More Info/Contact
                     </BigBlackButton>
                 )} />
             </Table>

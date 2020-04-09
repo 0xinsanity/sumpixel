@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -411,17 +411,14 @@ __webpack_require__.r(__webpack_exports__);
 const {
   Column
 } = antd__WEBPACK_IMPORTED_MODULE_4__["Table"];
-const NameTitle = styled_components__WEBPACK_IMPORTED_MODULE_6___default()(antd__WEBPACK_IMPORTED_MODULE_4__["Typography"])`
-    color: #000000;
-    font-family: 'Mark Pro Bold';
-    font-size: 16px;
-`;
-const ResponseTitle = styled_components__WEBPACK_IMPORTED_MODULE_6___default()(antd__WEBPACK_IMPORTED_MODULE_4__["Typography"])`
-    color: #000000;
-    opacity: 0.5;
-    font-size; 14px;
-    font-family: 'Mark Pro';
-`;
+const NameTitle = styled_components__WEBPACK_IMPORTED_MODULE_6___default()(antd__WEBPACK_IMPORTED_MODULE_4__["Typography"]).withConfig({
+  displayName: "DesignerList__NameTitle",
+  componentId: "sc-4gjozu-0"
+})(["color:#000000;font-family:'Mark Pro Bold';font-size:16px;"]);
+const ResponseTitle = styled_components__WEBPACK_IMPORTED_MODULE_6___default()(antd__WEBPACK_IMPORTED_MODULE_4__["Typography"]).withConfig({
+  displayName: "DesignerList__ResponseTitle",
+  componentId: "sc-4gjozu-1"
+})(["color:#000000;opacity:0.5;font-size;14px;font-family:'Mark Pro';"]);
 
 const DesignerList = props => {
   const {
@@ -476,21 +473,25 @@ const DesignerList = props => {
     key: "name_feedback",
     render: name_feedback => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(NameTitle, null, name_feedback[0]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ResponseTitle, null, name_feedback[1]))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, {
-    onCell: (data, index) => ({
-      style: {
-        color: _model_model__WEBPACK_IMPORTED_MODULE_2__["UNIVERSAL_COLOR"],
-        fontWeight: 700
-      }
-    }),
     align: 'center',
     title: "Score",
     dataIndex: "score",
-    key: "score"
+    key: "score",
+    render: text => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Typography"].Text, {
+      style: {
+        color: _model_model__WEBPACK_IMPORTED_MODULE_2__["UNIVERSAL_COLOR"]
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Typography"].Text, {
+      style: {
+        color: _model_model__WEBPACK_IMPORTED_MODULE_2__["UNIVERSAL_COLOR"],
+        fontFamily: 'Mark Pro Bold'
+      }
+    }, text), "/10")
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, {
     align: 'center',
-    title: "Expiration",
-    dataIndex: "expiration",
-    key: "expiration"
+    title: "Location",
+    dataIndex: "location",
+    key: "location"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, {
     align: 'center',
     title: "Primary Skill",
@@ -498,12 +499,12 @@ const DesignerList = props => {
     key: "primary_skill"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, {
     align: 'center',
-    title: "Contact",
+    title: "More",
     dataIndex: "contact",
     key: "contact",
     render: contact => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_7__["BigBlackButton"], {
       onClick: () => onMoreInfo(contact)
-    }, "Request Call")
+    }, "More Info/Contact")
   })));
 };
 
@@ -661,8 +662,8 @@ const FindDesigners = props => {
       setDesignerList(lodash__WEBPACK_IMPORTED_MODULE_5___default.a.map(commList, user => ({
         name_feedback: [user.firstName + " " + user.lastName, user.grade.response],
         score: user.grade.score,
-        expiration: '3 Days',
-        experience: '4 Years',
+        location: user.location,
+        experience: 4,
         primary_skill: user.designType,
         contact: user
       })));
@@ -2008,7 +2009,7 @@ const DashboardUser = props => {
 
 /***/ }),
 
-/***/ 6:
+/***/ 4:
 /*!****************************************!*\
   !*** multi ./pages/dashboard_user.tsx ***!
   \****************************************/
