@@ -93,6 +93,17 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "./assets/fonts.css":
+/*!**************************!*\
+  !*** ./assets/fonts.css ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
 /***/ "./lib/UserProvider.tsx":
 /*!******************************!*\
   !*** ./lib/UserProvider.tsx ***!
@@ -402,6 +413,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/UserProvider */ "./lib/UserProvider.tsx");
 /* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/head */ "next/head");
 /* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _assets_fonts_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/fonts.css */ "./assets/fonts.css");
+/* harmony import */ var _assets_fonts_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_assets_fonts_css__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 

@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import 'antd/dist/antd.css'
 import UserProvider from '../lib/UserProvider'
 import Head from 'next/head'
+import '../assets/fonts.css'
 
 export default function App({ Component, pageProps }) {
     return (

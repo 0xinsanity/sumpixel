@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react'
-import {Tabs, Spin} from 'antd'
+import {Tabs} from 'antd'
 import Loading from '../components/General/Loading'
 import {Container} from '../components/General/Container'
 import NavigationBar from '../components/Dashboard/NavigationBar'
@@ -7,22 +7,22 @@ import FormBusinessData from '../components/OnboardingFlow/Employers/FormBusines
 import FindDesigners from '../components/Dashboard/Employer/FindDesigners'
 import ManageCommunications from '../components/Dashboard/Employer/ManageCommunications'
 import {UserContext} from '../lib/UserProvider'
-import {Employer} from '../model/model'
+import {Employer, UNIVERSAL_COLOR} from '../model/model'
 import { modifyEmployer} from '../lib/server'
 import Head from 'next/head'
 import styled from 'styled-components'
 const {TabPane} = Tabs
 
-const ContAbove = styled.div`
-    width: 100%;
-    border-top: 1px solid rgb(235, 237, 240);
-`
+const TabObjs = [{name: "Designers", key: "1"}, 
+                {name: "Communications", key: "2"}, 
+                {name: "Profile", key: "3"}]
 
-interface TabWithCeilingProps {
-    tab: string;
-    key: string;
-    children: React.ReactNode
-}
+
+
+const Background = styled.div`
+    background-color: #f7f9fb;
+    width: 100%;
+`
 
 const DashboardEmployer: React.FC = (props) => {
     const {currentUser, changeUser}  = useContext(UserContext)
@@ -47,30 +47,30 @@ const DashboardEmployer: React.FC = (props) => {
                 <title>Employer Dashboard</title>
             </Head>
             <NavigationBar 
-                title={`${(currentUser as Employer).companyName}'s Dashboard`} 
-                subtitle="Find New Employees, Manage Communications, and Modify Profile" 
+                isDesigner={false}
+                subtitle="Designers" 
                 footer={
-                        <Tabs defaultActiveKey="1">
-                            <TabPane tab={"Designers"} key={"1"}>
-                                <ContAbove>
+                        <Tabs tabBarGutter={40} tabBarStyle={{opacity: 0.5, paddingBottom: 32}} defaultActiveKey="1">
+                            <TabPane tab={TabObjs[0].name} key={TabObjs[0].key}>
+                                <Background>
                                     <Container isDashboard={true}>
                                         <FindDesigners/>
                                     </Container>
-                                </ContAbove>
+                                </Background>
                             </TabPane>
-                            <TabPane tab={"Communications"} key={"2"}>
-                                <ContAbove>
+                            <TabPane tab={TabObjs[1].name} key={TabObjs[1].key}>
+                                <Background>
                                     <Container isDashboard={true}>
                                         <ManageCommunications/>
                                     </Container>
-                                </ContAbove>
+                                </Background>
                             </TabPane>
-                            <TabPane tab={"Profile"} key={"3"}>
-                                <ContAbove>
+                            <TabPane tab={TabObjs[2].name} key={TabObjs[2].key}>
+                                <Background>
                                     <Container isDashboard={true}>
                                         <FormBusinessData changeCurrentUser={updateEmployer} modifyProfile={true} />
                                     </Container>
-                                </ContAbove>
+                                </Background>
                             </TabPane>
                         </Tabs>
                 }

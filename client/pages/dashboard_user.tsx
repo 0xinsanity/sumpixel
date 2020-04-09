@@ -41,7 +41,7 @@ const DashboardUser: React.FC = (props) => {
                 <title>Designer Dashboard</title>
             </Head>
             <NavigationBar 
-                title={`${currentUser.firstName} ${currentUser.lastName}'s Dashboard`} 
+                isDesigner={true}
                 subtitle="Modify Profile and View Communications" 
                 footer={
                         <Tabs defaultActiveKey="1">

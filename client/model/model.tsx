@@ -1,3 +1,5 @@
+export const UNIVERSAL_COLOR = '#5E0BEF'
+
 export interface User {
     id: string;
     email: string;
