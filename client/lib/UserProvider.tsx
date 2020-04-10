@@ -4,6 +4,7 @@ import {User, Employer} from '../model/model'
 import {getEmployer, getUser} from './server'
 import Router from "next/router";
 import {message} from 'antd'
+import Loading from '../components/General/Loading'
 
 interface ContextProps {
     currentUser: User | Employer | null,
@@ -16,29 +17,32 @@ export const UserContext = createContext<Partial<ContextProps>>({
 });
 class UserProvider extends Component {
   changeUser = (newUser: User | Employer | null) => {
-      this.setState({currentUser: newUser})
+      this.setState({currentUser: newUser, loading: false})
   }
 
   state = {
+    loading: false,
     currentUser: null,
     changeUser: this.changeUser
   };
 
   componentDidMount = () => {
     myFirebase.auth().onAuthStateChanged(async (userAuth) => {
+        this.setState({loading: true})
         if (userAuth === null) {
+            this.setState({loading: false})
             return
         }
 
         if (userAuth.isAnonymous) {
           console.log('userauth:' + userAuth)
-          this.setState({currentUser: {
-              firstName: '',
-              lastName: '',
-              email: '',
-              id: userAuth.uid,
-              isAnonymous: true
-          } as Employer})
+          this.changeUser({
+            firstName: '',
+            lastName: '',
+            email: '',
+            id: userAuth.uid,
+            isAnonymous: true
+          } as Employer)
           return
         }
 
@@ -85,6 +89,10 @@ class UserProvider extends Component {
     });
   };
   render() {
+    if (this.state.loading) {
+      return (<Loading/>)
+    }
+
     return (
       <UserContext.Provider value={this.state}>
         {this.props.children}

@@ -10,7 +10,7 @@ export const SumpixelCard: React.FC<{withLink?: boolean}> = (props) => {
     }
 
     return (
-        <Card style={{paddingLeft: 20, paddingRight: 20}} title={logo}>
+        <Card style={{paddingLeft: 20, paddingRight: 20, maxHeight: '100vh'}} title={logo}>
                 {props.children}
         </Card>
     )

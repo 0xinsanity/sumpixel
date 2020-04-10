@@ -38,10 +38,10 @@ const EmployerCommList: React.FC<CommunicationsListProps> = (props) => {
 
     return (
         <>
-        <DesignerInfoModal setInvisible={() => setModalVisibility(false)}
+            <DesignerInfoModal setInvisible={() => setModalVisibility(false)}
                                 visible={showModal}
                                designer={currentDesigner}/>
-        <Table
+            <Table
                 style={{paddingBottom: 10, width: '100%', fontFamily: 'Mark Pro Bold', fontWeight: 'normal'}}
                 size={"large"}
                 dataSource={communicationList}
@@ -54,7 +54,7 @@ const EmployerCommList: React.FC<CommunicationsListProps> = (props) => {
                 <Column align={'center'} title="Decision" dataIndex="decision" key="decision" render={(text, record, index) => (
                     <Popconfirm title={"Are you sure?"}>
                         <Radio.Group onChange={(e) => updateDecision(communicationList[index].communicationId, e.target.value)} value={text}>
-                            <Radio.Button value={EmployerDecisionHire.UNDECIDED}>Still In Talks</Radio.Button>
+                            <Radio.Button value={EmployerDecisionHire.UNDECIDED}>Reviewing</Radio.Button>
                             <Radio.Button value={EmployerDecisionHire.REJECT}>Reject</Radio.Button>
                             <Radio.Button value={EmployerDecisionHire.HIRE}>Hire</Radio.Button>
                         </Radio.Group>
@@ -67,7 +67,7 @@ const EmployerCommList: React.FC<CommunicationsListProps> = (props) => {
                 )} />
                  />
             </Table>
-            </>
+        </>
     )
 }
 

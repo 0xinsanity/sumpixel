@@ -73,6 +73,17 @@ const GlobalInjection = createGlobalStyle`
     .ant-form-item-has-error .ant-input:focus {
         box-shadow: none;
     }
+
+    @media (max-width: 768px) {
+        .ant-page-header-heading-extra {
+            display: contents;
+        }
+
+        .ant-page-header-heading {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 `
 
 export default function App({ Component, pageProps }) {

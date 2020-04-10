@@ -14,24 +14,16 @@ import { LoginBackground } from '../components/Login/LoginFlowContainer'
 
 
 const Index: React.FC = () => {
-    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         window.analytics.page('Login')
     }, [])
 
-    if (loading) {
-        return (<Loading />)
-    }
-
     const onFinish = (values) => {
-        setLoading(true)
         myFirebase.auth().signInWithEmailAndPassword(values.email, values.password).catch(error => {
-            setLoading(false)
             message.error("Looks like your password or email is incorrect.");
         }).then(() => {
             window.analytics.track('Login');
-            setLoading(false)
         });
     }
 

@@ -23,7 +23,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
 
     return (
         <div style={{display: 'flex', flexDirection: 'column'}}>
-            <SumpixelCard>
+            <SumpixelCard withLink={isSignUp}>
                 <Form
                     hideRequiredMark={true}
                     name="basic"
@@ -82,7 +82,8 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                                             opacity: "0.5",
                                             textAlign: "right",
                                             fontSize: "12px",
-                                            padding: "0"}} 
+                                            padding: "0"
+                                        }} 
                                         onClick={() => {Router.push('/forgotpassword')}} 
                                         type="link">                    
                                         Forgot Password.

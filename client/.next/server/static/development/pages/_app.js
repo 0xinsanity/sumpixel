@@ -104,6 +104,39 @@ module.exports =
 
 /***/ }),
 
+/***/ "./components/General/Loading.tsx":
+/*!****************************************!*\
+  !*** ./components/General/Loading.tsx ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const Cont = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
+  displayName: "Loading__Cont",
+  componentId: "sc-1ta1ost-0"
+})(["position:fixed;display:flex;width:100%;height:100%;justify-content:center;align-items:center;"]);
+
+const Loading = () => {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Cont, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Spin"], {
+    size: "large"
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Loading);
+
+/***/ }),
+
 /***/ "./lib/UserProvider.tsx":
 /*!******************************!*\
   !*** ./lib/UserProvider.tsx ***!
@@ -120,7 +153,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _server__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./server */ "./lib/server.tsx");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/router */ "next/router");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_General_Loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/General/Loading */ "./components/General/Loading.tsx");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -137,31 +172,38 @@ class UserProvider extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 
     _defineProperty(this, "changeUser", newUser => {
       this.setState({
-        currentUser: newUser
+        currentUser: newUser,
+        loading: false
       });
     });
 
     _defineProperty(this, "state", {
+      loading: false,
       currentUser: null,
       changeUser: this.changeUser
     });
 
     _defineProperty(this, "componentDidMount", () => {
       _firebase__WEBPACK_IMPORTED_MODULE_1__["myFirebase"].auth().onAuthStateChanged(async userAuth => {
+        this.setState({
+          loading: true
+        });
+
         if (userAuth === null) {
+          this.setState({
+            loading: false
+          });
           return;
         }
 
         if (userAuth.isAnonymous) {
           console.log('userauth:' + userAuth);
-          this.setState({
-            currentUser: {
-              firstName: '',
-              lastName: '',
-              email: '',
-              id: userAuth.uid,
-              isAnonymous: true
-            }
+          this.changeUser({
+            firstName: '',
+            lastName: '',
+            email: '',
+            id: userAuth.uid,
+            isAnonymous: true
           });
           return;
         } // This is some of the worst code I've ever made
@@ -211,6 +253,10 @@ class UserProvider extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   }
 
   render() {
+    if (this.state.loading) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_General_Loading__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+    }
+
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UserContext.Provider, {
       value: this.state
     }, this.props.children);
@@ -498,6 +544,17 @@ const GlobalInjection = styled_components__WEBPACK_IMPORTED_MODULE_4__["createGl
     .ant-form-item-has-error .ant-input:focus {
         box-shadow: none;
     }
+
+    @media (max-width: 768px) {
+        .ant-page-header-heading-extra {
+            display: contents;
+        }
+
+        .ant-page-header-heading {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 `;
 function App({
   Component,
@@ -553,6 +610,17 @@ function App({
 
 module.exports = __webpack_require__(/*! private-next-pages/_app.tsx */"./pages/_app.tsx");
 
+
+/***/ }),
+
+/***/ "antd":
+/*!***********************!*\
+  !*** external "antd" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("antd");
 
 /***/ }),
 

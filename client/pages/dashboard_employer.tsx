@@ -22,6 +22,7 @@ const TabObjs = [{name: "Designers", key: "1"},
 export const Background = styled.div`
     background-color: ${UNIVERSAL_BACKGROUND};
     width: 100%;
+    overflow: scroll;
 `
 
 const DashboardEmployer: React.FC = (props) => {

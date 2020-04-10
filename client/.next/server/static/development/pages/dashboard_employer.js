@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -434,7 +434,7 @@ const EmployerCommList = props => {
       value: text
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Radio"].Button, {
       value: _model_model__WEBPACK_IMPORTED_MODULE_2__["EmployerDecisionHire"].UNDECIDED
-    }, "Still In Talks"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Radio"].Button, {
+    }, "Reviewing"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Radio"].Button, {
       value: _model_model__WEBPACK_IMPORTED_MODULE_2__["EmployerDecisionHire"].REJECT
     }, "Reject"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Radio"].Button, {
       value: _model_model__WEBPACK_IMPORTED_MODULE_2__["EmployerDecisionHire"].HIRE
@@ -944,7 +944,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _server__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./server */ "./lib/server.tsx");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/router */ "next/router");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_General_Loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/General/Loading */ "./components/General/Loading.tsx");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -961,31 +963,38 @@ class UserProvider extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 
     _defineProperty(this, "changeUser", newUser => {
       this.setState({
-        currentUser: newUser
+        currentUser: newUser,
+        loading: false
       });
     });
 
     _defineProperty(this, "state", {
+      loading: false,
       currentUser: null,
       changeUser: this.changeUser
     });
 
     _defineProperty(this, "componentDidMount", () => {
       _firebase__WEBPACK_IMPORTED_MODULE_1__["myFirebase"].auth().onAuthStateChanged(async userAuth => {
+        this.setState({
+          loading: true
+        });
+
         if (userAuth === null) {
+          this.setState({
+            loading: false
+          });
           return;
         }
 
         if (userAuth.isAnonymous) {
           console.log('userauth:' + userAuth);
-          this.setState({
-            currentUser: {
-              firstName: '',
-              lastName: '',
-              email: '',
-              id: userAuth.uid,
-              isAnonymous: true
-            }
+          this.changeUser({
+            firstName: '',
+            lastName: '',
+            email: '',
+            id: userAuth.uid,
+            isAnonymous: true
           });
           return;
         } // This is some of the worst code I've ever made
@@ -1035,6 +1044,10 @@ class UserProvider extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   }
 
   render() {
+    if (this.state.loading) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_General_Loading__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+    }
+
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UserContext.Provider, {
       value: this.state
     }, this.props.children);
@@ -1342,7 +1355,7 @@ const TabObjs = [{
 const Background = styled_components__WEBPACK_IMPORTED_MODULE_12___default.a.div.withConfig({
   displayName: "dashboard_employer__Background",
   componentId: "sc-1yrkndj-0"
-})(["background-color:", ";width:100%;"], _model_model__WEBPACK_IMPORTED_MODULE_9__["UNIVERSAL_BACKGROUND"]);
+})(["background-color:", ";width:100%;overflow:scroll;"], _model_model__WEBPACK_IMPORTED_MODULE_9__["UNIVERSAL_BACKGROUND"]);
 
 const DashboardEmployer = props => {
   const {
@@ -1425,7 +1438,7 @@ const DashboardEmployer = props => {
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!********************************************!*\
   !*** multi ./pages/dashboard_employer.tsx ***!
   \********************************************/
