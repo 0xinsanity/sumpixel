@@ -3,6 +3,7 @@ import UserProvider from '../lib/UserProvider'
 import Head from 'next/head'
 import '../assets/theme.less'
 import {createGlobalStyle} from 'styled-components'
+import { NextSeo } from 'next-seo';
 
 const GlobalInjection = createGlobalStyle`
     .ant-tabs {
@@ -118,6 +119,22 @@ export default function App({ Component, pageProps }) {
                         g._v="1.2.0";
                     })(window,document,window['_fs_namespace'],'script','user');`}}/>
             </Head>
+            <NextSeo 
+                title="Sumpixel: Login"
+                description="Whether you're an employer or user, access your dashboard here."
+                openGraph={{
+                    url: 'https://www.app.sumpixel.com',
+                    title: 'Sumpixel: Login',
+                    description: `Whether you're an employer or user, access your dashboard here.`,
+                    images: [
+                      {
+                        url: 'http://drive.google.com/uc?export=view&id=1dfL1wCZHajyVhBO6q3D5cZUvyU1n_TfT',
+                        alt: 'Sumpixel Logo',
+                      }
+                    ],
+                    site_name: 'Sumpixel Dashboard',
+                  }}
+                />
             <GlobalInjection/>
             <UserProvider>
                 <Component {...pageProps} />
