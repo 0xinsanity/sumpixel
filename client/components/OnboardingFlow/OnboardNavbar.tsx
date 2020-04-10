@@ -35,7 +35,7 @@ export const OnboardNavbar: React.FC<OnboardNavbarProps> = (props) => {
     }
 
     return (
-        <Steps style={{paddingBottom: 20, justifyContent: 'center'}} current={props.currentStep}>
+        <Steps style={{fontFamily: 'Mark Pro', paddingBottom: 20, justifyContent: 'center'}} current={props.currentStep}>
             {_.map(steps, ({title, desc}) => {
                 return (<Step title={title} description={desc}/>)
             })}

@@ -7,7 +7,7 @@ import FormBusinessData from '../components/OnboardingFlow/Employers/FormBusines
 import FindDesigners from '../components/Dashboard/Employer/FindDesigners'
 import ManageCommunications from '../components/Dashboard/Employer/ManageCommunications'
 import {UserContext} from '../lib/UserProvider'
-import {Employer} from '../model/model'
+import {Employer, UNIVERSAL_BACKGROUND} from '../model/model'
 import { modifyEmployer} from '../lib/server'
 import Head from 'next/head'
 import styled from 'styled-components'
@@ -20,7 +20,7 @@ const TabObjs = [{name: "Designers", key: "1"},
                 {name: "Profile", key: "3"}]
 
 export const Background = styled.div`
-    background-color: #f7f9fb;
+    background-color: ${UNIVERSAL_BACKGROUND};
     width: 100%;
 `
 

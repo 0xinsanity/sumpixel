@@ -15024,6 +15024,18 @@ const GlobalInjection = styled_components__WEBPACK_IMPORTED_MODULE_4__["createGl
             box-shadow: none;
         }
     }
+
+    .ant-card-head {
+        display: -webkit-flex;
+        justify-content: center;
+        padding-top: 16px;
+        padding-bottom: 18px;
+        border-bottom-width: 0px;
+    }
+
+    .ant-form-item-has-error .ant-input:focus {
+        box-shadow: none;
+    }
 `;
 function App({
   Component,

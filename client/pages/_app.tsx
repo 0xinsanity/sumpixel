@@ -60,6 +60,18 @@ const GlobalInjection = createGlobalStyle`
             box-shadow: none;
         }
     }
+
+    .ant-card-head {
+        display: -webkit-flex;
+        justify-content: center;
+        padding-top: 16px;
+        padding-bottom: 18px;
+        border-bottom-width: 0px;
+    }
+
+    .ant-form-item-has-error .ant-input:focus {
+        box-shadow: none;
+    }
 `
 
 export default function App({ Component, pageProps }) {

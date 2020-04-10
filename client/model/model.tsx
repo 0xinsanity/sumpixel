@@ -1,4 +1,5 @@
 export const UNIVERSAL_COLOR = '#5E0BEF'
+export const UNIVERSAL_BACKGROUND = '#F7F9FB'
 
 export interface User {
     id: string;

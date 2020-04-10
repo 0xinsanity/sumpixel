@@ -6,7 +6,6 @@ import {User, NavBarStatus, Employer} from '../../model/model'
 import FormPersonalData from './Designers/FormPersonalData'
 import FormBusinessData from './Employers/FormBusinessData'
 import QuizScreen from './Designers/QuizScreen'
-import Verification from './Employers/Verification'
 import EmployerDesigner from './EmployerDesigner'
 import styled from 'styled-components'
 import {UserContext} from '../../lib/UserProvider'
@@ -64,8 +63,7 @@ export const Onboard: React.FC<OnboardProps> = props => {
             if (navBarStatus == NavBarStatus.Designer) {
                 Router.push('/dashboard_user');
             } else {
-                currentForm = <Verification changeStep={(change) => changeStep(currentStep + change)}
-                                     changeCurrentUser={async (user) => await updateEmployer(user)}/>;
+                Router.replace('/dashboard_employer')
             }
             break;
     }

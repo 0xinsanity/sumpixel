@@ -5,8 +5,9 @@ import FormProps from './FormProps'
 import {removeUser} from '../../lib/server'
 import {NavBarStatus} from '../../model/model'
 import styled from 'styled-components'
+import { BigBlackButton } from '../General/BigBlackButton';
 
-const EMButton = styled(Button)`
+const EMButton = styled(BigBlackButton)`
     margin-bottom: 30px
 `
 

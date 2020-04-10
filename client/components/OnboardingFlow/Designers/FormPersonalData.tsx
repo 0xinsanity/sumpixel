@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react'
 import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import _ from 'lodash'
-import {User, VisaStatus, NavBarStatus} from '../../../model/model'
+import {User, VisaStatus, NavBarStatus, UNIVERSAL_COLOR} from '../../../model/model'
 import FormProps from '../FormProps'
 import {UploadFile} from 'antd/lib/upload/interface'
 import {storage_ref, myFirebase} from '../../../lib/firebase'
@@ -65,7 +65,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
 
     const onFinish = (values) => {
         if (!isModifyProfilePage && !checked) {
-            message.error('Please agree to the Terms and Service')
+            message.error('Please agree to the Terms of Service')
             return
         }
 
@@ -235,16 +235,16 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
                 <Form.Item 
                     valuePropName={'checked'}
                 >
-                    <Checkbox checked={checked} onChange={(e) => changeChecked(e.target.checked)}>Agree to The <a style={{color: '#0000FF'}} target={'_blank'} href={'/terms'}>Terms and Services</a></Checkbox>
+                    <Checkbox style={{fontFamily: 'Mark Pro'}} checked={checked} onChange={(e) => changeChecked(e.target.checked)}>Agree to The <a style={{color: UNIVERSAL_COLOR}} target={'_blank'} href={'/terms'}>Terms of Services</a></Checkbox>
             </Form.Item> 
             : null}
 
                 <Form.Item>
                     <Row justify="space-between" align="middle">
                         {!isModifyProfilePage ? 
-                        <Button type="default" onClick={goBack}>
+                        <BigBlackButton type="default" onClick={goBack}>
                             Back
-                        </Button>
+                        </BigBlackButton>
                         : null}
                         <BigBlackButton style={{marginTop: 10}} htmlType="submit">
                             {!isModifyProfilePage ? "Take The Quiz" : "Update Profile" }

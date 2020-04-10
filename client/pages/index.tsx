@@ -5,10 +5,13 @@ import {User, Employer, NavBarStatus} from '../model/model'
 import {getUser, getEmployer} from '../lib/server'
 import Router from 'next/router'
 import {UserContext} from '../lib/UserProvider'
-import { Container } from '../components/General/Container';
 import Loading from '../components/General/Loading'
 import LoginComponent from '../components/Login/LoginComponent';
 import Head from 'next/head'
+import styled from 'styled-components'
+import {UNIVERSAL_BACKGROUND, UNIVERSAL_COLOR} from '../model/model'
+import { LoginBackground } from '../components/Login/LoginFlowContainer'
+
 
 const Index: React.FC = () => {
     const [loading, setLoading] = useState(false)
@@ -37,11 +40,9 @@ const Index: React.FC = () => {
             <Head>
                 <title>Login</title>
             </Head>
-            <Container>
-                <div style={{paddingTop: '10%'}}>
-                    <LoginComponent title={"Login"} isSignUp={false} onFinish={onFinish} />
-                </div>
-            </Container>
+            <LoginBackground>
+                <LoginComponent title={"Login"} isSignUp={false} onFinish={onFinish} />
+            </LoginBackground>
         </>
     );
 };
