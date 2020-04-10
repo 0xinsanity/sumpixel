@@ -10,6 +10,8 @@ import {User} from '../model/model'
 import {modifyUser} from '../lib/server'
 import Head from 'next/head'
 import {Background} from './dashboard_employer'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 const {TabPane} = Tabs
 
 interface TabWithCeilingProps {
@@ -20,7 +22,8 @@ interface TabWithCeilingProps {
 
 const DashboardUser: React.FC = (props) => {
     const {currentUser, changeUser}  = useContext(UserContext)
-
+    const {asPath, query} = useRouter()
+    console.log(query)
 
     useEffect(() => {
         window.analytics.page('Designer Dashboard')

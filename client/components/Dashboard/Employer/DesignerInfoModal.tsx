@@ -1,8 +1,9 @@
-import React from 'react'
-import { User } from '../../../model/model'
+import React, {useContext} from 'react'
+import { User, Employer } from '../../../model/model'
 import {Modal, Button, Typography} from 'antd'
 import {createCommunication} from '../../../lib/server'
 import {storage_ref} from '../../../lib/firebase'
+import {UserContext} from '../../../lib/UserProvider'
 import _ from 'lodash'
 
 interface DesignerInfoModalProps {
@@ -13,6 +14,7 @@ interface DesignerInfoModalProps {
 }
 
 const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
+    const {currentUser, changeUser} = useContext(UserContext)
     const {designer, visible, onConnect, setInvisible} = props
 
     if (designer === undefined) {
@@ -49,7 +51,7 @@ const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
             title={designer.firstName + " " + designer.lastName}
             visible={visible}
             footer={[
-                onConnect !== undefined ?
+                onConnect !== undefined && (currentUser as Employer).isAnonymous === undefined ?
                 <Button onClick={onClick} type="primary">
                     Connect To {designer.firstName}
                 </Button> : null]}

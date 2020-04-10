@@ -3,7 +3,7 @@ import {PageHeader, Button, Tabs, message, Typography} from 'antd'
 import {myFirebase} from '../../lib/firebase'
 import Router from 'next/router'
 import Loading from '../General/Loading'
-import {UNIVERSAL_COLOR} from '../../model/model'
+import {Employer} from '../../model/model'
 import { UserContext } from '../../lib/UserProvider'
 import styled from 'styled-components'
 
@@ -53,16 +53,19 @@ const NavigationBar: React.FC<NavigationBarProps> = (props) => {
                         </a>}
                 extra={[
                     <LogoutButton type="link" onClick={async () => {
-                        setLoading(true)
                         myFirebase.auth().signOut().then(() => {
                             changeUser(undefined)
                             setLoading(false)
-                            Router.replace('/')
+                            if ((currentUser as Employer).isAnonymous !== undefined) {
+                                Router.replace('/signup')
+                            } else {
+                                Router.replace('/')
+                            }
                         }).catch((error) => {
                             message.error(error.message)
                         })
                     }}>
-                        Log Out
+                        {(currentUser as Employer).isAnonymous === undefined ? 'Log Out' : 'Create Account To Start Connecting With Designers'}
                     </LogoutButton>
                 ]}
                 footer={footer}>

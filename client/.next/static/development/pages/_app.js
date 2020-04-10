@@ -46,6 +46,20 @@ class UserProvider extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       _firebase__WEBPACK_IMPORTED_MODULE_1__["myFirebase"].auth().onAuthStateChanged(async userAuth => {
         if (userAuth === null) {
           return;
+        }
+
+        if (userAuth.isAnonymous) {
+          console.log('userauth:' + userAuth);
+          this.setState({
+            currentUser: {
+              firstName: '',
+              lastName: '',
+              email: '',
+              id: userAuth.uid,
+              isAnonymous: true
+            }
+          });
+          return;
         } // This is some of the worst code I've ever made
 
 

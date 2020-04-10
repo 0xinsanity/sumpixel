@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -118,14 +118,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../lib/firebase */ "./lib/firebase.tsx");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
 
 
 const DesignerInfoModal = props => {
+  const {
+    currentUser,
+    changeUser
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_3__["UserContext"]);
   const {
     designer,
     visible,
@@ -166,7 +172,7 @@ const DesignerInfoModal = props => {
     onCancel: setInvisible,
     title: designer.firstName + " " + designer.lastName,
     visible: visible,
-    footer: [onConnect !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    footer: [onConnect !== undefined && currentUser.isAnonymous === undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       onClick: onClick,
       type: "primary"
     }, "Connect To ", designer.firstName) : null]
@@ -188,7 +194,7 @@ const DesignerInfoModal = props => {
       display: 'flex',
       flexDirection: 'column'
     }
-  }, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.map(lodash__WEBPACK_IMPORTED_MODULE_3___default.a.keys(showInfo), key => {
+  }, lodash__WEBPACK_IMPORTED_MODULE_4___default.a.map(lodash__WEBPACK_IMPORTED_MODULE_4___default.a.keys(showInfo), key => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Text, null, key, ": ", showInfo[key], '\n');
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     style: {
@@ -326,7 +332,7 @@ const DesignerList = props => {
     key: "contact",
     render: contact => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_7__["BigBlackButton"], {
       onClick: () => onMoreInfo(contact)
-    }, "More Info/Contact")
+    }, "More Info/Connect")
   })));
 };
 
@@ -479,7 +485,13 @@ const FindDesigners = props => {
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_2__["UserContext"]);
   const [designerList, setDesignerList] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    Object(_lib_server__WEBPACK_IMPORTED_MODULE_1__["getGradedDesigners"])(currentUser.id).then(commList => {
+    var id = currentUser.id;
+
+    if (currentUser.isAnonymous !== undefined) {
+      id = "60fff552-280b-47ae-b632-25a744a7a910";
+    }
+
+    Object(_lib_server__WEBPACK_IMPORTED_MODULE_1__["getGradedDesigners"])(id).then(commList => {
       console.log(commList);
       setDesignerList(lodash__WEBPACK_IMPORTED_MODULE_5___default.a.map(commList, user => ({
         name_feedback: [user.firstName + " " + user.lastName, user.grade.response],
@@ -628,16 +640,20 @@ const NavigationBar = props => {
     extra: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LogoutButton, {
       type: "link",
       onClick: async () => {
-        setLoading(true);
         _lib_firebase__WEBPACK_IMPORTED_MODULE_2__["myFirebase"].auth().signOut().then(() => {
           changeUser(undefined);
           setLoading(false);
-          next_router__WEBPACK_IMPORTED_MODULE_3___default.a.replace('/');
+
+          if (currentUser.isAnonymous !== undefined) {
+            next_router__WEBPACK_IMPORTED_MODULE_3___default.a.replace('/signup');
+          } else {
+            next_router__WEBPACK_IMPORTED_MODULE_3___default.a.replace('/');
+          }
         }).catch(error => {
           antd__WEBPACK_IMPORTED_MODULE_1__["message"].error(error.message);
         });
       }
-    }, "Log Out")],
+    }, currentUser.isAnonymous === undefined ? 'Log Out' : 'Create Account To Start Connecting With Designers')],
     footer: footer
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Line, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SubTitle, null, subtitle));
 };
@@ -954,6 +970,20 @@ class UserProvider extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     _defineProperty(this, "componentDidMount", () => {
       _firebase__WEBPACK_IMPORTED_MODULE_1__["myFirebase"].auth().onAuthStateChanged(async userAuth => {
         if (userAuth === null) {
+          return;
+        }
+
+        if (userAuth.isAnonymous) {
+          console.log('userauth:' + userAuth);
+          this.setState({
+            currentUser: {
+              firstName: '',
+              lastName: '',
+              email: '',
+              id: userAuth.uid,
+              isAnonymous: true
+            }
+          });
           return;
         } // This is some of the worst code I've ever made
 
@@ -1272,6 +1302,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! styled-components */ "styled-components");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../lib/firebase */ "./lib/firebase.tsx");
+
+
 
 
 
@@ -1307,6 +1342,16 @@ const DashboardEmployer = props => {
     currentUser,
     changeUser
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_8__["UserContext"]);
+  const {
+    asPath,
+    query
+  } = Object(next_router__WEBPACK_IMPORTED_MODULE_12__["useRouter"])();
+
+  if (query.id === "60fff552-280b-47ae-b632-25a744a7a910" && currentUser === null) {
+    console.log('gets here');
+    _lib_firebase__WEBPACK_IMPORTED_MODULE_13__["myFirebase"].auth().signInAnonymously();
+  }
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     window.analytics.page('Employer Dashboard');
   }, []);
@@ -1321,10 +1366,20 @@ const DashboardEmployer = props => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_General_Loading__WEBPACK_IMPORTED_MODULE_2__["default"], null);
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_head__WEBPACK_IMPORTED_MODULE_10___default.a, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("title", null, "Employer Dashboard")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Dashboard_NavigationBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    isDesigner: false,
-    subtitle: `${currentUser.firstName}'s Dashboard`,
-    footer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Tabs"], {
+  var footer;
+
+  if (currentUser.isAnonymous !== undefined) {
+    footer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Tabs"], {
+      tabBarGutter: 40,
+      defaultActiveKey: "1"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TabPane, {
+      tab: TabObjs[0].name,
+      key: TabObjs[0].key
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Background, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_General_Container__WEBPACK_IMPORTED_MODULE_3__["Container"], {
+      isDashboard: true
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Dashboard_Employer_FindDesigners__WEBPACK_IMPORTED_MODULE_6__["default"], null)))));
+  } else {
+    footer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Tabs"], {
       tabBarGutter: 40,
       defaultActiveKey: "1"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TabPane, {
@@ -1349,7 +1404,13 @@ const DashboardEmployer = props => {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_OnboardingFlow_Employers_FormBusinessData__WEBPACK_IMPORTED_MODULE_5__["default"], {
       changeCurrentUser: updateEmployer,
       modifyProfile: true
-    })))))
+    })))));
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_head__WEBPACK_IMPORTED_MODULE_10___default.a, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("title", null, "Employer Dashboard")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Dashboard_NavigationBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    isDesigner: false,
+    subtitle: currentUser.isAnonymous === undefined ? `${currentUser.firstName}'s Dashboard` : 'Temporary Dashboard',
+    footer: footer
   }));
 };
 
@@ -1357,7 +1418,7 @@ const DashboardEmployer = props => {
 
 /***/ }),
 
-/***/ 5:
+/***/ 3:
 /*!********************************************!*\
   !*** multi ./pages/dashboard_employer.tsx ***!
   \********************************************/

@@ -35,6 +35,7 @@ export interface Employer {
     phoneNumber?: string;
     location?: string;
     communications?: string[];
+    isAnonymous?: boolean
 }
 
 export interface Communication {

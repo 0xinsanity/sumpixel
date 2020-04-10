@@ -3,6 +3,7 @@ import { getGradedDesigners } from '../../../lib/server'
 import { User } from '../../../model/model'
 import {UserContext} from '../../../lib/UserProvider'
 import Loading from '../../General/Loading'
+import {Employer} from '../../../model/model'
 import DesignerList, {FindDesignerListType} from './DesignerList'
 import _ from 'lodash'
 
@@ -11,7 +12,11 @@ const FindDesigners: React.FC = (props) => {
     const [designerList, setDesignerList] = useState<FindDesignerListType[] | undefined>(undefined)
 
     useEffect(() => {
-        getGradedDesigners(currentUser.id).then((commList: User[]) => {
+        var id = currentUser.id
+        if ((currentUser as Employer).isAnonymous !== undefined) {
+            id = "60fff552-280b-47ae-b632-25a744a7a910"
+        }
+        getGradedDesigners(id).then((commList: User[]) => {
             console.log(commList)
             setDesignerList(_.map(commList, (user: User) => ({
                 name_feedback: [(user.firstName + " " + user.lastName), user.grade.response],

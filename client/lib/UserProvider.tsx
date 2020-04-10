@@ -30,6 +30,18 @@ class UserProvider extends Component {
             return
         }
 
+        if (userAuth.isAnonymous) {
+          console.log('userauth:' + userAuth)
+          this.setState({currentUser: {
+              firstName: '',
+              lastName: '',
+              email: '',
+              id: userAuth.uid,
+              isAnonymous: true
+          } as Employer})
+          return
+        }
+
         // This is some of the worst code I've ever made
         var current;
         try {
