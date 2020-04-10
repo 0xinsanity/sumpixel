@@ -68,6 +68,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                     </Form.Item>
 
                     <Form.Item
+                        style={{marginBottom: 0}}
                         label="Password"
                         name="password"
                         rules={[{ required: true, message: 'Password is required' }]}
@@ -81,8 +82,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                                             opacity: "0.5",
                                             textAlign: "right",
                                             fontSize: "12px",
-                                            padding: "0",
-                                            paddingTop: "4px"}} 
+                                            padding: "0"}} 
                                         onClick={() => {Router.push('/forgotpassword')}} 
                                         type="link">                    
                                         Forgot Password.

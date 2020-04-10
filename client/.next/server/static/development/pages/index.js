@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -283,6 +283,9 @@ const LoginComponent = props => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Input"], {
     placeholder: "Email"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_0__["Form"].Item, {
+    style: {
+      marginBottom: 0
+    },
     label: "Password",
     name: "password",
     rules: [{
@@ -305,8 +308,7 @@ const LoginComponent = props => {
       opacity: "0.5",
       textAlign: "right",
       fontSize: "12px",
-      padding: "0",
-      paddingTop: "4px"
+      padding: "0"
     },
     onClick: () => {
       next_router__WEBPACK_IMPORTED_MODULE_2___default.a.push('/forgotpassword');
@@ -525,7 +527,7 @@ const Index = () => {
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!*******************************!*\
   !*** multi ./pages/index.tsx ***!
   \*******************************/

@@ -469,7 +469,8 @@ const GlobalInjection = styled_components__WEBPACK_IMPORTED_MODULE_4__["createGl
     }
 
     .ant-form-item-label {
-        font-family: 'Mark Pro Bold';
+        font-family: 'Mark Pro';
+        font-weight: bold;
         opacity: 0.8;
     }
 
