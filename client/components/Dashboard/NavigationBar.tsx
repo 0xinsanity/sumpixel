@@ -18,6 +18,7 @@ const SumpixelHeader = styled(PageHeader)`
 const LogoutButton = styled(Button)`
     color: #000000;
     padding-top: 10px;
+    font-family: 'Mark Pro Bold';
 `
 const Line = styled.div`
     border: 0.5px solid #000000;

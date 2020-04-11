@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -604,7 +604,7 @@ const SumpixelHeader = styled_components__WEBPACK_IMPORTED_MODULE_6___default()(
 const LogoutButton = styled_components__WEBPACK_IMPORTED_MODULE_6___default()(antd__WEBPACK_IMPORTED_MODULE_1__["Button"]).withConfig({
   displayName: "NavigationBar__LogoutButton",
   componentId: "sc-14u4r04-1"
-})(["color:#000000;padding-top:10px;"]);
+})(["color:#000000;padding-top:10px;font-family:'Mark Pro Bold';"]);
 const Line = styled_components__WEBPACK_IMPORTED_MODULE_6___default.a.div.withConfig({
   displayName: "NavigationBar__Line",
   componentId: "sc-14u4r04-2"
@@ -1126,7 +1126,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "axios");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-const SERVER_BASE = 'https://sumpixel-server.herokuapp.com/';
+const SERVER_BASE = 'https://server.sumpixel.com/';
 var HTTP_Requests;
 
 (function (HTTP_Requests) {
@@ -1438,7 +1438,7 @@ const DashboardEmployer = props => {
 
 /***/ }),
 
-/***/ 6:
+/***/ 4:
 /*!********************************************!*\
   !*** multi ./pages/dashboard_employer.tsx ***!
   \********************************************/

@@ -1,7 +1,7 @@
 import { User, Employer, EmployerDecisionHire, DesignerDecisionTalk, CommForDesigner, Communication, CommForEmployer } from "../model/model";
 import axios from 'axios';
 
-const SERVER_BASE = 'https://sumpixel-server.herokuapp.com/'
+const SERVER_BASE = 'https://server.sumpixel.com/'
 
 enum HTTP_Requests {
     GET = 'GET',
