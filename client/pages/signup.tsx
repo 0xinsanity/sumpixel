@@ -6,13 +6,14 @@ import {Onboard} from '../components/OnboardingFlow/Onboard'
 import { UserContext } from '../lib/UserProvider';
 import Head from 'next/head'
 import LoginComponent from '../components/Login/LoginComponent'
+import { LoginBackground } from '../components/Login/LoginFlowContainer'
+import Router from 'next/router'
 
 const SignUp: React.FC = (props) => {
     const {currentUser, changeUser} = useContext(UserContext)
-    const [isSignedIn, setIsSignedIn] = useState(false);
     useEffect(() => {
         if (currentUser !== undefined && currentUser !== null) {
-            setIsSignedIn(true)
+            Router.push('/onboarding')
         }
     }, [currentUser])
 
@@ -26,18 +27,11 @@ const SignUp: React.FC = (props) => {
                 displayName: `${values.firstName} ${values.lastName}`
             }).then(() => {
                 window.analytics.track('Firebase Auth Signup');
-                setIsSignedIn(true)
+                Router.push('/onboarding')
             })
         }).catch((error) => {
             message.error(error.message)
         })
-    }
-
-    const deleteUser = async () => {
-        window.analytics.track('Go Back - Delete Firebase User');
-        setTimeout(async () => await myFirebase.auth().currentUser.delete(), 1000)
-        changeUser(undefined)
-        setIsSignedIn(false)
     }
 
     return (
@@ -45,12 +39,9 @@ const SignUp: React.FC = (props) => {
             <Head>
                 <title>Sign Up</title>
             </Head>
-            <PopupModal
-                visible={!isSignedIn}
-            >
+            <LoginBackground>
                 <LoginComponent isSignUp={true} title="Sign Up" onFinish={onFinish}/>
-            </PopupModal>
-            <Onboard deleteUser={deleteUser}/>
+            </LoginBackground>
         </>
     );
 };

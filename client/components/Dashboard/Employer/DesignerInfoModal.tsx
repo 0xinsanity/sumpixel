@@ -6,6 +6,7 @@ import {storage_ref} from '../../../lib/firebase'
 import {UserContext} from '../../../lib/UserProvider'
 import _ from 'lodash'
 import Router from 'next/router'
+import {myFirebase} from '../../../lib/firebase'
 
 interface DesignerInfoModalProps {
     designer: User
@@ -36,7 +37,10 @@ const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
 
     const onClick = () => {
         if (isAnonymous) {
-            Router.push('/signup')
+            myFirebase.auth().signOut().then(() => {
+                changeUser(undefined)
+                Router.push('/signup')
+            })
         } else {
             onConnect(designer.id)
         }

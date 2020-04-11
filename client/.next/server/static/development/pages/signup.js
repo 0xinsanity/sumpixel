@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -127,47 +127,6 @@ const BigBlackButton = styled_components__WEBPACK_IMPORTED_MODULE_0___default()(
 
 /***/ }),
 
-/***/ "./components/General/Container.tsx":
-/*!******************************************!*\
-  !*** ./components/General/Container.tsx ***!
-  \******************************************/
-/*! exports provided: Container */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Container", function() { return Container; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-const ColContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(antd__WEBPACK_IMPORTED_MODULE_1__["Col"]).withConfig({
-  displayName: "Container__ColContainer",
-  componentId: "sc-1szewme-0"
-})(["padding-top:25px;display:flex;flex-direction:column;align-items:center;"]);
-const Container = props => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
-    gutter: 24
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
-    className: 'gutter-row',
-    span: props.isDashboard !== undefined ? 2 : 5
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ColContainer, {
-    style: props.style,
-    className: 'gutter-row',
-    span: props.isDashboard !== undefined ? 20 : 14
-  }, props.children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
-    className: 'gutter-row',
-    span: props.isDashboard !== undefined ? 2 : 5
-  }));
-};
-
-/***/ }),
-
 /***/ "./components/General/Loading.tsx":
 /*!****************************************!*\
   !*** ./components/General/Loading.tsx ***!
@@ -198,53 +157,6 @@ const Loading = () => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Loading);
-
-/***/ }),
-
-/***/ "./components/General/PopupModal.tsx":
-/*!*******************************************!*\
-  !*** ./components/General/PopupModal.tsx ***!
-  \*******************************************/
-/*! exports provided: PopupModal */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PopupModal", function() { return PopupModal; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-modal */ "react-modal");
-/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-const ModalContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
-  displayName: "PopupModal__ModalContainer",
-  componentId: "sc-4v1rqk-0"
-})(["flex:1;display:flex;align-items:center;justify-content:center;background-color:rgba(0,0,0,0.5);height:100vh;"]);
-const PopupModal = props => {
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    react_modal__WEBPACK_IMPORTED_MODULE_1___default.a.setAppElement('body');
-  }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_modal__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    animationType: "fade",
-    transparent: true,
-    isOpen: props.visible,
-    style: {
-      content: {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        padding: 0,
-        border: 0,
-        borderRadius: 0
-      }
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ModalContainer, null, props.children));
-};
 
 /***/ }),
 
@@ -435,685 +347,34 @@ const LoginComponent = props => {
 
 /***/ }),
 
-/***/ "./components/OnboardingFlow/Designers/FormPersonalData.tsx":
-/*!******************************************************************!*\
-  !*** ./components/OnboardingFlow/Designers/FormPersonalData.tsx ***!
-  \******************************************************************/
-/*! exports provided: default */
+/***/ "./components/Login/LoginFlowContainer.tsx":
+/*!*************************************************!*\
+  !*** ./components/Login/LoginFlowContainer.tsx ***!
+  \*************************************************/
+/*! exports provided: LoginBackground */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginBackground", function() { return LoginBackground; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ant-design/icons */ "@ant-design/icons");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../model/model */ "./model/model.tsx");
-/* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../lib/firebase */ "./lib/firebase.tsx");
-/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
-/* harmony import */ var _General_Loading__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../General/Loading */ "./components/General/Loading.tsx");
-/* harmony import */ var _General_BigBlackButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../General/BigBlackButton */ "./components/General/BigBlackButton.tsx");
-
-
-
-
-
-
-
-
-
-const {
-  Option
-} = antd__WEBPACK_IMPORTED_MODULE_1__["Select"];
-
-const FormPersonalData = props => {
-  const {
-    changeCurrentUser,
-    changeStep,
-    changeNavbarStatus,
-    modifyProfile
-  } = props;
-  const isModifyProfilePage = modifyProfile !== undefined;
-  const {
-    currentUser,
-    changeUser
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_6__["UserContext"]);
-  const [checked, changeChecked] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
-  const [fileList, updateFileList] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
-
-  const goBack = async () => {
-    changeNavbarStatus(_model_model__WEBPACK_IMPORTED_MODULE_4__["NavBarStatus"].Undecided);
-    changeStep(-1);
-  };
-
-  if (currentUser == undefined) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_Loading__WEBPACK_IMPORTED_MODULE_7__["default"], null);
-  }
-
-  const getRules = name => {
-    return [{
-      required: !isModifyProfilePage,
-      message: !isModifyProfilePage ? `${name} is required` : ''
-    }];
-  };
-
-  const updateUser = values => {
-    const newUser = {
-      email: currentUser.email,
-      id: currentUser.id,
-      firstName: currentUser.firstName,
-      lastName: currentUser.lastName,
-      phoneNumber: values.phoneNumber,
-      location: values.location,
-      salary: values.salary,
-      portfolio: values.portfolio,
-      preferredRole: values.preferredRole,
-      visa: values.visa_status,
-      resume: currentUser.id + '.pdf',
-      linkedin: values.linkedin,
-      dribbble: values.dribbble
-    };
-    console.table(lodash__WEBPACK_IMPORTED_MODULE_3___default.a.pickBy(newUser, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.identity));
-    changeCurrentUser(lodash__WEBPACK_IMPORTED_MODULE_3___default.a.pickBy(newUser, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.identity));
-
-    if (isModifyProfilePage) {
-      antd__WEBPACK_IMPORTED_MODULE_1__["message"].success("Profile Updated");
-    } else {
-      changeStep(1);
-    }
-  };
-
-  const onFinish = values => {
-    if (!isModifyProfilePage && !checked) {
-      antd__WEBPACK_IMPORTED_MODULE_1__["message"].error('Please agree to the Terms of Service');
-      return;
-    }
-
-    const res = values.resume;
-    console.log(res);
-
-    if (res === undefined) {
-      updateUser(values);
-    } else {
-      _lib_firebase__WEBPACK_IMPORTED_MODULE_5__["storage_ref"].child('resumes/' + currentUser.id + '.pdf').put(res.file["originFileObj"]).then(snapshot => {
-        updateUser(values);
-      });
-    }
-  };
-
-  const onFinishFailed = values => {
-    console.table(values);
-    antd__WEBPACK_IMPORTED_MODULE_1__["message"].error('There was an error completing your account. Ensure every field is filled out.');
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
-    name: "basic",
-    initialValues: {
-      remember: true
-    },
-    onFinish: onFinish,
-    onFinishFailed: onFinishFailed,
-    style: {
-      marginBottom: 50
-    }
-  }, !isModifyProfilePage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"].Group, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
-    span: 11
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "First Name",
-    name: "firstName"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    disabled: true,
-    placeholder: "First Name",
-    defaultValue: currentUser.firstName
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
-    span: 2
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
-    span: 11
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Last Name",
-    name: "lastName"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    disabled: true,
-    placeholder: "Last Name",
-    defaultValue: currentUser.lastName
-  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Email",
-    name: "email"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    disabled: true,
-    defaultValue: currentUser.email
-  }))) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Phone Number",
-    name: "phoneNumber",
-    rules: getRules("Phone Number")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: isModifyProfilePage ? '' : currentUser.phoneNumber || "",
-    placeholder: "+1 (555) 555-5555"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Location",
-    name: "location",
-    rules: getRules("Location")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: isModifyProfilePage ? '' : currentUser.location || "",
-    placeholder: "New York City"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Desired Salary",
-    name: "salary",
-    rules: getRules("Desired Salary")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: isModifyProfilePage ? '' : currentUser.salary || "",
-    placeholder: "$100,000-$150,000 per year"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Preferred Role",
-    name: "preferredRole",
-    rules: getRules("Preferred Role")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: isModifyProfilePage ? '' : currentUser.preferredRole || "",
-    placeholder: "UI/UX Designer"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Portfolio",
-    name: "portfolio",
-    rules: getRules("Portfolio")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: isModifyProfilePage ? '' : currentUser.portfolio || "",
-    placeholder: "https://www.myportfolio.com"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Resume",
-    name: "resume",
-    rules: getRules("Resume")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Upload"], {
-    name: 'file',
-    accept: ".pdf",
-    fileList: fileList,
-    onChange: info => {
-      let fileList_update = [...info.fileList];
-      fileList_update = fileList_update.slice(-1);
-      fileList_update = fileList_update.map(file => {
-        if (file.response) {
-          file.url = file.response.url;
-        }
-
-        if (file.status === 'error') {
-          // TODO: Find better way of handling this
-          file.status = 'done';
-        }
-
-        return file;
-      });
-
-      if (info.file.status === 'done') {
-        antd__WEBPACK_IMPORTED_MODULE_1__["message"].success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === 'error') {
-        antd__WEBPACK_IMPORTED_MODULE_1__["message"].success(`${info.file.name} file uploaded successfully`);
-      }
-
-      updateFileList(fileList_update);
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__["UploadOutlined"], null), " ", !isModifyProfilePage ? "Click to Upload" : "Upload New Resume"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Visa Status",
-    name: "visa_status",
-    rules: getRules("Visa Status")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
-    defaultValue: modifyProfile ? '' : currentUser.visa || "",
-    placeholder: "Select an option:"
-  }, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.map(_model_model__WEBPACK_IMPORTED_MODULE_4__["VisaStatus"], status => {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-      value: status
-    }, status);
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "LinkedIn",
-    name: "linkedin"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: modifyProfile ? '' : currentUser.linkedin || "",
-    placeholder: "https://www.linkedin.com/in/username"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Dribbble",
-    name: "dribbble"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: modifyProfile ? '' : currentUser.dribbble || "",
-    placeholder: "https://dribbble.com/username"
-  })), !isModifyProfilePage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    valuePropName: 'checked'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Checkbox"], {
-    style: {
-      fontFamily: 'Mark Pro'
-    },
-    checked: checked,
-    onChange: e => changeChecked(e.target.checked)
-  }, "Agree to The ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    style: {
-      color: _model_model__WEBPACK_IMPORTED_MODULE_4__["UNIVERSAL_COLOR"]
-    },
-    target: '_blank',
-    href: '/terms'
-  }, "Terms of Services"))) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
-    justify: "space-between",
-    align: "middle"
-  }, !isModifyProfilePage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_8__["BigBlackButton"], {
-    type: "default",
-    onClick: goBack
-  }, "Back") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_8__["BigBlackButton"], {
-    style: {
-      marginTop: 10
-    },
-    htmlType: "submit"
-  }, !isModifyProfilePage ? "Take The Quiz" : "Update Profile"))));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (FormPersonalData);
-
-/***/ }),
-
-/***/ "./components/OnboardingFlow/EmployerDesigner.tsx":
-/*!********************************************************!*\
-  !*** ./components/OnboardingFlow/EmployerDesigner.tsx ***!
-  \********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../model/model */ "./model/model.tsx");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _General_BigBlackButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../General/BigBlackButton */ "./components/General/BigBlackButton.tsx");
-
-
-
-
-const EMButton = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_3__["BigBlackButton"]).withConfig({
-  displayName: "EmployerDesigner__EMButton",
-  componentId: "sc-1jnupa2-0"
-})(["margin-bottom:30px"]);
-
-const EmployerDesigner = props => {
-  const {
-    changeStep,
-    changeNavbarStatus
-  } = props;
-
-  const onClick = isDesigner => {
-    changeNavbarStatus(isDesigner ? _model_model__WEBPACK_IMPORTED_MODULE_1__["NavBarStatus"].Designer : _model_model__WEBPACK_IMPORTED_MODULE_1__["NavBarStatus"].Employer);
-    changeStep(1);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EMButton, {
-    type: "default",
-    onClick: () => onClick(false)
-  }, "Employer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EMButton, {
-    type: "default",
-    onClick: () => onClick(true)
-  }, "Designer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EMButton, {
-    type: "default",
-    onClick: props.deleteUser
-  }, "Change Email or Name"));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (EmployerDesigner);
-
-/***/ }),
-
-/***/ "./components/OnboardingFlow/Employers/FormBusinessData.tsx":
-/*!******************************************************************!*\
-  !*** ./components/OnboardingFlow/Employers/FormBusinessData.tsx ***!
-  \******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../model/model */ "./model/model.tsx");
-/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
-/* harmony import */ var _General_Loading__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../General/Loading */ "./components/General/Loading.tsx");
-/* harmony import */ var _General_BigBlackButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../General/BigBlackButton */ "./components/General/BigBlackButton.tsx");
-
-
-
-
-
-
-
-const {
-  Option
-} = antd__WEBPACK_IMPORTED_MODULE_1__["Select"];
-
-const FormBusinessData = props => {
-  const {
-    changeCurrentUser,
-    changeStep,
-    changeNavbarStatus,
-    modifyProfile
-  } = props;
-  const {
-    currentUser,
-    changeUser
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_4__["UserContext"]);
-  const [checked, changeChecked] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
-  const isModifyProfilePage = modifyProfile !== undefined;
-
-  const goBack = async () => {
-    changeNavbarStatus(_model_model__WEBPACK_IMPORTED_MODULE_3__["NavBarStatus"].Undecided);
-    changeStep(-1);
-  };
-
-  if (currentUser == undefined) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_Loading__WEBPACK_IMPORTED_MODULE_5__["default"], null);
-  }
-
-  const getRules = name => {
-    return [{
-      required: !isModifyProfilePage,
-      message: !isModifyProfilePage ? `${name} is required` : ''
-    }];
-  };
-
-  const onFinish = values => {
-    if (!isModifyProfilePage && !checked) {
-      antd__WEBPACK_IMPORTED_MODULE_1__["message"].error('Please agree to the Terms of Service');
-      return;
-    }
-
-    const newEmployer = {
-      email: currentUser.email,
-      id: currentUser.id,
-      firstName: currentUser.firstName,
-      lastName: currentUser.lastName,
-      companyName: values.companyName,
-      phoneNumber: values.phoneNumber,
-      location: values.location
-    };
-    changeCurrentUser(lodash__WEBPACK_IMPORTED_MODULE_2___default.a.pickBy(newEmployer, lodash__WEBPACK_IMPORTED_MODULE_2___default.a.identity));
-
-    if (isModifyProfilePage) {
-      antd__WEBPACK_IMPORTED_MODULE_1__["message"].success("Your profile has been updated");
-    } else {
-      changeStep(1);
-    }
-  };
-
-  const onFinishFailed = () => {
-    antd__WEBPACK_IMPORTED_MODULE_1__["message"].error('There was an error completing your account. Ensure every field is filled out.');
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
-    name: "basic",
-    initialValues: {
-      remember: true
-    },
-    onFinish: onFinish,
-    onFinishFailed: onFinishFailed
-  }, !isModifyProfilePage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Name",
-    name: "firstName"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"].Group, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
-    span: 11
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    disabled: true,
-    defaultValue: currentUser.firstName
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
-    span: 2
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
-    span: 11
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    disabled: true,
-    defaultValue: currentUser.lastName
-  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Email",
-    name: "email"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    disabled: true,
-    defaultValue: currentUser.email
-  }))) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Company Name",
-    name: "companyName",
-    rules: getRules("Company Name")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: modifyProfile ? '' : currentUser.companyName || "",
-    placeholder: "Company Name"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Phone Number",
-    name: "phoneNumber",
-    rules: getRules("Phone Number")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: modifyProfile ? '' : currentUser.phoneNumber || "",
-    placeholder: "+1 (555) 555-5555"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Location",
-    name: "location",
-    rules: getRules("Location")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: modifyProfile ? '' : currentUser.location || "",
-    placeholder: "New York City"
-  })), !isModifyProfilePage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    valuePropName: 'checked'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Checkbox"], {
-    style: {
-      fontFamily: 'Mark Pro'
-    },
-    checked: checked,
-    onChange: e => changeChecked(e.target.checked)
-  }, "Agree to The ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    style: {
-      color: _model_model__WEBPACK_IMPORTED_MODULE_3__["UNIVERSAL_COLOR"]
-    },
-    target: '_blank',
-    href: '/terms'
-  }, "Terms of Service"))) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
-    justify: "space-between",
-    align: "middle"
-  }, !isModifyProfilePage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_6__["BigBlackButton"], {
-    type: "default",
-    onClick: goBack
-  }, "Back") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_6__["BigBlackButton"], {
-    style: {
-      marginTop: 10
-    },
-    htmlType: "submit"
-  }, isModifyProfilePage ? "Update Company Profile" : "Finish Setup"))));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (FormBusinessData);
-
-/***/ }),
-
-/***/ "./components/OnboardingFlow/Onboard.tsx":
-/*!***********************************************!*\
-  !*** ./components/OnboardingFlow/Onboard.tsx ***!
-  \***********************************************/
-/*! exports provided: Onboard */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Onboard", function() { return Onboard; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _OnboardNavbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OnboardNavbar */ "./components/OnboardingFlow/OnboardNavbar.tsx");
-/* harmony import */ var _General_Container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../General/Container */ "./components/General/Container.tsx");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "antd");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../model/model */ "./model/model.tsx");
-/* harmony import */ var _Designers_FormPersonalData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Designers/FormPersonalData */ "./components/OnboardingFlow/Designers/FormPersonalData.tsx");
-/* harmony import */ var _Employers_FormBusinessData__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Employers/FormBusinessData */ "./components/OnboardingFlow/Employers/FormBusinessData.tsx");
-/* harmony import */ var _EmployerDesigner__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./EmployerDesigner */ "./components/OnboardingFlow/EmployerDesigner.tsx");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../lib/UserProvider */ "./lib/UserProvider.tsx");
-/* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../lib/server */ "./lib/server.tsx");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! next/router */ "next/router");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_11__);
-
-
-
-
-
-
-
-
-
-
-
-
-const Title = styled_components__WEBPACK_IMPORTED_MODULE_8___default()(antd__WEBPACK_IMPORTED_MODULE_3__["Typography"].Title).withConfig({
-  displayName: "Onboard__Title",
-  componentId: "sc-1kdj2hg-0"
-})(["padding-top:15px;padding-bottom:35px;"]);
-const Onboard = props => {
-  const [currentStep, changeStep] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0);
-  const [navBarStatus, changeNavbarStatus] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(_model_model__WEBPACK_IMPORTED_MODULE_4__["NavBarStatus"].Undecided);
-  const {
-    currentUser,
-    changeUser
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_9__["UserContext"]);
-
-  const updateUser = async updatedUser => {
-    window.analytics.track('Create User');
-    changeUser(updatedUser);
-    await Object(_lib_server__WEBPACK_IMPORTED_MODULE_10__["createUser"])(updatedUser);
-  };
-
-  const updateEmployer = async updatedUser => {
-    window.analytics.track('Create Employer');
-    changeUser(updatedUser);
-    await Object(_lib_server__WEBPACK_IMPORTED_MODULE_10__["createEmployer"])(updatedUser);
-  };
-
-  var currentForm;
-  var title;
-
-  switch (currentStep) {
-    case 0:
-      currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_EmployerDesigner__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        deleteUser: props.deleteUser,
-        changeNavbarStatus: newStatus => changeNavbarStatus(newStatus),
-        changeStep: change => changeStep(currentStep + change)
-      });
-      break;
-
-    case 1:
-      if (navBarStatus == _model_model__WEBPACK_IMPORTED_MODULE_4__["NavBarStatus"].Designer) {
-        currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Designers_FormPersonalData__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          changeNavbarStatus: newStatus => changeNavbarStatus(newStatus),
-          changeStep: change => changeStep(currentStep + change),
-          changeCurrentUser: async user => await updateUser(user)
-        });
-      } else {
-        currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Employers_FormBusinessData__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          changeNavbarStatus: newStatus => changeNavbarStatus(newStatus),
-          changeStep: change => changeStep(currentStep + change),
-          changeCurrentUser: async user => await updateEmployer(user)
-        });
-      }
-
-      break;
-
-    case 2:
-      if (navBarStatus == _model_model__WEBPACK_IMPORTED_MODULE_4__["NavBarStatus"].Designer) {
-        next_router__WEBPACK_IMPORTED_MODULE_11___default.a.push('/dashboard_user');
-      } else {
-        next_router__WEBPACK_IMPORTED_MODULE_11___default.a.replace('/dashboard_employer');
-      }
-
-      break;
-  }
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_Container__WEBPACK_IMPORTED_MODULE_2__["Container"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardNavbar__WEBPACK_IMPORTED_MODULE_1__["OnboardNavbar"], {
-    status: navBarStatus,
-    currentStep: currentStep
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Title, null, title), currentForm);
-};
-
-/***/ }),
-
-/***/ "./components/OnboardingFlow/OnboardNavbar.tsx":
-/*!*****************************************************!*\
-  !*** ./components/OnboardingFlow/OnboardNavbar.tsx ***!
-  \*****************************************************/
-/*! exports provided: OnboardNavbar */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OnboardNavbar", function() { return OnboardNavbar; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../model/model */ "./model/model.tsx");
-
-
-const {
-  Step
-} = antd__WEBPACK_IMPORTED_MODULE_1__["Steps"];
-
-
-const DESIGN_STEPS = [{
-  title: "Employer or Designer",
-  desc: "Are you an Employer or Designer?"
-}, {
-  title: "Get Started",
-  desc: "Add Personal Data"
-}, {
-  title: "Take the Quiz",
-  desc: "Finish Up and Get Evaluated"
-}];
-const EMPLOYER_STEPS = [{
-  title: "Employer or Designer",
-  desc: "Are you an Employer or Designer?"
-}, {
-  title: "Get Started",
-  desc: "Add Data About Your Business"
-}, {
-  title: "Go To Dashboard",
-  desc: "Finish Up and Start Searching"
-}];
-const OnboardNavbar = props => {
-  var steps;
-
-  switch (props.status) {
-    case _model_model__WEBPACK_IMPORTED_MODULE_3__["NavBarStatus"].Undecided:
-      steps = [DESIGN_STEPS[0]];
-      break;
-
-    case _model_model__WEBPACK_IMPORTED_MODULE_3__["NavBarStatus"].Designer:
-      steps = DESIGN_STEPS;
-      break;
-
-    case _model_model__WEBPACK_IMPORTED_MODULE_3__["NavBarStatus"].Employer:
-      steps = EMPLOYER_STEPS;
-      break;
-  }
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Steps"], {
-    style: {
-      fontFamily: 'Mark Pro',
-      paddingBottom: 20,
-      justifyContent: 'center'
-    },
-    current: props.currentStep
-  }, lodash__WEBPACK_IMPORTED_MODULE_2___default.a.map(steps, ({
-    title,
-    desc
-  }) => {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Step, {
-      title: title,
-      description: desc
-    });
-  }));
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../model/model */ "./model/model.tsx");
+
+
+
+const LoginFlowContainer = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
+  displayName: "LoginFlowContainer",
+  componentId: "zoeynh-0"
+})(["background-color:", ";height:100vh;display:flex;justify-content:center;align-items:center;"], _model_model__WEBPACK_IMPORTED_MODULE_2__["UNIVERSAL_BACKGROUND"]);
+const AbsolutePurple = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
+  displayName: "LoginFlowContainer__AbsolutePurple",
+  componentId: "zoeynh-1"
+})(["height:50vh;position:absolute;top:0;left:0;right:0;background-color:", ";"], _model_model__WEBPACK_IMPORTED_MODULE_2__["UNIVERSAL_COLOR"]);
+const LoginBackground = props => {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LoginFlowContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AbsolutePurple, null), props.children);
 };
 
 /***/ }),
@@ -1497,13 +758,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_General_PopupModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/General/PopupModal */ "./components/General/PopupModal.tsx");
-/* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lib/firebase */ "./lib/firebase.tsx");
-/* harmony import */ var _components_OnboardingFlow_Onboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/OnboardingFlow/Onboard */ "./components/OnboardingFlow/Onboard.tsx");
-/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../lib/UserProvider */ "./lib/UserProvider.tsx");
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! next/head */ "next/head");
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_Login_LoginComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/Login/LoginComponent */ "./components/Login/LoginComponent.tsx");
+/* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/firebase */ "./lib/firebase.tsx");
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lib/UserProvider */ "./lib/UserProvider.tsx");
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/head */ "next/head");
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_Login_LoginComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Login/LoginComponent */ "./components/Login/LoginComponent.tsx");
+/* harmony import */ var _components_Login_LoginFlowContainer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Login/LoginFlowContainer */ "./components/Login/LoginFlowContainer.tsx");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_7__);
 
 
 
@@ -1517,11 +779,10 @@ const SignUp = props => {
   const {
     currentUser,
     changeUser
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_5__["UserContext"]);
-  const [isSignedIn, setIsSignedIn] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_3__["UserContext"]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     if (currentUser !== undefined && currentUser !== null) {
-      setIsSignedIn(true);
+      next_router__WEBPACK_IMPORTED_MODULE_7___default.a.push('/onboarding');
     }
   }, [currentUser]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
@@ -1529,41 +790,30 @@ const SignUp = props => {
   }, []);
 
   const onFinish = values => {
-    _lib_firebase__WEBPACK_IMPORTED_MODULE_3__["myFirebase"].auth().createUserWithEmailAndPassword(values.email, values.password).then(() => {
-      _lib_firebase__WEBPACK_IMPORTED_MODULE_3__["myFirebase"].auth().currentUser.updateProfile({
+    _lib_firebase__WEBPACK_IMPORTED_MODULE_2__["myFirebase"].auth().createUserWithEmailAndPassword(values.email, values.password).then(() => {
+      _lib_firebase__WEBPACK_IMPORTED_MODULE_2__["myFirebase"].auth().currentUser.updateProfile({
         displayName: `${values.firstName} ${values.lastName}`
       }).then(() => {
         window.analytics.track('Firebase Auth Signup');
-        setIsSignedIn(true);
+        next_router__WEBPACK_IMPORTED_MODULE_7___default.a.push('/onboarding');
       });
     }).catch(error => {
       antd__WEBPACK_IMPORTED_MODULE_1__["message"].error(error.message);
     });
   };
 
-  const deleteUser = async () => {
-    window.analytics.track('Go Back - Delete Firebase User');
-    setTimeout(async () => await _lib_firebase__WEBPACK_IMPORTED_MODULE_3__["myFirebase"].auth().currentUser.delete(), 1000);
-    changeUser(undefined);
-    setIsSignedIn(false);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_head__WEBPACK_IMPORTED_MODULE_6___default.a, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("title", null, "Sign Up")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_General_PopupModal__WEBPACK_IMPORTED_MODULE_2__["PopupModal"], {
-    visible: !isSignedIn
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Login_LoginComponent__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_head__WEBPACK_IMPORTED_MODULE_4___default.a, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("title", null, "Sign Up")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Login_LoginFlowContainer__WEBPACK_IMPORTED_MODULE_6__["LoginBackground"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Login_LoginComponent__WEBPACK_IMPORTED_MODULE_5__["default"], {
     isSignUp: true,
     title: "Sign Up",
     onFinish: onFinish
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_OnboardingFlow_Onboard__WEBPACK_IMPORTED_MODULE_4__["Onboard"], {
-    deleteUser: deleteUser
-  }));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SignUp);
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /*!********************************!*\
   !*** multi ./pages/signup.tsx ***!
   \********************************/
@@ -1572,17 +822,6 @@ const SignUp = props => {
 
 module.exports = __webpack_require__(/*! /Users/insanity/Documents/personalprojects/sumpixel/client/pages/signup.tsx */"./pages/signup.tsx");
 
-
-/***/ }),
-
-/***/ "@ant-design/icons":
-/*!************************************!*\
-  !*** external "@ant-design/icons" ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("@ant-design/icons");
 
 /***/ }),
 
@@ -1641,17 +880,6 @@ module.exports = require("firebase/storage");
 
 /***/ }),
 
-/***/ "lodash":
-/*!*************************!*\
-  !*** external "lodash" ***!
-  \*************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("lodash");
-
-/***/ }),
-
 /***/ "next/head":
 /*!****************************!*\
   !*** external "next/head" ***!
@@ -1682,17 +910,6 @@ module.exports = require("next/router");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
-
-/***/ }),
-
-/***/ "react-modal":
-/*!******************************!*\
-  !*** external "react-modal" ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("react-modal");
 
 /***/ }),
 
