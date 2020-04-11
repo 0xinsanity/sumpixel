@@ -13,7 +13,10 @@ import uuid
 import sendgrid
 from sendgrid.helpers.mail import Mail
 import slack
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.cron import CronTrigger
 
+scheduler = BackgroundScheduler()
 app = FastAPI()
 cred = credentials.Certificate("credentials.json")
 firebase_admin.initialize_app(cred)
@@ -476,9 +479,33 @@ def get_communication_helper(id: str):
     
     return doc_comm
 
+def emails_complete_quiz():
+    sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
+    doc_users = db.collection('users').where('completedQuiz', '==', False).stream()
+    
+    for user in doc_users:
+        doc = user.to_dict()
+        message = Mail(
+            from_email="noah.hanover@sumpixel.com",
+            to_emails=doc['email']
+        )
+
+        message.dynamic_template_data = {'first_name': 'Noah hanover'}
+        message.template_id = 'd-e7c2d7d4b5b84b6eb0148d47fc8d4b67'
+
+        try:
+            response = sg.send(message)
+        except Exception as e:
+            print(e)
+            return e
+    
+
 if __name__ == "__main__":
     if os.environ['PORT']:
         port_num = int(os.environ['PORT'])
     else:
         port_num = 5000
+
+    cron_trig = CronTrigger.from_crontab('0 9 * * MON')
+    scheduler.add_job(emails_complete_quiz, cron_trig)
     uvicorn.run(app, host="0.0.0.0", port=port_num)
