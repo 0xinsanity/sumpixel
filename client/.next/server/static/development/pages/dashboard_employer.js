@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -141,7 +141,7 @@ const DesignerInfoModal = props => {
     onConnect,
     setInvisible
   } = props;
-  const isAnonymous = onConnect !== undefined && currentUser.isAnonymous === undefined;
+  const isAnonymous = currentUser.isAnonymous;
 
   if (designer === undefined) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
@@ -1452,7 +1452,7 @@ const DashboardEmployer = props => {
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!********************************************!*\
   !*** multi ./pages/dashboard_employer.tsx ***!
   \********************************************/

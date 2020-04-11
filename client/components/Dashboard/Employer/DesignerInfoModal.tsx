@@ -17,7 +17,7 @@ interface DesignerInfoModalProps {
 const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
     const {currentUser, changeUser} = useContext(UserContext)
     const {designer, visible, onConnect, setInvisible} = props
-    const isAnonymous = (onConnect !== undefined && (currentUser as Employer).isAnonymous === undefined)
+    const isAnonymous = (currentUser as Employer).isAnonymous
 
     if (designer === undefined) {
         return <></>
