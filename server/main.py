@@ -480,7 +480,6 @@ def get_communication_helper(id: str):
     return doc_comm
 
 def emails_complete_quiz():
-    sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
     doc_users = db.collection('users').where('completedQuiz', '==', False).stream()
     
     for user in doc_users:
@@ -490,7 +489,7 @@ def emails_complete_quiz():
             to_emails=doc['email']
         )
 
-        message.dynamic_template_data = {'first_name': 'Noah hanover'}
+        message.dynamic_template_data = {'first_name': doc['firstName']}
         message.template_id = 'd-e7c2d7d4b5b84b6eb0148d47fc8d4b67'
 
         try:
