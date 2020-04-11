@@ -5,6 +5,7 @@ import {createCommunication} from '../../../lib/server'
 import {storage_ref} from '../../../lib/firebase'
 import {UserContext} from '../../../lib/UserProvider'
 import _ from 'lodash'
+import Router from 'next/router'
 
 interface DesignerInfoModalProps {
     designer: User
@@ -16,6 +17,7 @@ interface DesignerInfoModalProps {
 const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
     const {currentUser, changeUser} = useContext(UserContext)
     const {designer, visible, onConnect, setInvisible} = props
+    const isAnonymous = (onConnect !== undefined && (currentUser as Employer).isAnonymous === undefined)
 
     if (designer === undefined) {
         return <></>
@@ -33,7 +35,11 @@ const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
     }
 
     const onClick = () => {
-        onConnect(designer.id)
+        if (isAnonymous) {
+            Router.push('/signup')
+        } else {
+            onConnect(designer.id)
+        }
     }
 
     const downloadResume = () => {
@@ -51,10 +57,9 @@ const DesignerInfoModal: React.FC<DesignerInfoModalProps> = props => {
             title={designer.firstName + " " + designer.lastName}
             visible={visible}
             footer={[
-                onConnect !== undefined && (currentUser as Employer).isAnonymous === undefined ?
                 <Button onClick={onClick} type="primary">
-                    Connect To {designer.firstName}
-                </Button> : null]}
+                    {isAnonymous ? `Create An Account to Connect With ${designer.firstName}` : `Connect To ${designer.firstName}`}
+                </Button>]}
         >
             <Typography.Title level={3} underline>Our Evaluation</Typography.Title>
             <Typography.Title level={4}>Overall Score: {grade.score}</Typography.Title>

@@ -31,6 +31,7 @@ const CommunicationsList: React.FC<CommunicationsListProps> = (props) => {
             size={"large"}
             dataSource={communicationList}
             bordered={false}
+            pagination={{defaultPageSize: 10}}
         >
             <Column width={'35%'} title="Company Name" dataIndex="companyName" key="companyName" />
             <Column title="Company Status" dataIndex="decision" key="decision" render={(text) => (

@@ -46,6 +46,7 @@ const EmployerCommList: React.FC<CommunicationsListProps> = (props) => {
                 size={"large"}
                 dataSource={communicationList}
                 bordered={false}
+                pagination={{defaultPageSize: 10}}
             >
                 <Column width={'35%'} title="Name" dataIndex="fullName" key="fullName" />
                 <Column title="Designer's Status" dataIndex="designerApprovedTalk" key="designerApprovedTalk" render={(text) => (

@@ -65,6 +65,7 @@ const DesignerList: React.FC<DesignerListProps> = (props) => {
                 size={"large"}
                 dataSource={designerList}
                 bordered={false}
+                pagination={{defaultPageSize: 10}}
             >
                 <Column onCell={(data, index) => ({style: {fontFamily: 'Mark Pro Bold'}})}  width={'35%'} title="Name" dataIndex="name_feedback" key="name_feedback" render={(name_feedback) => (
                     <>

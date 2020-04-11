@@ -92,7 +92,7 @@ const DashboardEmployer: React.FC = (props) => {
             </Head>
             <NavigationBar 
                 isDesigner={false}
-                subtitle={(currentUser as Employer).isAnonymous === undefined ? `${currentUser.firstName}'s Dashboard` : 'Temporary Dashboard'}
+                subtitle={(currentUser as Employer).isAnonymous === undefined ? `${currentUser.firstName}'s Dashboard` : 'Dashboard'}
                 footer={footer}
             />
         </>

@@ -121,6 +121,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "lodash");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
@@ -138,6 +141,7 @@ const DesignerInfoModal = props => {
     onConnect,
     setInvisible
   } = props;
+  const isAnonymous = onConnect !== undefined && currentUser.isAnonymous === undefined;
 
   if (designer === undefined) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
@@ -156,7 +160,11 @@ const DesignerInfoModal = props => {
   };
 
   const onClick = () => {
-    onConnect(designer.id);
+    if (isAnonymous) {
+      next_router__WEBPACK_IMPORTED_MODULE_5___default.a.push('/signup');
+    } else {
+      onConnect(designer.id);
+    }
   };
 
   const downloadResume = () => {
@@ -172,10 +180,10 @@ const DesignerInfoModal = props => {
     onCancel: setInvisible,
     title: designer.firstName + " " + designer.lastName,
     visible: visible,
-    footer: [onConnect !== undefined && currentUser.isAnonymous === undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    footer: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       onClick: onClick,
       type: "primary"
-    }, "Connect To ", designer.firstName) : null]
+    }, isAnonymous ? `Create An Account to Connect With ${designer.firstName}` : `Connect To ${designer.firstName}`)]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Title, {
     level: 3,
     underline: true
@@ -288,7 +296,10 @@ const DesignerList = props => {
     },
     size: "large",
     dataSource: designerList,
-    bordered: false
+    bordered: false,
+    pagination: {
+      defaultPageSize: 10
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, {
     onCell: (data, index) => ({
       style: {
@@ -407,7 +418,10 @@ const EmployerCommList = props => {
     },
     size: "large",
     dataSource: communicationList,
-    bordered: false
+    bordered: false,
+    pagination: {
+      defaultPageSize: 10
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, {
     width: '35%',
     title: "Name",
@@ -1429,7 +1443,7 @@ const DashboardEmployer = props => {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_head__WEBPACK_IMPORTED_MODULE_11___default.a, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("title", null, "Employer Dashboard")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Dashboard_NavigationBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
     isDesigner: false,
-    subtitle: currentUser.isAnonymous === undefined ? `${currentUser.firstName}'s Dashboard` : 'Temporary Dashboard',
+    subtitle: currentUser.isAnonymous === undefined ? `${currentUser.firstName}'s Dashboard` : 'Dashboard',
     footer: footer
   }));
 };
