@@ -2,9 +2,10 @@ import React, { Component, createContext } from "react";
 import { myFirebase } from "./firebase";
 import {User, Employer} from '../model/model'
 import {getEmployer, getUser} from './server'
-import Router from "next/router";
+import Router, {withRouter} from "next/router";
 import {message} from 'antd'
 import Loading from '../components/General/Loading'
+import { NextPage, NextPageContext } from 'next';
 
 interface ContextProps {
     currentUser: User | Employer | null,
@@ -65,24 +66,38 @@ class UserProvider extends Component {
               name: current.name,
               email: current.email
             });
-            Router.replace('/dashboard_user')
+            if (Router.router.route === '/' || Router.router.route === '/signup') {
+              setTimeout(() => {
+                Router.push('/dashboard_user')
+              }, 500)
+            }
         } else if (current !== undefined && current['employer_exists'] === undefined) {
             window.analytics.identify(current.id, {
               name: current.name,
               email: current.email
             });
             this.changeUser(current as Employer)
-            Router.push('/dashboard_employer')
+            if (Router.router.route === '/' || Router.router.route === '/signup') {
+              setTimeout(() => {
+                Router.push('/dashboard_employer')
+              }, 500)
+            }
         } else {
             // TODO: Find alternate way to wait until names are updated
             // Works for both
             setTimeout(() => {
-                this.changeUser({
-                    email: userAuth.email,
-                    id: userAuth.uid,
-                    firstName: userAuth.displayName.substr(0, userAuth.displayName.indexOf(' ')),
-                    lastName: userAuth.displayName.substr(userAuth.displayName.indexOf(' ')+1),
-                })
+              if (userAuth.email === null && userAuth.isAnonymous === false) {
+                // something's wrong
+                myFirebase.auth().signOut()
+                this.changeUser(undefined)
+                return
+              }
+              this.changeUser({
+                  email: userAuth.email,
+                  id: userAuth.uid,
+                  firstName: userAuth.displayName.substr(0, userAuth.displayName.indexOf(' ')),
+                  lastName: userAuth.displayName.substr(userAuth.displayName.indexOf(' ')+1),
+              })
             }, 500)
             
         }

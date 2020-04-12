@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -104,122 +104,6 @@ module.exports = "/_next/static/images/sumpixel-logo-a3c23479ee4c195d2c8c3492a18
 
 /***/ }),
 
-/***/ "./components/Dashboard/Employer/DesignerInfoModal.tsx":
-/*!*************************************************************!*\
-  !*** ./components/Dashboard/Employer/DesignerInfoModal.tsx ***!
-  \*************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../lib/firebase */ "./lib/firebase.tsx");
-/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! next/router */ "next/router");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_5__);
-
-
-
-
-
-
-
-
-const DesignerInfoModal = props => {
-  const {
-    currentUser,
-    changeUser
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_3__["UserContext"]);
-  const {
-    designer,
-    visible,
-    onConnect,
-    setInvisible
-  } = props;
-  const isAnonymous = currentUser.isAnonymous;
-
-  if (designer === undefined) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
-  }
-
-  const {
-    grade
-  } = designer;
-  const showInfo = {
-    "Portfolio": designer.portfolio,
-    "Location": designer.location,
-    "Preferred Role": designer.preferredRole,
-    "Desired Salary": designer.salary,
-    "Phone Number": designer.phoneNumber,
-    "Email": designer.email
-  };
-
-  const onClick = () => {
-    if (isAnonymous) {
-      _lib_firebase__WEBPACK_IMPORTED_MODULE_2__["myFirebase"].auth().signOut().then(() => {
-        changeUser(undefined);
-        next_router__WEBPACK_IMPORTED_MODULE_5___default.a.push('/signup');
-      });
-    } else {
-      onConnect(designer.id);
-    }
-  };
-
-  const downloadResume = () => {
-    _lib_firebase__WEBPACK_IMPORTED_MODULE_2__["storage_ref"].child('resumes/' + designer.resume).getDownloadURL().then(url => {
-      console.log(url);
-      window.open(url, '_blank');
-    }).catch(error => {
-      console.error(error);
-    });
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
-    onCancel: setInvisible,
-    title: designer.firstName + " " + designer.lastName,
-    visible: visible,
-    footer: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-      onClick: onClick,
-      type: "primary"
-    }, isAnonymous ? `Create An Account to Connect With ${designer.firstName}` : `Connect To ${designer.firstName}`)]
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Title, {
-    level: 3,
-    underline: true
-  }, "Our Evaluation"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Title, {
-    level: 4
-  }, "Overall Score: ", grade.score), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Text, null, "This score is out of 10. To learn more about our scoring system, ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    target: '_blank',
-    href: 'https://sumpixel.com/manifesto'
-  }, "click here.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Title, {
-    level: 4
-  }, "Response From Evaluator:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Text, null, grade.response), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Title, {
-    level: 3,
-    underline: true
-  }, designer.firstName, "'s Info"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    style: {
-      display: 'flex',
-      flexDirection: 'column'
-    }
-  }, lodash__WEBPACK_IMPORTED_MODULE_4___default.a.map(lodash__WEBPACK_IMPORTED_MODULE_4___default.a.keys(showInfo), key => {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Text, null, key, ": ", showInfo[key], '\n');
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-    style: {
-      marginTop: 10
-    },
-    onClick: downloadResume
-  }, "Download Resume"));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (DesignerInfoModal);
-
-/***/ }),
-
 /***/ "./components/Dashboard/Employer/DesignerList.tsx":
 /*!********************************************************!*\
   !*** ./components/Dashboard/Employer/DesignerList.tsx ***!
@@ -231,17 +115,14 @@ const DesignerInfoModal = props => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../lib/server */ "./lib/server.tsx");
-/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../model/model */ "./model/model.tsx");
-/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../lib/UserProvider */ "./lib/UserProvider.tsx");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "antd");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _DesignerInfoModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DesignerInfoModal */ "./components/Dashboard/Employer/DesignerInfoModal.tsx");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _General_BigBlackButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../General/BigBlackButton */ "./components/General/BigBlackButton.tsx");
-
-
+/* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../model/model */ "./model/model.tsx");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _General_BigBlackButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../General/BigBlackButton */ "./components/General/BigBlackButton.tsx");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -250,48 +131,26 @@ __webpack_require__.r(__webpack_exports__);
 
 const {
   Column
-} = antd__WEBPACK_IMPORTED_MODULE_4__["Table"];
-const NameTitle = styled_components__WEBPACK_IMPORTED_MODULE_6___default()(antd__WEBPACK_IMPORTED_MODULE_4__["Typography"]).withConfig({
+} = antd__WEBPACK_IMPORTED_MODULE_2__["Table"];
+const NameTitle = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(antd__WEBPACK_IMPORTED_MODULE_2__["Typography"]).withConfig({
   displayName: "DesignerList__NameTitle",
   componentId: "sc-4gjozu-0"
 })(["color:#000000;font-family:'Mark Pro Bold';font-size:16px;"]);
-const ResponseTitle = styled_components__WEBPACK_IMPORTED_MODULE_6___default()(antd__WEBPACK_IMPORTED_MODULE_4__["Typography"]).withConfig({
+const ResponseTitle = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(antd__WEBPACK_IMPORTED_MODULE_2__["Typography"]).withConfig({
   displayName: "DesignerList__ResponseTitle",
   componentId: "sc-4gjozu-1"
 })(["color:#000000;opacity:0.5;font-size;14px;font-family:'Mark Pro';"]);
 
 const DesignerList = props => {
   const {
-    currentUser,
-    changeUser
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_3__["UserContext"]);
-  const {
     designerList
   } = props;
-  const [showModal, setModalVisibility] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
-  const [currentDesigner, setCurrentDesigner] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined);
 
   const onMoreInfo = user => {
-    setCurrentDesigner(user);
-    setModalVisibility(true);
+    next_router__WEBPACK_IMPORTED_MODULE_5___default.a.push('/profile/' + user.id);
   };
 
-  const onConnect = async designerId => {
-    window.analytics.track(currentUser.companyName + ' connects to designer');
-    const comm = await Object(_lib_server__WEBPACK_IMPORTED_MODULE_1__["createCommunication"])(designerId, currentUser.id);
-    setModalVisibility(false);
-    const newUser = { ...currentUser,
-      communications: [...currentUser.communications, comm.id]
-    };
-    changeUser(newUser);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DesignerInfoModal__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    setInvisible: () => setModalVisibility(false),
-    visible: showModal,
-    designer: currentDesigner,
-    onConnect: onConnect
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Table"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Table"], {
     style: {
       paddingBottom: 10,
       width: '100%',
@@ -320,13 +179,13 @@ const DesignerList = props => {
     title: "Score",
     dataIndex: "score",
     key: "score",
-    render: text => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Typography"].Text, {
+    render: text => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Typography"].Text, {
       style: {
-        color: _model_model__WEBPACK_IMPORTED_MODULE_2__["UNIVERSAL_COLOR"]
+        color: _model_model__WEBPACK_IMPORTED_MODULE_1__["UNIVERSAL_COLOR"]
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Typography"].Text, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Typography"].Text, {
       style: {
-        color: _model_model__WEBPACK_IMPORTED_MODULE_2__["UNIVERSAL_COLOR"],
+        color: _model_model__WEBPACK_IMPORTED_MODULE_1__["UNIVERSAL_COLOR"],
         fontFamily: 'Mark Pro Bold'
       }
     }, text), "/10")
@@ -345,7 +204,7 @@ const DesignerList = props => {
     title: "More",
     dataIndex: "contact",
     key: "contact",
-    render: contact => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_7__["BigBlackButton"], {
+    render: contact => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_4__["BigBlackButton"], {
       onClick: () => onMoreInfo(contact)
     }, "More Info/Connect")
   })));
@@ -368,10 +227,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../lib/server */ "./lib/server.tsx");
 /* harmony import */ var _model_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../model/model */ "./model/model.tsx");
-/* harmony import */ var _DesignerInfoModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DesignerInfoModal */ "./components/Dashboard/Employer/DesignerInfoModal.tsx");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "antd");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _General_BigBlackButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../General/BigBlackButton */ "./components/General/BigBlackButton.tsx");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _General_BigBlackButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../General/BigBlackButton */ "./components/General/BigBlackButton.tsx");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -380,7 +240,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const {
   Column
-} = antd__WEBPACK_IMPORTED_MODULE_4__["Table"];
+} = antd__WEBPACK_IMPORTED_MODULE_3__["Table"];
 
 const EmployerCommList = props => {
   const {
@@ -405,15 +265,10 @@ const EmployerCommList = props => {
 
   const onMoreInfo = async commId => {
     const user = await Object(_lib_server__WEBPACK_IMPORTED_MODULE_1__["getDesignerFromCommunication"])(commId);
-    setCurrentDesigner(user);
-    setModalVisibility(true);
+    next_router__WEBPACK_IMPORTED_MODULE_5___default.a.push('/profile/' + user.id);
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DesignerInfoModal__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    setInvisible: () => setModalVisibility(false),
-    visible: showModal,
-    designer: currentDesigner
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Table"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Table"], {
     style: {
       paddingBottom: 10,
       width: '100%',
@@ -435,7 +290,7 @@ const EmployerCommList = props => {
     title: "Designer's Status",
     dataIndex: "designerApprovedTalk",
     key: "designerApprovedTalk",
-    render: text => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Typography"].Text, {
+    render: text => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Typography"].Text, {
       style: {
         color: '#000'
       }
@@ -445,16 +300,16 @@ const EmployerCommList = props => {
     title: "Decision",
     dataIndex: "decision",
     key: "decision",
-    render: (text, record, index) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Popconfirm"], {
+    render: (text, record, index) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Popconfirm"], {
       title: "Are you sure?"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Radio"].Group, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Radio"].Group, {
       onChange: e => updateDecision(communicationList[index].communicationId, e.target.value),
       value: text
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Radio"].Button, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Radio"].Button, {
       value: _model_model__WEBPACK_IMPORTED_MODULE_2__["EmployerDecisionHire"].UNDECIDED
-    }, "Reviewing"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Radio"].Button, {
+    }, "Reviewing"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Radio"].Button, {
       value: _model_model__WEBPACK_IMPORTED_MODULE_2__["EmployerDecisionHire"].REJECT
-    }, "Reject"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Radio"].Button, {
+    }, "Reject"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Radio"].Button, {
       value: _model_model__WEBPACK_IMPORTED_MODULE_2__["EmployerDecisionHire"].HIRE
     }, "Hire")))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, {
@@ -462,9 +317,9 @@ const EmployerCommList = props => {
     title: "Info",
     dataIndex: "communicationId",
     key: "communicationId",
-    render: communicationId => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_5__["BigBlackButton"], {
+    render: communicationId => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_4__["BigBlackButton"], {
       onClick: () => onMoreInfo(communicationId)
-    }, "More Info")
+    }, "View Profile")
   }), "/>"));
 };
 
@@ -515,7 +370,6 @@ const FindDesigners = props => {
         name_feedback: [user.firstName + " " + user.lastName, user.grade.response],
         score: user.grade.score,
         location: user.location,
-        experience: 4,
         primary_skill: user.designType,
         contact: user
       })));
@@ -1037,18 +891,35 @@ class UserProvider extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
             name: current.name,
             email: current.email
           });
-          next_router__WEBPACK_IMPORTED_MODULE_3___default.a.replace('/dashboard_user');
+
+          if (next_router__WEBPACK_IMPORTED_MODULE_3___default.a.router.route === '/' || next_router__WEBPACK_IMPORTED_MODULE_3___default.a.router.route === '/signup') {
+            setTimeout(() => {
+              next_router__WEBPACK_IMPORTED_MODULE_3___default.a.push('/dashboard_user');
+            }, 500);
+          }
         } else if (current !== undefined && current['employer_exists'] === undefined) {
           window.analytics.identify(current.id, {
             name: current.name,
             email: current.email
           });
           this.changeUser(current);
-          next_router__WEBPACK_IMPORTED_MODULE_3___default.a.push('/dashboard_employer');
+
+          if (next_router__WEBPACK_IMPORTED_MODULE_3___default.a.router.route === '/' || next_router__WEBPACK_IMPORTED_MODULE_3___default.a.router.route === '/signup') {
+            setTimeout(() => {
+              next_router__WEBPACK_IMPORTED_MODULE_3___default.a.push('/dashboard_employer');
+            }, 500);
+          }
         } else {
           // TODO: Find alternate way to wait until names are updated
           // Works for both
           setTimeout(() => {
+            if (userAuth.email === null && userAuth.isAnonymous === false) {
+              // something's wrong
+              _firebase__WEBPACK_IMPORTED_MODULE_1__["myFirebase"].auth().signOut();
+              this.changeUser(undefined);
+              return;
+            }
+
             this.changeUser({
               email: userAuth.email,
               id: userAuth.uid,
@@ -1456,7 +1327,7 @@ const DashboardEmployer = props => {
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /*!********************************************!*\
   !*** multi ./pages/dashboard_employer.tsx ***!
   \********************************************/

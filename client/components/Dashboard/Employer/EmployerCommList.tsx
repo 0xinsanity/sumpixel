@@ -6,6 +6,7 @@ import {User, DesignerDecisionTalk, EmployerDecisionHire, CommForEmployer} from 
 import DesignerInfoModal from './DesignerInfoModal'
 import {Typography, List, Radio, Popconfirm, Table} from 'antd'
 import {BigBlackButton} from '../../General/BigBlackButton'
+import Router from 'next/router'
 const {Column} = Table
 
 interface CommunicationsListProps {
@@ -31,16 +32,11 @@ const EmployerCommList: React.FC<CommunicationsListProps> = (props) => {
 
     const onMoreInfo = async (commId: string) => {
         const user = await getDesignerFromCommunication(commId)
-        setCurrentDesigner(user)
-        setModalVisibility(true)
+        Router.push('/profile/' + user.id)
     }
-
 
     return (
         <>
-            <DesignerInfoModal setInvisible={() => setModalVisibility(false)}
-                                visible={showModal}
-                               designer={currentDesigner}/>
             <Table
                 style={{paddingBottom: 10, width: '100%', fontFamily: 'Mark Pro Bold', fontWeight: 'normal'}}
                 size={"large"}
@@ -63,7 +59,7 @@ const EmployerCommList: React.FC<CommunicationsListProps> = (props) => {
                 )} />
                 <Column align={'center'} title="Info" dataIndex="communicationId" key="communicationId" render={(communicationId) => (
                     <BigBlackButton onClick={() => onMoreInfo(communicationId)}>
-                        More Info
+                        View Profile
                     </BigBlackButton>
                 )} />
                  />

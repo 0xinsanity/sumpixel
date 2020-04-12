@@ -1,0 +1,52 @@
+webpackHotUpdate("static/development/pages/profile/[profile_id].js",{
+
+/***/ "./components/Profile/TextAboveAnswer.tsx":
+/*!************************************************!*\
+  !*** ./components/Profile/TextAboveAnswer.tsx ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+
+
+const {
+  Link
+} = antd__WEBPACK_IMPORTED_MODULE_1__["Anchor"];
+const Container = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
+  displayName: "TextAboveAnswer__Container",
+  componentId: "hazteg-0"
+})(["display:flex;flex-direction:column;"]);
+const AboveText = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Text).withConfig({
+  displayName: "TextAboveAnswer__AboveText",
+  componentId: "hazteg-1"
+})(["font-family:'Mark Pro';opacity:0.5;padding-bottom:8px;"]);
+const BelowText = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(AboveText).withConfig({
+  displayName: "TextAboveAnswer__BelowText",
+  componentId: "hazteg-2"
+})(["opacity:1.0;padding-bottom:0px;"]);
+
+const TextAboveAnswer = props => {
+  const {
+    above,
+    below,
+    link
+  } = props;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AboveText, null, above), link !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Link, {
+    href: link,
+    title: below
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(BelowText, null, below));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (TextAboveAnswer);
+
+/***/ })
+
+})
+//# sourceMappingURL=[profile_id].js.2ee7c2bcd26a2ff41266.hot-update.js.map

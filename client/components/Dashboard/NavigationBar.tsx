@@ -35,7 +35,7 @@ const SubTitle = styled(Typography.Title)`
 interface NavigationBarProps {
     subtitle: string
     footer: React.ReactNode
-    isDesigner: boolean
+    isDesigner?: boolean
 }
 
 const NavigationBar: React.FC<NavigationBarProps> = (props) => {

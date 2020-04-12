@@ -228,18 +228,35 @@ class UserProvider extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
             name: current.name,
             email: current.email
           });
-          next_router__WEBPACK_IMPORTED_MODULE_3___default.a.replace('/dashboard_user');
+
+          if (next_router__WEBPACK_IMPORTED_MODULE_3___default.a.router.route === '/' || next_router__WEBPACK_IMPORTED_MODULE_3___default.a.router.route === '/signup') {
+            setTimeout(() => {
+              next_router__WEBPACK_IMPORTED_MODULE_3___default.a.push('/dashboard_user');
+            }, 500);
+          }
         } else if (current !== undefined && current['employer_exists'] === undefined) {
           window.analytics.identify(current.id, {
             name: current.name,
             email: current.email
           });
           this.changeUser(current);
-          next_router__WEBPACK_IMPORTED_MODULE_3___default.a.push('/dashboard_employer');
+
+          if (next_router__WEBPACK_IMPORTED_MODULE_3___default.a.router.route === '/' || next_router__WEBPACK_IMPORTED_MODULE_3___default.a.router.route === '/signup') {
+            setTimeout(() => {
+              next_router__WEBPACK_IMPORTED_MODULE_3___default.a.push('/dashboard_employer');
+            }, 500);
+          }
         } else {
           // TODO: Find alternate way to wait until names are updated
           // Works for both
           setTimeout(() => {
+            if (userAuth.email === null && userAuth.isAnonymous === false) {
+              // something's wrong
+              _firebase__WEBPACK_IMPORTED_MODULE_1__["myFirebase"].auth().signOut();
+              this.changeUser(undefined);
+              return;
+            }
+
             this.changeUser({
               email: userAuth.email,
               id: userAuth.uid,

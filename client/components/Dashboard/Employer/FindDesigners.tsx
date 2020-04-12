@@ -22,7 +22,6 @@ const FindDesigners: React.FC = (props) => {
                 name_feedback: [(user.firstName + " " + user.lastName), user.grade.response],
                 score: user.grade.score,
                 location: user.location,
-                experience: 4,
                 primary_skill: user.designType,
                 contact: user
             })))

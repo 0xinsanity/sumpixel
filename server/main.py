@@ -15,6 +15,8 @@ from sendgrid.helpers.mail import Mail
 import slack
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
+from typeform import Typeform
+from pydash.collections import find
 
 scheduler = BackgroundScheduler()
 app = FastAPI()
@@ -23,6 +25,7 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
 slack_client = slack.WebClient(token=os.environ.get('SLACK_API_CLIENT'))
+typeform = Typeform(os.environ.get('TYPEFORM_KEY'))
 
 origins = [
     'https://localhost:3000',
@@ -434,6 +437,26 @@ def get_graded_designers(id: str):
             users.append(user_dict)
     
     return sorted(users, key=lambda user: user["grade"]["score"], reverse=True)
+
+@app.get("/get_qa_by_id")
+def get_qa_by_id(id: str):
+    user = get_user_helper(id)
+    form_type = 'irGM8E'
+    if user['designType'] == "UI":
+        form_type = 'riENWs'
+    elif user['designType'] == "UX":
+        form_type = 'TqV8Jo'
+    elif user['designType'] == "Brand":
+        form_type = 'BOBhxP'
+
+    form = typeform.forms.get(form_type)['fields']
+    response = find(typeform.responses.list(form_type)['items'], {'hidden': {'id': id}})
+    q_and_a = []
+    for answer in response['answers']:
+        print(answer)
+        question = find(form, {'id': answer.get('field')['id']})
+        q_and_a.append({'question': question.get('title'), 'answer': answer.get('text')})
+    return q_and_a
 
 def get_user_helper(id: str):
     doc_ref = db.collection('users').document(id)
