@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {PageHeader, Button, Tabs, message, Typography} from 'antd'
 import styled from 'styled-components'
+import {UserContext} from '../../lib/UserProvider'
+import { Employer } from '../../model/model'
 
 const SumpixelHeader = styled(PageHeader)`
     background: #DAE2EF;
@@ -30,11 +32,12 @@ interface NavigationBarProps {
 }
 
 const SimpleNavigationBar: React.FC<NavigationBarProps> = (props) => {
+    const {currentUser, changeUser}  = useContext(UserContext)
     const {subtitle} = props
 
     return (
         <SumpixelHeader 
-                title={ <a href={'/'}>
+                title={ <a href={currentUser !== null && (currentUser as Employer).isAnonymous ? '/dashboard_employer?id=60fff552-280b-47ae-b632-25a744a7a910' : '/'}>
                             <img height={43} src={require('../../assets/sumpixel-logo.png')}/>
                         </a>}
             >
