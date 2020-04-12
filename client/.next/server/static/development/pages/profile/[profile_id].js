@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1559,29 +1559,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const TextContainer = styled_components__WEBPACK_IMPORTED_MODULE_11___default.a.div`
-    display: flex;
-    flex-direction: row;
-    width: 75%;
-    justify-content: space-between;
-    padding-top: 15px;
-    padding-bottom: 40px;
-`;
-const UpperFullContainer = styled_components__WEBPACK_IMPORTED_MODULE_11___default.a.div`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 40px;
-`;
-const HeaderTitle = styled_components__WEBPACK_IMPORTED_MODULE_11___default()(antd__WEBPACK_IMPORTED_MODULE_7__["Typography"].Title)`
-    font-family: 'Mark Pro Bold';
-    padding-bottom: 20px;
-`;
-const Section = styled_components__WEBPACK_IMPORTED_MODULE_11___default.a.div`
-    padding-bottom: 52px;
-`;
+const TextContainer = styled_components__WEBPACK_IMPORTED_MODULE_11___default.a.div.withConfig({
+  displayName: "profile_id__TextContainer",
+  componentId: "sc-1cojqhm-0"
+})(["display:flex;flex-direction:row;width:75%;justify-content:space-between;padding-top:15px;padding-bottom:40px;"]);
+const UpperFullContainer = styled_components__WEBPACK_IMPORTED_MODULE_11___default.a.div.withConfig({
+  displayName: "profile_id__UpperFullContainer",
+  componentId: "sc-1cojqhm-1"
+})(["display:flex;flex-direction:row;width:100%;justify-content:space-between;align-items:center;padding-right:40px;"]);
+const HeaderTitle = styled_components__WEBPACK_IMPORTED_MODULE_11___default()(antd__WEBPACK_IMPORTED_MODULE_7__["Typography"].Title).withConfig({
+  displayName: "profile_id__HeaderTitle",
+  componentId: "sc-1cojqhm-2"
+})(["font-family:'Mark Pro Bold';padding-bottom:20px;"]);
+const Section = styled_components__WEBPACK_IMPORTED_MODULE_11___default.a.div.withConfig({
+  displayName: "profile_id__Section",
+  componentId: "sc-1cojqhm-3"
+})(["padding-bottom:52px;"]);
 
 const Profile = () => {
   const {
@@ -1606,15 +1599,10 @@ const Profile = () => {
         changeQandA(qAndA);
       });
       showStats = showStats && profile['graded'];
-      profile['graded'] = undefined;
-      profile['completedQuiz'] = undefined;
-      profile['communications'] = undefined;
-      profile['id'] = undefined;
 
       if (showStats) {
         changeCurrentProfile(profile);
       } else {
-        profile['grade'] = undefined;
         changeCurrentProfile(profile);
       }
 
@@ -1702,7 +1690,7 @@ const Profile = () => {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_7__["Row"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_7__["Col"], {
     span: 24
-  }, showStats ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Section, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(HeaderTitle, {
+  }, currentProfile.completedQuiz ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, showStats ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Section, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(HeaderTitle, {
     level: 3
   }, "Feedback"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Profile_TextAboveAnswer__WEBPACK_IMPORTED_MODULE_9__["default"], {
     style: {
@@ -1736,14 +1724,23 @@ const Profile = () => {
       above: question,
       below: answer
     });
-  })))))));
+  }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Section, {
+    style: {
+      paddingBottom: 0
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(HeaderTitle, {
+    style: {
+      paddingBottom: 0
+    },
+    level: 3
+  }, "Quiz"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_7__["Typography"].Text, null, "This user has not completed their quiz yet.")))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Profile);
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!**********************************************!*\
   !*** multi ./pages/profile/[profile_id].tsx ***!
   \**********************************************/

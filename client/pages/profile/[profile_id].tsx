@@ -63,14 +63,9 @@ const Profile: React.FC = () => {
                 changeQandA(qAndA)
             })
             showStats = showStats && profile['graded']
-            profile['graded'] = undefined
-            profile['completedQuiz'] = undefined
-            profile['communications'] = undefined
-            profile['id'] = undefined
             if (showStats) {
                 changeCurrentProfile(profile)
             } else {
-                profile['grade'] = undefined
                 changeCurrentProfile(profile)
             }
             changeProfileString(profile.firstName + " " + profile.lastName)
@@ -143,20 +138,30 @@ const Profile: React.FC = () => {
                     <Background style={{height: '100%', padding: 64}}>
                         <Row>
                             <Col span={24}>
-                                {showStats ? 
-                                    <Section>
-                                        <HeaderTitle level={3}>Feedback</HeaderTitle>
-                                        <TextAboveAnswer style={{paddingBottom: 32}} above={'Score'} below={currentProfile.grade.score + '/10'}/>
-                                        <TextAboveAnswer belowTextStyle={{maxWidth: 'max-content'}} above={'Response'} below={currentProfile.grade.response}/>
-                                    </Section>
-                                : null}
+                                {currentProfile.completedQuiz ? 
+                                    <>
+                                        {showStats ? 
+                                            <Section>
+                                                <HeaderTitle level={3}>Feedback</HeaderTitle>
+                                                <TextAboveAnswer style={{paddingBottom: 32}} above={'Score'} below={currentProfile.grade.score + '/10'}/>
+                                                <TextAboveAnswer belowTextStyle={{maxWidth: 'max-content'}} above={'Response'} below={currentProfile.grade.response}/>
+                                            </Section>
+                                        : null}
+                                        <Section style={{paddingBottom: 0}}>
+                                            <HeaderTitle level={3}>Questions</HeaderTitle>
+                                            {_.map(qAndA, ({question, answer}) => {
+                                                return (<TextAboveAnswer style={{paddingBottom: 32}} belowTextStyle={{maxWidth: 'max-content'}} above={question} below={answer}/>)
+                                            })}
+                                            
+                                        </Section>
+                                    </>
+                                :
                                 <Section style={{paddingBottom: 0}}>
-                                    <HeaderTitle level={3}>Questions</HeaderTitle>
-                                    {_.map(qAndA, ({question, answer}) => {
-                                        return (<TextAboveAnswer style={{paddingBottom: 32}} belowTextStyle={{maxWidth: 'max-content'}} above={question} below={answer}/>)
-                                    })}
-                                    
+                                    <HeaderTitle style={{paddingBottom: 0}} level={3}>Quiz</HeaderTitle>
+                                    <Typography.Text>This user has not completed their quiz yet.</Typography.Text>
                                 </Section>
+                                }
+                                
                             </Col>
                         </Row>
                     </Background>
