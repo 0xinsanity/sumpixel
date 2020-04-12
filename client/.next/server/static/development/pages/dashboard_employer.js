@@ -201,12 +201,12 @@ const DesignerList = props => {
     key: "primary_skill"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, {
     align: 'center',
-    title: "More",
+    title: "Profile",
     dataIndex: "contact",
     key: "contact",
     render: contact => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_4__["BigBlackButton"], {
       onClick: () => onMoreInfo(contact)
-    }, "More Info/Connect")
+    }, "Connect")
   })));
 };
 

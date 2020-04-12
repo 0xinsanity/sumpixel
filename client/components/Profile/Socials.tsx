@@ -9,7 +9,7 @@ interface TextAboveAnswerProps {
 
 const TextAboveAnswer: React.FC<TextAboveAnswerProps> = (props) => {
     const {linkedin, dribbble} = props
-    if (linkedin === undefined && dribbble === undefined) {
+    if (linkedin === null && dribbble === null) {
         return <></>
     }
 
@@ -17,12 +17,12 @@ const TextAboveAnswer: React.FC<TextAboveAnswerProps> = (props) => {
         <Container >
             <AboveText>Socials</AboveText>
             <div style={{display: 'flex', flexDirection: 'row'}}>
-                {linkedin !== undefined ? 
+                {linkedin !== null ? 
                     <a href={linkedin} target={'_blank'}>
                         <LinkedinOutlined style={{marginRight: 10, fontSize: 20, color: '#13B0C3'}} />
                     </a>
                 : null}
-                {dribbble !== undefined ? 
+                {dribbble !== null ? 
                     <a href={dribbble} target={'_blank'}>
                         <DribbbleOutlined style={{ fontSize: 20, color: '#13B0C3'}} />
                     </a>

@@ -201,12 +201,12 @@ const DesignerList = props => {
     key: "primary_skill"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, {
     align: 'center',
-    title: "More",
+    title: "Profile",
     dataIndex: "contact",
     key: "contact",
     render: contact => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_4__["BigBlackButton"], {
       onClick: () => onMoreInfo(contact)
-    }, "More Info/Connect")
+    }, "Connect")
   })));
 };
 
@@ -877,7 +877,7 @@ const TextAboveAnswer = props => {
     dribbble
   } = props;
 
-  if (linkedin === undefined && dribbble === undefined) {
+  if (linkedin === null && dribbble === null) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
   }
 
@@ -886,7 +886,7 @@ const TextAboveAnswer = props => {
       display: 'flex',
       flexDirection: 'row'
     }
-  }, linkedin !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, linkedin !== null ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: linkedin,
     target: '_blank'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__["LinkedinOutlined"], {
@@ -895,7 +895,7 @@ const TextAboveAnswer = props => {
       fontSize: 20,
       color: '#13B0C3'
     }
-  })) : null, dribbble !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  })) : null, dribbble !== null ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: dribbble,
     target: '_blank'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__["DribbbleOutlined"], {
@@ -1631,6 +1631,14 @@ const Profile = () => {
 
   const connectWithPerson = async () => {
     if (showStats) {
+      // TODO: Block employer from pressing connect with designer more than once
+      const communications = await Promise.all(lodash__WEBPACK_IMPORTED_MODULE_14___default.a.map(currentUser.communications, async commId => await Object(_lib_server__WEBPACK_IMPORTED_MODULE_5__["getDesignerFromCommunication"])(commId)));
+
+      if (lodash__WEBPACK_IMPORTED_MODULE_14___default.a.findIndex(communications, comm => comm.id === profile_id) !== -1) {
+        antd__WEBPACK_IMPORTED_MODULE_7__["message"].info('You have already opened communications with ' + profileString);
+        return;
+      }
+
       window.analytics.track(currentUser.companyName + ' connects to designer');
       const comm = await Object(_lib_server__WEBPACK_IMPORTED_MODULE_5__["createCommunication"])(profile_id, currentUser.id);
       const newUser = { ...currentUser,
@@ -1681,13 +1689,13 @@ const Profile = () => {
       height: 50
     },
     onClick: connectWithPerson
-  }, currentUser === null || currentUser.isAnonymous ? 'Sign Up To' : null, " Connect")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dashboard_employer__WEBPACK_IMPORTED_MODULE_6__["Background"], {
+  }, currentUser === null || currentUser.isAnonymous ? 'Sign Up To ' : null, "Connect")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dashboard_employer__WEBPACK_IMPORTED_MODULE_6__["Background"], {
     style: {
       height: '100%',
       padding: 64
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_7__["Row"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_7__["Col"], {
-    span: 11
+    span: 24
   }, showStats ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Section, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(HeaderTitle, {
     level: 3
   }, "Feedback"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Profile_TextAboveAnswer__WEBPACK_IMPORTED_MODULE_9__["default"], {
@@ -1722,25 +1730,6 @@ const Profile = () => {
       above: question,
       below: answer
     });
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_7__["Col"], {
-    span: 2
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_7__["Col"], {
-    span: 11
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Section, {
-    style: {
-      paddingBottom: 0
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(HeaderTitle, {
-    level: 3
-  }, currentProfile.designType, " Challenge"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Profile_TextAboveAnswer__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    style: {
-      paddingBottom: 32
-    },
-    belowTextStyle: {
-      maxWidth: 'max-content'
-    },
-    above: 'Completion',
-    below: 'Not Done'
   })))))));
 };
 

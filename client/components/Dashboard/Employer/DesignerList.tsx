@@ -63,9 +63,9 @@ const DesignerList: React.FC<DesignerListProps> = (props) => {
                 )} />
                 <Column align={'center'} title="Location" dataIndex="location" key="location" />
                 <Column align={'center'} title="Primary Skill" dataIndex="primary_skill" key="primary_skill" />
-                <Column align={'center'} title="More" dataIndex="contact" key="contact" render={(contact) => (
+                <Column align={'center'} title="Profile" dataIndex="contact" key="contact" render={(contact) => (
                     <BigBlackButton onClick={() => onMoreInfo(contact)}>
-                        More Info/Connect
+                        Connect
                     </BigBlackButton>
                 )} />
             </Table>

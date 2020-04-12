@@ -4,7 +4,7 @@ import SimpleNavigationBar from '../../components/Profile/SimpleNavigationBar'
 import Head from 'next/head'
 import {User, Employer, QA} from '../../model/model'
 import Loading from '../../components/General/Loading'
-import {getUser, createCommunication, getQAById} from '../../lib/server'
+import {getUser, createCommunication, getQAById, getDesignerFromCommunication} from '../../lib/server'
 import {Background} from '../dashboard_employer'
 import {Typography, message, Col, Row} from 'antd'
 import {UserContext} from '../../lib/UserProvider'
@@ -12,6 +12,7 @@ import TextAboveAnswer from '../../components/Profile/TextAboveAnswer'
 import Socials from '../../components/Profile/Socials'
 import styled from 'styled-components'
 import {storage_ref} from '../../lib/firebase'
+import {Communication} from '../../model/model'
 import {BigBlackButton} from '../../components/General/BigBlackButton'
 import _ from 'lodash'
 
@@ -91,6 +92,15 @@ const Profile: React.FC = () => {
 
     const connectWithPerson = async () => {
         if (showStats) {
+            // TODO: Block employer from pressing connect with designer more than once
+            const communications = await Promise.all(_.map(currentUser.communications, async (commId) => 
+                await getDesignerFromCommunication(commId)
+            ))
+
+            if (_.findIndex(communications, (comm: User) => comm.id === profile_id) !== -1) {
+                message.info('You have already opened communications with ' + profileString)
+                return
+            }
             window.analytics.track((currentUser as Employer).companyName + ' connects to designer');
             const comm = await createCommunication(profile_id as string, currentUser.id)
             const newUser = {...currentUser, communications: [...currentUser.communications, comm.id]}
@@ -127,12 +137,12 @@ const Profile: React.FC = () => {
                             <Socials linkedin={currentProfile.linkedin} dribbble={currentProfile.dribbble}/>
                         </TextContainer>
                         <BigBlackButton style={{height: 50}} onClick={connectWithPerson}>
-                           {currentUser === null || (currentUser as Employer).isAnonymous ? 'Sign Up To' : null} Connect
+                           {currentUser === null || (currentUser as Employer).isAnonymous ? 'Sign Up To ' : null}Connect
                         </BigBlackButton>
                     </UpperFullContainer>
                     <Background style={{height: '100%', padding: 64}}>
                         <Row>
-                            <Col span={11}>
+                            <Col span={24}>
                                 {showStats ? 
                                     <Section>
                                         <HeaderTitle level={3}>Feedback</HeaderTitle>
@@ -145,14 +155,6 @@ const Profile: React.FC = () => {
                                     {_.map(qAndA, ({question, answer}) => {
                                         return (<TextAboveAnswer style={{paddingBottom: 32}} belowTextStyle={{maxWidth: 'max-content'}} above={question} below={answer}/>)
                                     })}
-                                    
-                                </Section>
-                            </Col>
-                            <Col span={2}/>
-                            <Col span={11}>
-                                <Section style={{paddingBottom: 0}}>
-                                <HeaderTitle level={3}>{currentProfile.designType} Challenge</HeaderTitle>
-                                    <TextAboveAnswer style={{paddingBottom: 32}} belowTextStyle={{maxWidth: 'max-content'}} above={'Completion'} below={'Not Done'}/>
                                     
                                 </Section>
                             </Col>
