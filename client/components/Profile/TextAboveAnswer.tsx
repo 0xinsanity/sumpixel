@@ -2,12 +2,12 @@ import React, { CSSProperties } from 'react'
 import {Typography, Button} from 'antd'
 import styled from 'styled-components'
 
-const Container = styled.div`
+export const Container = styled.div`
     display: flex;
     flex-direction: column;
 `
 
-const AboveText = styled(Typography.Text)`
+export const AboveText = styled(Typography.Text)`
     font-family: 'Mark Pro';
     opacity: 0.5;
     padding-bottom: 8px;

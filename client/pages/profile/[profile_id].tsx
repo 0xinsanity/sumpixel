@@ -9,6 +9,7 @@ import {Background} from '../dashboard_employer'
 import {Typography, message, Col, Row} from 'antd'
 import {UserContext} from '../../lib/UserProvider'
 import TextAboveAnswer from '../../components/Profile/TextAboveAnswer'
+import Socials from '../../components/Profile/Socials'
 import styled from 'styled-components'
 import {storage_ref} from '../../lib/firebase'
 import {BigBlackButton} from '../../components/General/BigBlackButton'
@@ -123,6 +124,7 @@ const Profile: React.FC = () => {
                             <TextAboveAnswer above={'Portfolio'} link={currentProfile.portfolio} below={'Website'}/>
                             <TextAboveAnswer above={'Resume'} onClick={downloadResume} below={'Download'}/>
                             <TextAboveAnswer above={'Visa Status'} below={currentProfile.visa}/>
+                            <Socials linkedin={currentProfile.linkedin} dribbble={currentProfile.dribbble}/>
                         </TextContainer>
                         <BigBlackButton style={{height: 50}} onClick={connectWithPerson}>
                            {currentUser === null || (currentUser as Employer).isAnonymous ? 'Sign Up To' : null} Connect
@@ -138,7 +140,7 @@ const Profile: React.FC = () => {
                                         <TextAboveAnswer belowTextStyle={{maxWidth: 'max-content'}} above={'Response'} below={currentProfile.grade.response}/>
                                     </Section>
                                 : null}
-                                <Section>
+                                <Section style={{paddingBottom: 0}}>
                                     <HeaderTitle level={3}>Questions</HeaderTitle>
                                     {_.map(qAndA, ({question, answer}) => {
                                         return (<TextAboveAnswer style={{paddingBottom: 32}} belowTextStyle={{maxWidth: 'max-content'}} above={question} below={answer}/>)
@@ -148,6 +150,11 @@ const Profile: React.FC = () => {
                             </Col>
                             <Col span={2}/>
                             <Col span={11}>
+                                <Section style={{paddingBottom: 0}}>
+                                <HeaderTitle level={3}>{currentProfile.designType} Challenge</HeaderTitle>
+                                    <TextAboveAnswer style={{paddingBottom: 32}} belowTextStyle={{maxWidth: 'max-content'}} above={'Completion'} below={'Not Done'}/>
+                                    
+                                </Section>
                             </Col>
                         </Row>
                     </Background>

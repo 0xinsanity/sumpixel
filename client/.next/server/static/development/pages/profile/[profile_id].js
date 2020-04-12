@@ -853,15 +853,74 @@ const SimpleNavigationBar = props => {
 
 /***/ }),
 
-/***/ "./components/Profile/TextAboveAnswer.tsx":
-/*!************************************************!*\
-  !*** ./components/Profile/TextAboveAnswer.tsx ***!
-  \************************************************/
+/***/ "./components/Profile/Socials.tsx":
+/*!****************************************!*\
+  !*** ./components/Profile/Socials.tsx ***!
+  \****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _TextAboveAnswer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TextAboveAnswer */ "./components/Profile/TextAboveAnswer.tsx");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ant-design/icons */ "@ant-design/icons");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+const TextAboveAnswer = props => {
+  const {
+    linkedin,
+    dribbble
+  } = props;
+
+  if (linkedin === undefined && dribbble === undefined) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TextAboveAnswer__WEBPACK_IMPORTED_MODULE_1__["Container"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TextAboveAnswer__WEBPACK_IMPORTED_MODULE_1__["AboveText"], null, "Socials"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'row'
+    }
+  }, linkedin !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: linkedin,
+    target: '_blank'
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__["LinkedinOutlined"], {
+    style: {
+      marginRight: 10,
+      fontSize: 20,
+      color: '#13B0C3'
+    }
+  })) : null, dribbble !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: dribbble,
+    target: '_blank'
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__["DribbbleOutlined"], {
+    style: {
+      fontSize: 20,
+      color: '#13B0C3'
+    }
+  })) : null));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (TextAboveAnswer);
+
+/***/ }),
+
+/***/ "./components/Profile/TextAboveAnswer.tsx":
+/*!************************************************!*\
+  !*** ./components/Profile/TextAboveAnswer.tsx ***!
+  \************************************************/
+/*! exports provided: Container, AboveText, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Container", function() { return Container; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AboveText", function() { return AboveText; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
@@ -1472,12 +1531,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../lib/UserProvider */ "./lib/UserProvider.tsx");
 /* harmony import */ var _components_Profile_TextAboveAnswer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../components/Profile/TextAboveAnswer */ "./components/Profile/TextAboveAnswer.tsx");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../lib/firebase */ "./lib/firebase.tsx");
-/* harmony import */ var _components_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../components/General/BigBlackButton */ "./components/General/BigBlackButton.tsx");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _components_Profile_Socials__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../components/Profile/Socials */ "./components/Profile/Socials.tsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../lib/firebase */ "./lib/firebase.tsx");
+/* harmony import */ var _components_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../components/General/BigBlackButton */ "./components/General/BigBlackButton.tsx");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_14__);
 
 
 
@@ -1492,7 +1552,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const TextContainer = styled_components__WEBPACK_IMPORTED_MODULE_10___default.a.div`
+
+const TextContainer = styled_components__WEBPACK_IMPORTED_MODULE_11___default.a.div`
     display: flex;
     flex-direction: row;
     width: 75%;
@@ -1500,7 +1561,7 @@ const TextContainer = styled_components__WEBPACK_IMPORTED_MODULE_10___default.a.
     padding-top: 15px;
     padding-bottom: 40px;
 `;
-const UpperFullContainer = styled_components__WEBPACK_IMPORTED_MODULE_10___default.a.div`
+const UpperFullContainer = styled_components__WEBPACK_IMPORTED_MODULE_11___default.a.div`
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -1508,11 +1569,11 @@ const UpperFullContainer = styled_components__WEBPACK_IMPORTED_MODULE_10___defau
     align-items: center;
     padding-right: 40px;
 `;
-const HeaderTitle = styled_components__WEBPACK_IMPORTED_MODULE_10___default()(antd__WEBPACK_IMPORTED_MODULE_7__["Typography"].Title)`
+const HeaderTitle = styled_components__WEBPACK_IMPORTED_MODULE_11___default()(antd__WEBPACK_IMPORTED_MODULE_7__["Typography"].Title)`
     font-family: 'Mark Pro Bold';
     padding-bottom: 20px;
 `;
-const Section = styled_components__WEBPACK_IMPORTED_MODULE_10___default.a.div`
+const Section = styled_components__WEBPACK_IMPORTED_MODULE_11___default.a.div`
     padding-bottom: 52px;
 `;
 
@@ -1560,7 +1621,7 @@ const Profile = () => {
   }, [profile_id]);
 
   const downloadResume = () => {
-    _lib_firebase__WEBPACK_IMPORTED_MODULE_11__["storage_ref"].child('resumes/' + currentProfile.resume).getDownloadURL().then(url => {
+    _lib_firebase__WEBPACK_IMPORTED_MODULE_12__["storage_ref"].child('resumes/' + currentProfile.resume).getDownloadURL().then(url => {
       console.log(url);
       window.open(url, '_blank');
     }).catch(error => {
@@ -1612,7 +1673,10 @@ const Profile = () => {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Profile_TextAboveAnswer__WEBPACK_IMPORTED_MODULE_9__["default"], {
     above: 'Visa Status',
     below: currentProfile.visa
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_12__["BigBlackButton"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Profile_Socials__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    linkedin: currentProfile.linkedin,
+    dribbble: currentProfile.dribbble
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_13__["BigBlackButton"], {
     style: {
       height: 50
     },
@@ -1638,9 +1702,13 @@ const Profile = () => {
     },
     above: 'Response',
     below: currentProfile.grade.response
-  })) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Section, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(HeaderTitle, {
+  })) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Section, {
+    style: {
+      paddingBottom: 0
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(HeaderTitle, {
     level: 3
-  }, "Questions"), lodash__WEBPACK_IMPORTED_MODULE_13___default.a.map(qAndA, ({
+  }, "Questions"), lodash__WEBPACK_IMPORTED_MODULE_14___default.a.map(qAndA, ({
     question,
     answer
   }) => {
@@ -1658,7 +1726,22 @@ const Profile = () => {
     span: 2
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_7__["Col"], {
     span: 11
-  })))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Section, {
+    style: {
+      paddingBottom: 0
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(HeaderTitle, {
+    level: 3
+  }, currentProfile.designType, " Challenge"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Profile_TextAboveAnswer__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    style: {
+      paddingBottom: 32
+    },
+    belowTextStyle: {
+      maxWidth: 'max-content'
+    },
+    above: 'Completion',
+    below: 'Not Done'
+  })))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Profile);
@@ -1674,6 +1757,17 @@ const Profile = () => {
 
 module.exports = __webpack_require__(/*! /Users/insanity/Documents/personalprojects/sumpixel/client/pages/profile/[profile_id].tsx */"./pages/profile/[profile_id].tsx");
 
+
+/***/ }),
+
+/***/ "@ant-design/icons":
+/*!************************************!*\
+  !*** external "@ant-design/icons" ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("@ant-design/icons");
 
 /***/ }),
 
