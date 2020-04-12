@@ -453,9 +453,11 @@ def get_qa_by_id(id: str):
     response = find(typeform.responses.list(form_type)['items'], {'hidden': {'id': id}})
     q_and_a = []
     for answer in response['answers']:
-        print(answer)
-        question = find(form, {'id': answer.get('field')['id']})
-        q_and_a.append({'question': question.get('title'), 'answer': answer.get('text')})
+        response = answer.get('text')
+        question = find(form, {'id': answer.get('field')['id']}).get('title')
+        if response != None and "Would you like to get our monthly newsletter" not in question:
+            q_and_a.append({'question': question, 'answer': response})
+        
     return q_and_a
 
 def get_user_helper(id: str):

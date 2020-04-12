@@ -2,9 +2,9 @@ import React, {useEffect, useState, useContext} from 'react'
 import Router, { useRouter } from 'next/router'
 import SimpleNavigationBar from '../../components/Profile/SimpleNavigationBar'
 import Head from 'next/head'
-import {User, Employer} from '../../model/model'
+import {User, Employer, QA} from '../../model/model'
 import Loading from '../../components/General/Loading'
-import {getUser, createCommunication} from '../../lib/server'
+import {getUser, createCommunication, getQAById} from '../../lib/server'
 import {Background} from '../dashboard_employer'
 import {Typography, message, Col, Row} from 'antd'
 import {UserContext} from '../../lib/UserProvider'
@@ -47,6 +47,7 @@ const Profile: React.FC = () => {
     const { profile_id } = router.query
     const [currentProfile, changeCurrentProfile]  = useState<User>(undefined)
     const [profileString, changeProfileString] = useState<string>('Profile')
+    const [qAndA, changeQandA] = useState<QA[]>(null)
     let showStats = currentUser !== null && ((currentUser as Employer).companyName !== undefined)
 
 
@@ -56,6 +57,9 @@ const Profile: React.FC = () => {
         }
 
         getUser(profile_id as string).then((profile: User) => {
+            getQAById(profile_id as string).then((qAndA: QA[]) => {
+                changeQandA(qAndA)
+            })
             showStats = showStats && profile['graded']
             profile['graded'] = undefined
             profile['completedQuiz'] = undefined
@@ -134,7 +138,13 @@ const Profile: React.FC = () => {
                                         <TextAboveAnswer belowTextStyle={{maxWidth: 'max-content'}} above={'Response'} below={currentProfile.grade.response}/>
                                     </Section>
                                 : null}
-
+                                <Section>
+                                    <HeaderTitle level={3}>Questions</HeaderTitle>
+                                    {_.map(qAndA, ({question, answer}) => {
+                                        return (<TextAboveAnswer style={{paddingBottom: 32}} belowTextStyle={{maxWidth: 'max-content'}} above={question} below={answer}/>)
+                                    })}
+                                    
+                                </Section>
                             </Col>
                             <Col span={2}/>
                             <Col span={11}>

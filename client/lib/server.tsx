@@ -1,4 +1,4 @@
-import { User, Employer, EmployerDecisionHire, DesignerDecisionTalk, CommForDesigner, Communication, CommForEmployer } from "../model/model";
+import { QA, User, Employer, EmployerDecisionHire, DesignerDecisionTalk, CommForDesigner, Communication, CommForEmployer } from "../model/model";
 import axios from 'axios';
 
 const SERVER_BASE = 'https://server.sumpixel.com/'
@@ -98,4 +98,8 @@ export const getGradedDesigners = async (id: string): Promise<User[]> => {
 
 export const getDesignerFromCommunication = async (id: string): Promise<User> => {
     return await request('get-designer-from-communication', {id})
+}
+
+export const getQAById = async (id: string): Promise<QA[]> => {
+    return await request('get_qa_by_id', {id})
 }
