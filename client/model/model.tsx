@@ -22,6 +22,11 @@ export interface User {
     communications?: string[];
 }
 
+export interface QA {
+    question: string
+    answer?: string
+}
+
 export interface DesignerGrade {
     response?: string;
     score?: number

@@ -7,9 +7,10 @@ import { UserContext } from '../lib/UserProvider';
 import Head from 'next/head'
 import LoginComponent from '../components/Login/LoginComponent'
 import Router from 'next/router'
+import OpenPage from '../components/General/OpenPage';
 
 const Onboarding: React.FC = (props) => {
-    const {currentUser, changeUser} = useContext(UserContext)
+    const {currentUser, changeUser, setLoading} = useContext(UserContext)
     useEffect(() => {
         window.analytics.page('Onboarding')
     }, [])
@@ -18,7 +19,7 @@ const Onboarding: React.FC = (props) => {
         window.analytics.track('Go Back - Delete Firebase User');
         setTimeout(async () => await myFirebase.auth().currentUser.delete(), 1000)
         changeUser(undefined)
-        Router.push('/signup')
+        OpenPage(setLoading, '/signup')
     }
 
     return (
@@ -26,7 +27,9 @@ const Onboarding: React.FC = (props) => {
             <Head>
                 <title>Onboarding</title>
             </Head>
-            <Onboard deleteUser={deleteUser}/>
+            <div style={{backgroundColor: '#fff', position: 'absolute', width: '100%', height: '100%'}}>
+                <Onboard deleteUser={deleteUser}/>
+            </div>
         </>
     );
 };

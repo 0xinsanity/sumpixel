@@ -5,9 +5,10 @@ import {UserContext} from '../../../lib/UserProvider'
 import {Container} from '../../General/Container'
 import Loading from '../../General/Loading'
 import {Table, Button, Typography} from 'antd'
-import DesignerInfoModal from './DesignerInfoModal'
+import OpenPage from '../../General/OpenPage'
 import styled from 'styled-components'
 import {BigBlackButton} from '../../General/BigBlackButton'
+import Router from 'next/router'
 const {Column} = Table
 
 const NameTitle = styled(Typography)`
@@ -36,30 +37,15 @@ interface DesignerListProps {
 }
 
 const DesignerList: React.FC<DesignerListProps> = (props) => {
-    const {currentUser, changeUser}  = useContext(UserContext)
+    const context = useContext(UserContext)
     const {designerList} = props
-    const [showModal, setModalVisibility] = useState(false) 
-    const [currentDesigner, setCurrentDesigner] = useState<User>(undefined) 
 
     const onMoreInfo = (user: User) => {
-        setCurrentDesigner(user)
-        setModalVisibility(true)
-    }
-
-    const onConnect = async (designerId: string) => {
-        window.analytics.track((currentUser as Employer).companyName + ' connects to designer');
-        const comm = await createCommunication(designerId, currentUser.id)
-        setModalVisibility(false)
-        const newUser = {...currentUser, communications: [...currentUser.communications, comm.id]}
-        changeUser(newUser)
+        OpenPage(context.setLoading, '/profile/' + user.id)
     }
 
     return (
         <>
-            <DesignerInfoModal setInvisible={() => setModalVisibility(false)}
-                                visible={showModal}
-                               designer={currentDesigner}
-                               onConnect={onConnect}/>
             <Table
                 style={{paddingBottom: 10, width: '100%', fontFamily: 'Mark Pro', fontWeight: 'normal'}}
                 size={"large"}
@@ -78,9 +64,9 @@ const DesignerList: React.FC<DesignerListProps> = (props) => {
                 )} />
                 <Column align={'center'} title="Location" dataIndex="location" key="location" />
                 <Column align={'center'} title="Primary Skill" dataIndex="primary_skill" key="primary_skill" />
-                <Column align={'center'} title="More" dataIndex="contact" key="contact" render={(contact) => (
+                <Column align={'center'} title="Profile" dataIndex="contact" key="contact" render={(contact) => (
                     <BigBlackButton onClick={() => onMoreInfo(contact)}>
-                        More Info/Connect
+                        Connect
                     </BigBlackButton>
                 )} />
             </Table>

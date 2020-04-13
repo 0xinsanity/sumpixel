@@ -6,6 +6,8 @@ import Loading from '../General/Loading'
 import {Employer} from '../../model/model'
 import { UserContext } from '../../lib/UserProvider'
 import styled from 'styled-components'
+import OpenPage from '../General/OpenPage'
+import firebase from 'firebase'
 
 const {TabPane} = Tabs
 
@@ -35,17 +37,12 @@ const SubTitle = styled(Typography.Title)`
 interface NavigationBarProps {
     subtitle: string
     footer: React.ReactNode
-    isDesigner: boolean
+    isDesigner?: boolean
 }
 
 const NavigationBar: React.FC<NavigationBarProps> = (props) => {
     const {subtitle, footer, isDesigner} = props
-    const {currentUser, changeUser} = useContext(UserContext)
-    const [loading, setLoading] = useState(false)
-
-    if (loading) {
-        return (<Loading/>)
-    }
+    const {currentUser, changeUser, loading, setLoading} = useContext(UserContext)
 
     return (
         <SumpixelHeader 
@@ -53,14 +50,14 @@ const NavigationBar: React.FC<NavigationBarProps> = (props) => {
                             <img height={43} src={require('../../assets/sumpixel-logo.png')}/>
                         </a>}
                 extra={[
-                    <LogoutButton type="link" onClick={async () => {
+                    <LogoutButton type="link" onClick={() => {
+                        myFirebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
                         myFirebase.auth().signOut().then(() => {
                             changeUser(undefined)
-                            setLoading(false)
                             if ((currentUser as Employer).isAnonymous !== undefined) {
-                                Router.replace('/signup')
+                                OpenPage(setLoading, '/signup')
                             } else {
-                                Router.replace('/')
+                                OpenPage(setLoading, '/')
                             }
                         }).catch((error) => {
                             message.error(error.message)

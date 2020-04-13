@@ -7,13 +7,16 @@ import { UserContext } from '../lib/UserProvider';
 import Head from 'next/head'
 import LoginComponent from '../components/Login/LoginComponent'
 import { LoginBackground } from '../components/Login/LoginFlowContainer'
+import OpenPage from '../components/General/OpenPage'
 import Router from 'next/router'
+import firebase from 'firebase'
 
 const SignUp: React.FC = (props) => {
-    const {currentUser, changeUser} = useContext(UserContext)
+    const {currentUser, setLoading} = useContext(UserContext)
     useEffect(() => {
+        myFirebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         if (currentUser !== undefined && currentUser !== null) {
-            Router.push('/onboarding')
+            OpenPage(setLoading, '/onboarding')
         }
     }, [currentUser])
 
@@ -22,14 +25,16 @@ const SignUp: React.FC = (props) => {
     }, [])
 
     const onFinish = (values) => {
+        setLoading(true)
         myFirebase.auth().createUserWithEmailAndPassword(values.email, values.password).then(() => {
             myFirebase.auth().currentUser.updateProfile({
                 displayName: `${values.firstName} ${values.lastName}`
             }).then(() => {
                 window.analytics.track('Firebase Auth Signup');
-                Router.push('/onboarding')
+                OpenPage(setLoading, '/onboarding')
             })
         }).catch((error) => {
+            setLoading(false)
             message.error(error.message)
         })
     }

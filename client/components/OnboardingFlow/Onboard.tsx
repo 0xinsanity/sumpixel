@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import {UserContext} from '../../lib/UserProvider'
 import {createUser, createEmployer} from '../../lib/server'
 import Router from 'next/router'
+import OpenPage from '../General/OpenPage'
 
 const Title = styled(Typography.Title)`
     padding-top: 15px;
@@ -24,7 +25,7 @@ interface OnboardProps {
 export const Onboard: React.FC<OnboardProps> = props => {
     const [currentStep, changeStep] = useState(0);
     const [navBarStatus, changeNavbarStatus] = useState<NavBarStatus>(NavBarStatus.Undecided);
-    const {currentUser, changeUser}  = useContext(UserContext)
+    const {currentUser, changeUser, loading, setLoading}  = useContext(UserContext)
 
     const updateUser = async (updatedUser: User) => {
         window.analytics.track('Create User');
@@ -61,9 +62,9 @@ export const Onboard: React.FC<OnboardProps> = props => {
             break;
         case 2:
             if (navBarStatus == NavBarStatus.Designer) {
-                Router.push('/dashboard_user');
+                OpenPage(setLoading, '/dashboard_user')
             } else {
-                Router.replace('/dashboard_employer')
+                OpenPage(setLoading, '/dashboard_employer')
             }
             break;
     }
