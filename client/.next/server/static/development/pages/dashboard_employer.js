@@ -1234,6 +1234,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_firebase__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../lib/firebase */ "./lib/firebase.tsx");
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! firebase */ "firebase");
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _components_General_OpenPage__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/General/OpenPage */ "./components/General/OpenPage.tsx");
+
 
 
 
@@ -1277,11 +1279,16 @@ const DashboardEmployer = props => {
     asPath,
     query
   } = Object(next_router__WEBPACK_IMPORTED_MODULE_12__["useRouter"])();
+  const [isAnonymousHere, setAnonymous] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false); // This is done to access isAnonymous value within timeout
+
+  const anon = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(isAnonymousHere);
+  anon.current = isAnonymousHere;
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     window.analytics.page('Employer Dashboard');
     setTimeout(() => {
-      if (currentUser === null || currentUser === undefined) {
-        console.log('currentuser' + currentUser); //OpenPage(setLoading, '/')
+      // currentUser not updated so have to resort to custom state to prevent going back
+      if (!anon.current && (currentUser === null || currentUser === undefined)) {
+        Object(_components_General_OpenPage__WEBPACK_IMPORTED_MODULE_15__["default"])(setLoading, '/');
       }
     }, 3000);
 
@@ -1295,6 +1302,7 @@ const DashboardEmployer = props => {
         _lib_firebase__WEBPACK_IMPORTED_MODULE_13__["myFirebase"].auth().setPersistence(firebase__WEBPACK_IMPORTED_MODULE_14___default.a.auth.Auth.Persistence.NONE);
         _lib_firebase__WEBPACK_IMPORTED_MODULE_13__["myFirebase"].auth().signInAnonymously().then(() => {
           console.log('currentuser ' + currentUser);
+          setAnonymous(true);
           console.log('signed in anon');
         });
       }

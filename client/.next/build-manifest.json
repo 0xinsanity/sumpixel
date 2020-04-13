@@ -30,6 +30,10 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
+    "/dashboard_user": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/index": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"

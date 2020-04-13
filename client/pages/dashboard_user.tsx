@@ -20,12 +20,13 @@ interface TabWithCeilingProps {
 }
 
 const DashboardUser: React.FC = (props) => {
-    const {currentUser, changeUser, setLoading}  = useContext(UserContext)
+    const {currentUser, changeUser, setLoading, loading}  = useContext(UserContext)
 
     useEffect(() => {
         window.analytics.page('Designer Dashboard')
         setTimeout(() => {
-            if (currentUser === null || currentUser === undefined) {
+            console.log('loadin' + loading)
+            if (currentUser === undefined || currentUser === null) {
                 OpenPage(setLoading, '/')
             }
         }, 3000)
@@ -38,7 +39,7 @@ const DashboardUser: React.FC = (props) => {
     }
 
     if (currentUser === undefined || currentUser === null) {
-        return (<Loading />)
+        return (<></>)
     }
 
     return (

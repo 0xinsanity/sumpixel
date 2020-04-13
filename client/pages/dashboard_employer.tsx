@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react'
+import React, {useEffect, useState, useContext, useRef} from 'react'
 import {Tabs} from 'antd'
 import Loading from '../components/General/Loading'
 import {Container} from '../components/General/Container'
@@ -14,8 +14,8 @@ import styled from 'styled-components'
 import {useRouter} from 'next/router'
 import {myFirebase} from '../lib/firebase'
 import firebase from 'firebase'
-const {TabPane} = Tabs
 import OpenPage from '../components/General/OpenPage'
+const {TabPane} = Tabs
 
 const TabObjs = [{name: "Designers", key: "1"}, 
                 {name: "Communications", key: "2"}, 
@@ -30,13 +30,17 @@ export const Background = styled.div`
 const DashboardEmployer: React.FC = (props) => {
     const {currentUser, changeUser, setLoading}  = useContext(UserContext)
     const {asPath, query} = useRouter()
+    const [isAnonymousHere, setAnonymous] = useState(false)
 
+    // This is done to access isAnonymous value within timeout
+    const anon = useRef(isAnonymousHere);
+    anon.current = isAnonymousHere;
     useEffect(() => {
         window.analytics.page('Employer Dashboard')
         setTimeout(() => {
-            if (currentUser === null || currentUser === undefined) {
-                console.log('currentuser' + currentUser)
-                //OpenPage(setLoading, '/')
+            // currentUser not updated so have to resort to custom state to prevent going back
+            if (!anon.current && (currentUser === null || currentUser === undefined)) {
+                OpenPage(setLoading, '/')
             }
         }, 3000)
         const anonymousLogin = async () => {
@@ -48,6 +52,7 @@ const DashboardEmployer: React.FC = (props) => {
                 myFirebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
                 myFirebase.auth().signInAnonymously().then(() => {
                     console.log('currentuser ' + currentUser)
+                    setAnonymous(true)
                     console.log('signed in anon')
                 })
             }
