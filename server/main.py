@@ -522,6 +522,7 @@ def emails_complete_quiz():
         except Exception as e:
             print(e)
             return e
+        print(response)
     
 
 if __name__ == "__main__":
@@ -532,4 +533,5 @@ if __name__ == "__main__":
 
     cron_trig = CronTrigger.from_crontab('0 9 * * MON')
     scheduler.add_job(emails_complete_quiz, cron_trig)
+    scheduler.start()
     uvicorn.run(app, host="0.0.0.0", port=port_num)
