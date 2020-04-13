@@ -15,6 +15,7 @@ import {storage_ref} from '../../lib/firebase'
 import {Communication} from '../../model/model'
 import {BigBlackButton} from '../../components/General/BigBlackButton'
 import _ from 'lodash'
+import OpenPage from '../../components/General/OpenPage'
 
 const TextContainer = styled.div`
     display: flex;
@@ -44,22 +45,31 @@ const Section = styled.div`
 `
 
 const Profile: React.FC = () => {
-    const {currentUser, changeUser}  = useContext(UserContext)
+    const {currentUser, changeUser, setLoading}  = useContext(UserContext)
     const router = useRouter()
     const { profile_id } = router.query
+    const [id, changeId] = useState(undefined)
     const [currentProfile, changeCurrentProfile]  = useState<User>(undefined)
     const [profileString, changeProfileString] = useState<string>('Profile')
     const [qAndA, changeQandA] = useState<QA[]>(null)
     let showStats = currentUser !== null && ((currentUser as Employer).companyName !== undefined)
 
+    useEffect(() => {
+        if (profile_id !== undefined) {
+            console.log('id'+profile_id)
+            changeId(profile_id as string)
+        }
+    }, [profile_id])
+
 
     useEffect(() => {
-        if (profile_id === undefined) {
-            return
-        }
-
-        getUser(profile_id as string).then((profile: User) => {
-            getQAById(profile_id as string).then((qAndA: QA[]) => {
+        if (id === undefined) return
+        
+        setLoading(true)
+        console.log('here1')
+        getUser(id).then((profile: User) => {
+            console.log('here')
+            getQAById(id).then((qAndA: QA[]) => {
                 changeQandA(qAndA)
             })
             showStats = showStats && profile['graded']
@@ -69,12 +79,14 @@ const Profile: React.FC = () => {
                 changeCurrentProfile(profile)
             }
             changeProfileString(profile.firstName + " " + profile.lastName)
+            setLoading(false)
             window.analytics.page(profileString)
         }).catch((error) => {
-            console.error(error)
-            Router.push('/')
+            console.error('ERROR IS HERE' + error)
+            setLoading(false)
+            //OpenPage(setLoading, '/')
         })
-    }, [profile_id])
+    }, [id])
 
     const downloadResume = () => {
         storage_ref.child('resumes/' + currentProfile.resume).getDownloadURL().then(url => {
@@ -100,10 +112,10 @@ const Profile: React.FC = () => {
             const comm = await createCommunication(profile_id as string, currentUser.id)
             const newUser = {...currentUser, communications: [...currentUser.communications, comm.id]}
             changeUser(newUser)
-            Router.push('/dashboard_employer')
+            OpenPage(setLoading, '/dashboard_employer')
         } else if (currentUser === null || (currentUser as Employer).isAnonymous) {
             // Not logged in
-            Router.push('/signup')
+            OpenPage(setLoading, '/signup')
         } else {
             // Designer logged in
             message.info('Only Employers can connect with available Designers')
@@ -111,7 +123,7 @@ const Profile: React.FC = () => {
     }
 
     if (currentProfile === undefined || currentProfile === null) {
-        return (<Loading />)
+        return (<></>)
     }
 
     return (<>

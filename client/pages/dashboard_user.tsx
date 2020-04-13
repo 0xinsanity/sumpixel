@@ -10,6 +10,7 @@ import {User} from '../model/model'
 import {modifyUser} from '../lib/server'
 import Head from 'next/head'
 import {Background} from './dashboard_employer'
+import OpenPage from '../components/General/OpenPage'
 const {TabPane} = Tabs
 
 interface TabWithCeilingProps {
@@ -19,10 +20,15 @@ interface TabWithCeilingProps {
 }
 
 const DashboardUser: React.FC = (props) => {
-    const {currentUser, changeUser}  = useContext(UserContext)
+    const {currentUser, changeUser, setLoading}  = useContext(UserContext)
 
     useEffect(() => {
         window.analytics.page('Designer Dashboard')
+        setTimeout(() => {
+            if (currentUser === null || currentUser === undefined) {
+                OpenPage(setLoading, '/')
+            }
+        }, 3000)
     }, [])
 
     const updateUser = async (updatedUser: User) => {

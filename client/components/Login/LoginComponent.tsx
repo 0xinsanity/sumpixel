@@ -1,11 +1,13 @@
 import {Card, Form, Input, Button, Row, Typography, Col } from 'antd'
 import {UserOutlined, LockOutlined} from '@ant-design/icons'
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {NavBarStatus} from '../../model/model'
 import Router from 'next/router'
 import { BigBlackButton } from '../General/BigBlackButton'
 import styled from 'styled-components'
 import {SumpixelCard} from '../General/SumpixelCard'
+import { UserContext } from '../../lib/UserProvider'
+import OpenPage from '../General/OpenPage'
 
 interface LoginComponentProps {
     isSignUp: boolean
@@ -14,6 +16,7 @@ interface LoginComponentProps {
 }
 
 const LoginComponent: React.FC<LoginComponentProps> = (props) => {
+    const context = useContext(UserContext)
     const {isSignUp, onFinish, title} = props
 
     const onClick = () => {
@@ -84,7 +87,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                                             fontSize: "12px",
                                             padding: "0"
                                         }} 
-                                        onClick={() => {Router.push('/forgotpassword')}} 
+                                        onClick={() => {OpenPage(context.setLoading, '/forgotpassword')}} 
                                         type="link">                    
                                         Forgot Password.
                                 </Button>

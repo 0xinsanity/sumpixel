@@ -1,12 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {UserContext} from '../../../lib/UserProvider'
 import QuizScreen from '../../OnboardingFlow/Designers/QuizScreen'
 import {getDesignerFromCommunication} from '../../../lib/server'
 import {User, DesignerDecisionTalk, EmployerDecisionHire, CommForEmployer} from '../../../model/model'
-import DesignerInfoModal from './DesignerInfoModal'
 import {Typography, List, Radio, Popconfirm, Table} from 'antd'
 import {BigBlackButton} from '../../General/BigBlackButton'
 import Router from 'next/router'
+import OpenPage from '../../General/OpenPage'
 const {Column} = Table
 
 interface CommunicationsListProps {
@@ -18,6 +18,7 @@ const EmployerCommList: React.FC<CommunicationsListProps> = (props) => {
     const {communicationList, updateDecision} = props
     const [showModal, setModalVisibility] = useState(false) 
     const [currentDesigner, setCurrentDesigner] = useState<User>(undefined) 
+    const context = useContext(UserContext)
 
     const decisionToText = (dec: DesignerDecisionTalk): string => {
         switch (dec) {
@@ -32,7 +33,7 @@ const EmployerCommList: React.FC<CommunicationsListProps> = (props) => {
 
     const onMoreInfo = async (commId: string) => {
         const user = await getDesignerFromCommunication(commId)
-        Router.push('/profile/' + user.id)
+        OpenPage(context.setLoading, '/profile/' + user.id)
     }
 
     return (

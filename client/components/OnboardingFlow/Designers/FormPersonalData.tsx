@@ -11,6 +11,7 @@ import {UserContext} from '../../../lib/UserProvider'
 import Loading from '../../General/Loading'
 import {BigBlackButton} from '../../General/BigBlackButton'
 import Router from 'next/router';
+import OpenPage from '../../General/OpenPage'
 const {Option} = Select
 
 interface FormPersonalDataProps extends FormProps {
@@ -20,7 +21,7 @@ interface FormPersonalDataProps extends FormProps {
 const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
     const {changeCurrentUser, changeStep, changeNavbarStatus, modifyProfile} = props
     const isModifyProfilePage = modifyProfile !== undefined
-    const {currentUser, changeUser}  = useContext(UserContext)
+    const {currentUser, changeUser, loading, setLoading}  = useContext(UserContext)
     const [checked, changeChecked] = useState(false)
     const [fileList, updateFileList] = useState<UploadFile[]>([])
     const goBack = async () => {
@@ -82,7 +83,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
     }
 
     const viewProfile = () => {
-        Router.push('/profile/' + currentUser.id)
+        OpenPage(setLoading, '/profile/' + currentUser.id)
     }
 
     const onFinishFailed = (values) => {
@@ -240,7 +241,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
                 <Form.Item 
                     valuePropName={'checked'}
                 >
-                    <Checkbox style={{fontFamily: 'Mark Pro'}} checked={checked} onChange={(e) => changeChecked(e.target.checked)}>Agree to The <a style={{color: UNIVERSAL_COLOR}} target={'_blank'} href={'/terms'}>Terms of Services</a></Checkbox>
+                    <Checkbox style={{fontFamily: 'Mark Pro'}} checked={checked} onChange={(e) => changeChecked(e.target.checked)}>Agree to the <a style={{color: UNIVERSAL_COLOR}} target={'_blank'} href={'/terms'}>Terms of Services</a></Checkbox>
             </Form.Item> 
             : null}
 

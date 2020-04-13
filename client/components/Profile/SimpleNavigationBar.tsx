@@ -32,12 +32,11 @@ interface NavigationBarProps {
 }
 
 const SimpleNavigationBar: React.FC<NavigationBarProps> = (props) => {
-    const {currentUser, changeUser}  = useContext(UserContext)
     const {subtitle} = props
 
     return (
         <SumpixelHeader 
-                title={ <a href={currentUser !== null && (currentUser as Employer).isAnonymous ? '/dashboard_employer?id=60fff552-280b-47ae-b632-25a744a7a910' : '/'}>
+                title={ <a href={'/'}>
                             <img height={43} src={require('../../assets/sumpixel-logo.png')}/>
                         </a>}
             >

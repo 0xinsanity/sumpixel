@@ -5,7 +5,7 @@ import {UserContext} from '../../../lib/UserProvider'
 import {Container} from '../../General/Container'
 import Loading from '../../General/Loading'
 import {Table, Button, Typography} from 'antd'
-import DesignerInfoModal from './DesignerInfoModal'
+import OpenPage from '../../General/OpenPage'
 import styled from 'styled-components'
 import {BigBlackButton} from '../../General/BigBlackButton'
 import Router from 'next/router'
@@ -37,10 +37,11 @@ interface DesignerListProps {
 }
 
 const DesignerList: React.FC<DesignerListProps> = (props) => {
+    const context = useContext(UserContext)
     const {designerList} = props
 
     const onMoreInfo = (user: User) => {
-        Router.push('/profile/' + user.id)
+        OpenPage(context.setLoading, '/profile/' + user.id)
     }
 
     return (

@@ -127,7 +127,7 @@ const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
             <Form.Item 
                 valuePropName={'checked'}
                 >
-                    <Checkbox style={{fontFamily: 'Mark Pro'}} checked={checked} onChange={(e) => changeChecked(e.target.checked)}>Agree to The <a style={{color: UNIVERSAL_COLOR}} target={'_blank'} href={'/terms'}>Terms of Service</a></Checkbox>
+                    <Checkbox style={{fontFamily: 'Mark Pro'}} checked={checked} onChange={(e) => changeChecked(e.target.checked)}>Agree to the <a style={{color: UNIVERSAL_COLOR}} target={'_blank'} href={'/terms'}>Terms of Service</a></Checkbox>
             </Form.Item> 
             : null }
 
