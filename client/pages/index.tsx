@@ -35,11 +35,13 @@ const Index: React.FC = () => {
     }, [])
 
     const onFinish = (values) => {
-        myFirebase.auth().signInWithEmailAndPassword(values.email, values.password).catch(error => {
-            message.error("Looks like your password or email is incorrect.");
-        }).then(() => {
+        myFirebase.auth().signInWithEmailAndPassword(values.email, values.password).then(() => {
             setLoading(true)
             window.analytics.track('Login');
+        }).catch(error => {
+            console.log(error)
+            setLoading(false)
+            message.error("Looks like your password or email is incorrect.");
         });
     }
 

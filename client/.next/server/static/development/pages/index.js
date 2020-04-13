@@ -844,11 +844,13 @@ const Index = () => {
   }, []);
 
   const onFinish = values => {
-    _lib_firebase__WEBPACK_IMPORTED_MODULE_2__["myFirebase"].auth().signInWithEmailAndPassword(values.email, values.password).catch(error => {
-      antd__WEBPACK_IMPORTED_MODULE_1__["message"].error("Looks like your password or email is incorrect.");
-    }).then(() => {
+    _lib_firebase__WEBPACK_IMPORTED_MODULE_2__["myFirebase"].auth().signInWithEmailAndPassword(values.email, values.password).then(() => {
       setLoading(true);
       window.analytics.track('Login');
+    }).catch(error => {
+      console.log(error);
+      setLoading(false);
+      antd__WEBPACK_IMPORTED_MODULE_1__["message"].error("Looks like your password or email is incorrect.");
     });
   };
 
