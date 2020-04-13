@@ -18,7 +18,6 @@ from apscheduler.triggers.cron import CronTrigger
 from typeform import Typeform
 from pydash.collections import find
 
-scheduler = BackgroundScheduler()
 app = FastAPI()
 cred = credentials.Certificate("credentials.json")
 firebase_admin.initialize_app(cred)
@@ -26,6 +25,7 @@ db = firestore.client()
 sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
 slack_client = slack.WebClient(token=os.environ.get('SLACK_API_CLIENT'))
 typeform = Typeform(os.environ.get('TYPEFORM_KEY'))
+scheduler = BackgroundScheduler()
 
 origins = [
     'https://localhost:3000',
@@ -505,6 +505,8 @@ def get_communication_helper(id: str):
     return doc_comm
 
 def emails_complete_quiz():
+    print('gets here')
+    sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
     doc_users = db.collection('users').where('completedQuiz', '==', False).stream()
     
     for user in doc_users:
@@ -521,7 +523,6 @@ def emails_complete_quiz():
             response = sg.send(message)
         except Exception as e:
             print(e)
-            return e
         print(response)
     
 
@@ -531,7 +532,6 @@ if __name__ == "__main__":
     else:
         port_num = 5000
 
-    cron_trig = CronTrigger.from_crontab('0 9 * * MON')
-    scheduler.add_job(emails_complete_quiz, cron_trig)
+    scheduler.add_job(emails_complete_quiz, 'cron', hour='9', minute='0', day_of_week='mon')
     scheduler.start()
     uvicorn.run(app, host="0.0.0.0", port=port_num)
