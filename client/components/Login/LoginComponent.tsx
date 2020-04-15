@@ -15,18 +15,30 @@ interface LoginComponentProps {
     title: string
 }
 
+const BottomText = styled(Typography.Text)`
+    font-family: 'Mark Pro';
+    font-weight: 500;
+    padding-top: 10;
+    text-align: center;
+`
+
 const LoginComponent: React.FC<LoginComponentProps> = (props) => {
     const context = useContext(UserContext)
     const {isSignUp, onFinish, title} = props
 
     const onClick = () => {
-        window.analytics.track('Go to Sign Up');
-        Router.replace('/signup')
+        if (isSignUp) {
+            window.analytics.track('Go to Log In');
+            Router.replace('/')
+        } else {
+            window.analytics.track('Go to Sign Up');
+            Router.replace('/signup')
+        }
     }
 
     return (
         <div style={{display: 'flex', flexDirection: 'column'}}>
-            <SumpixelCard withLink={isSignUp}>
+            <SumpixelCard style={{maxWidth: 450}} withLink={isSignUp}>
                 <Form
                     hideRequiredMark={true}
                     name="basic"
@@ -35,29 +47,21 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                 >
 
                     {isSignUp ? 
-                        
                             <Input.Group>
-                                <Row>
-                                    <Col span={11}>
-                                        <Form.Item
-                                            label="First Name"
-                                            name="firstName"
-                                            rules={[{ required: true, message: 'First Name is required' }]}
-                                        >
-                                            <Input placeholder="First Name"/>
-                                        </Form.Item>
-                                    </Col>
-                                    <Col span={2}/>
-                                    <Col span={11}>
-                                        <Form.Item
-                                                label="Last Name"
-                                                name="lastName"
-                                                rules={[{ required: true, message: 'Last Name is required' }]}
-                                            >
-                                            <Input placeholder="Last Name"/>
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
+                                <Form.Item
+                                    label="First Name"
+                                    name="firstName"
+                                    rules={[{ required: true, message: 'First Name is required' }]}
+                                >
+                                    <Input placeholder="First Name"/>
+                                </Form.Item>
+                                <Form.Item
+                                        label="Last Name"
+                                        name="lastName"
+                                        rules={[{ required: true, message: 'Last Name is required' }]}
+                                    >
+                                    <Input placeholder="Last Name"/>
+                                </Form.Item>
                             </Input.Group>
                         
                     : null}
@@ -104,10 +108,14 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
                 </Form>
             </SumpixelCard>
             {!isSignUp ? 
-                <Typography.Text style={{fontFamily: 'Mark Pro', fontWeight: 500, paddingTop: 10, textAlign: 'center'}}>
+                <BottomText>
                     Don't have an account? <Button onClick={onClick} style={{padding: 0, fontWeight: 'bold'}} type="link">Sign Up.</Button>
-                </Typography.Text>
-            : null}
+                </BottomText>
+            : 
+                <BottomText>
+                    Already have an account? <Button onClick={onClick} style={{padding: 0, fontWeight: 'bold'}} type="link">Log In.</Button>
+                </BottomText>
+            }
         </div>
     )
 }

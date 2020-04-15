@@ -27,9 +27,12 @@ const SignUp: React.FC = (props) => {
     const onFinish = (values) => {
         setLoading(true)
         myFirebase.auth().createUserWithEmailAndPassword(values.email, values.password).then(() => {
+            const displayName = `${values.firstName} ${values.lastName}`
+
             myFirebase.auth().currentUser.updateProfile({
-                displayName: `${values.firstName} ${values.lastName}`
+                displayName: displayName
             }).then(() => {
+                // Delays are necessary to ensure display name is updated correctly
                 window.analytics.track('Firebase Auth Signup');
                 OpenPage(setLoading, '/onboarding')
             })

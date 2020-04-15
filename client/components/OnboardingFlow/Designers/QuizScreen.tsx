@@ -3,6 +3,7 @@ import { Form, Radio, Button, Checkbox, Row, Col, Select, Upload, message, Typog
 import _ from 'lodash'
 import FormProps from '../FormProps'
 import {removeUser} from '../../../lib/server'
+import {RButton} from '../EmployerDesigner'
 import Router from 'next/router'
 import {UserContext} from '../../../lib/UserProvider'
 import styled from 'styled-components'
@@ -60,13 +61,15 @@ const QuizScreen: React.FC<FormProps> = (props) => {
 
     return (
         <Cont>
-            <Typography.Title style={{textAlign: 'center'}} level={4}>
+            <Typography.Title style={{textAlign: 'center', fontFamily: 'Mark Pro'}} level={4}>
                 Choose a Design Type and Take Your Quiz!
             </Typography.Title>
             <Col style={{marginTop: 10, marginBottom: 20, display: 'flex', justifyContent: 'center'}}>
                 <Radio.Group onChange={(e) => onChange(e.target.value)} value={currentQuiz.key}>
                     {_.map(designerTypes, (type: QuizProp) => {
-                        return <Radio.Button value={type.key}>{type.name}</Radio.Button>
+                        return <RButton style={{fontSize: 14, 
+                                            padding: 35,
+                                            paddingTop: 5}} value={type.key}>{type.name}</RButton>
                     })}
                 </Radio.Group>
                 

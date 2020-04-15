@@ -24,6 +24,10 @@ const TabObjs = [{name: "Designers", key: "1"},
 export const Background = styled.div`
     background-color: ${UNIVERSAL_BACKGROUND};
     width: 100%;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
     overflow: scroll;
 `
 

@@ -6,38 +6,31 @@ import {NavBarStatus} from '../../model/model'
 
 interface OnboardNavbarProps {
     currentStep: number;
-    status: NavBarStatus
 }
 
-const DESIGN_STEPS: {title: string, desc: string}[] = [
-    {title: "Employer or Designer", desc: "Are you an Employer or Designer?"},
-    {title: "Get Started", desc: "Add Personal Data"},
-    {title: "Take the Quiz", desc: "Finish Up and Get Evaluated"}
-];
-const EMPLOYER_STEPS: {title: string, desc: string}[] = [
-    {title: "Employer or Designer", desc: "Are you an Employer or Designer?"},
-    {title: "Get Started", desc: "Add Data About Your Business"},
-    {title: "Go To Dashboard", desc: "Finish Up and Start Searching"}
+const STEPS = [
+    "Intro",
+    "Build Profile",
+    "Get Started"
 ];
 
 export const OnboardNavbar: React.FC<OnboardNavbarProps> = (props) => {
-    var steps: {title: string, desc: string}[]
-    switch (props.status) {
-        case NavBarStatus.Undecided:
-            steps = [DESIGN_STEPS[0]]
-            break;
-        case NavBarStatus.Designer:
-            steps = DESIGN_STEPS
-            break;
-        case NavBarStatus.Employer:
-            steps = EMPLOYER_STEPS
-            break;
-    }
 
     return (
-        <Steps style={{fontFamily: 'Mark Pro', paddingBottom: 20, justifyContent: 'center'}} current={props.currentStep}>
-            {_.map(steps, ({title, desc}) => {
-                return (<Step title={title} description={desc}/>)
+        <Steps 
+            style={{
+                fontFamily: 'Mark Pro Bold',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(229, 229, 229, 0.3)',
+                paddingLeft: 80,
+                paddingRight: 80,
+                paddingTop: 40,
+                paddingBottom: 40,
+                fontSize: 20
+            }}
+            current={props.currentStep}>
+            {_.map(STEPS, (step) => {
+                return (<Step title={step}/>)
             })}
         </Steps>
     );

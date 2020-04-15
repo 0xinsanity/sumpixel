@@ -10,6 +10,7 @@ import {removeUser} from '../../../lib/server'
 import {UserContext} from '../../../lib/UserProvider'
 import Loading from '../../General/Loading'
 import {BigBlackButton} from '../../General/BigBlackButton'
+import OpenPage from '../../General/OpenPage'
 const {Option} = Select
 
 interface FormBusinessDataProps extends FormProps {
@@ -17,15 +18,10 @@ interface FormBusinessDataProps extends FormProps {
 }
 
 const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
-    const {changeCurrentUser, changeStep, changeNavbarStatus, modifyProfile} = props
-    const {currentUser, changeUser} = useContext(UserContext)
+    const {changeCurrentUser, modifyProfile} = props
+    const {currentUser, changeUser, setLoading} = useContext(UserContext)
     const [checked, changeChecked] = useState(false)
     const isModifyProfilePage = modifyProfile !== undefined
-
-    const goBack = async () => {
-        changeNavbarStatus(NavBarStatus.Undecided)
-        changeStep(-1)
-    }
 
     if (currentUser == undefined) {
         return (<Loading />)
@@ -55,7 +51,7 @@ const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
         if (isModifyProfilePage) {
             message.success("Your profile has been updated")
         } else {
-            changeStep(1)
+            OpenPage(setLoading, '/dashboard_employer')
         }
     }
 
@@ -65,6 +61,7 @@ const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
 
     return (
         <Form
+            id="employer_form"
             name="basic"
             initialValues={{ remember: true }}
             onFinish={onFinish}
@@ -130,19 +127,15 @@ const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
                     <Checkbox style={{fontFamily: 'Mark Pro'}} checked={checked} onChange={(e) => changeChecked(e.target.checked)}>Agree to the <a style={{color: UNIVERSAL_COLOR}} target={'_blank'} href={'/terms'}>Terms of Service</a></Checkbox>
             </Form.Item> 
             : null }
-
+            {isModifyProfilePage ?
             <Form.Item>
                 <Row justify="space-between" align="middle">
-                    {!isModifyProfilePage ? 
-                        <BigBlackButton type="default" onClick={goBack}>
-                            Back
-                        </BigBlackButton>
-                    : null}
+                    
                     <BigBlackButton style={{marginTop: 10}} htmlType="submit">
                         {isModifyProfilePage ? "Update Company Profile" : "Finish Setup"}
                     </BigBlackButton>
                 </Row>
-            </Form.Item>
+            </Form.Item> : null}
         </Form>
     );
 }

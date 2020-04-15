@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import {OnboardNavbar} from './OnboardNavbar'
 import {Container} from '../General/Container'
-import {Typography} from 'antd'
+import {Typography, Row, Col, message} from 'antd'
 import {User, NavBarStatus, Employer} from '../../model/model'
 import FormPersonalData from './Designers/FormPersonalData'
 import FormBusinessData from './Employers/FormBusinessData'
@@ -12,11 +12,9 @@ import {UserContext} from '../../lib/UserProvider'
 import {createUser, createEmployer} from '../../lib/server'
 import Router from 'next/router'
 import OpenPage from '../General/OpenPage'
-
-const Title = styled(Typography.Title)`
-    padding-top: 15px;
-    padding-bottom: 35px;
-`
+import { SumpixelCard } from '../General/SumpixelCard'
+import BackNext from '../General/BackNext'
+import {ContainerCard, Question} from './EmployerDesigner'
 
 interface OnboardProps {
     deleteUser: () => void
@@ -38,26 +36,50 @@ export const Onboard: React.FC<OnboardProps> = props => {
         changeUser(updatedUser)
         await createEmployer(updatedUser)
     }
+
+    const backClick = () => {
+        if (currentStep === 0) {
+            props.deleteUser()
+        } else {
+            changeStep(currentStep - 1)
+        }
+    }
+    
+    const nextClick = () => {
+        if (currentStep === 0 && navBarStatus === NavBarStatus.Undecided) {
+            message.error('Please choose whether you are a designer or employer')
+            return
+        } else if (currentStep === 0) {
+            // Without timeout, it automatically calls Next submit
+            setTimeout(() => {
+                changeStep(currentStep + 1)
+            }, 1)
+        }
+    }
+
     var currentForm;
-    var title;
     switch (currentStep) {
         case 0:
             currentForm = <EmployerDesigner 
+                                    currentStatus={navBarStatus}
                                     deleteUser={props.deleteUser}
-                                    changeNavbarStatus={(newStatus) => changeNavbarStatus(newStatus)}
-                                    changeStep={(change) => changeStep(currentStep + change)}/>;
+                                    changeNavbarStatus={(newStatus) => changeNavbarStatus(newStatus)}/>;
             break;
         case 1:
             if (navBarStatus == NavBarStatus.Designer) {
-                currentForm = <FormPersonalData 
-                                    changeNavbarStatus={(newStatus) => changeNavbarStatus(newStatus)}
-                                    changeStep={(change) => changeStep(currentStep + change)}
-                                    changeCurrentUser={async (user) => await updateUser(user)}/>;
+                currentForm = 
+                            <ContainerCard style={{paddingBottom: 0}}>
+                                <Question>Let's build your profile.</Question>
+                                <FormPersonalData 
+                                    changeCurrentUser={async (user) => await updateUser(user)}/>
+                            </ContainerCard>;
             } else {
-                currentForm = <FormBusinessData 
-                                    changeNavbarStatus={(newStatus) => changeNavbarStatus(newStatus)}
-                                    changeStep={(change) => changeStep(currentStep + change)}
-                                    changeCurrentUser={async (user) => await updateEmployer(user)}/>;
+                currentForm =
+                            <ContainerCard style={{paddingBottom: 25}}>
+                                <Question>Let's build your profile.</Question>
+                                <FormBusinessData 
+                                    changeCurrentUser={async (user) => await updateEmployer(user)}/>
+                            </ContainerCard>;
             }
             break;
         case 2:
@@ -70,10 +92,22 @@ export const Onboard: React.FC<OnboardProps> = props => {
     }
 
     return (
-        <Container>
-            <OnboardNavbar status={navBarStatus} currentStep={currentStep}/>
-            <Title>{title}</Title>
-            {currentForm}
-        </Container>
+        <Row gutter={24}>
+            <Col span={24}>
+                <div style={{width: '100%', display: 'flex', justifyContent: 'center', paddingBottom: 40}}>
+                    <img height={50} src={require('../../assets/sumpixel-logo-white.png')}/>
+                </div>
+                <SumpixelCard withLogo={false}>
+                    <OnboardNavbar currentStep={currentStep}/>
+                    <div style={{padding: 20}}>
+                        {currentForm}
+                    </div>
+                    <BackNext backClick={backClick} 
+                              nextClick={nextClick} 
+                              currentState={currentStep} 
+                              status={navBarStatus} />
+                </SumpixelCard>
+            </Col>
+        </Row>
     );
 }

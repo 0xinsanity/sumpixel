@@ -8,6 +8,7 @@ import Head from 'next/head'
 import LoginComponent from '../components/Login/LoginComponent'
 import Router from 'next/router'
 import OpenPage from '../components/General/OpenPage';
+import { LoginBackground } from '../components/Login/LoginFlowContainer';
 
 const Onboarding: React.FC = (props) => {
     const {currentUser, changeUser, setLoading} = useContext(UserContext)
@@ -17,8 +18,8 @@ const Onboarding: React.FC = (props) => {
 
     const deleteUser = async () => {
         window.analytics.track('Go Back - Delete Firebase User');
-        setTimeout(async () => await myFirebase.auth().currentUser.delete(), 1000)
-        changeUser(undefined)
+        await myFirebase.auth().currentUser.delete()
+        changeUser(null)
         OpenPage(setLoading, '/signup')
     }
 
@@ -27,9 +28,9 @@ const Onboarding: React.FC = (props) => {
             <Head>
                 <title>Onboarding</title>
             </Head>
-            <div style={{backgroundColor: '#fff', position: 'absolute', width: '100%', height: '100%'}}>
+            <LoginBackground style={{alignItems: 'flex-start', paddingTop: 80, height: 'auto', minHeight: '100vh', paddingBottom: 65}}>
                 <Onboard deleteUser={deleteUser}/>
-            </div>
+            </LoginBackground>
         </>
     );
 };

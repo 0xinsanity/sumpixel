@@ -1,16 +1,30 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import {Card} from 'antd'
 
-export const SumpixelCard: React.FC<{withLink?: boolean}> = (props) => {
+interface SumpixelCardProps {
+    withLink?: boolean
+    withLogo?: boolean
+    style?: CSSProperties
+}
+
+export const SumpixelCard: React.FC<SumpixelCardProps> = (props) => {
     var logo = <img height={43} src={require('../../assets/sumpixel-logo.png')}/>
     if (props.withLink) {
         logo =  <a href={'/'}>
                     <img height={43} src={require('../../assets/sumpixel-logo.png')}/>
                 </a>
+    } else if (props.withLogo === false) {
+        logo = null
     }
 
     return (
-        <Card style={{paddingLeft: 20, paddingRight: 20, maxHeight: '100vh'}} title={logo}>
+        <Card bodyStyle={{padding: props.withLogo === false ? 0 : 'auto'}} 
+            style={{paddingLeft: props.withLogo === false ? 0 : 20, 
+                    paddingRight: props.withLogo === false ? 0 : 20, 
+                    width: '100vh',
+                    ...props.style
+                    }} 
+            title={logo}>
                 {props.children}
         </Card>
     )

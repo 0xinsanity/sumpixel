@@ -22,11 +22,11 @@
       "static/runtime/polyfills.js",
       "static/runtime/polyfills.js.map"
     ],
-    "/dashboard_employer": [
+    "/onboarding": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/onboarding": [
+    "/signup": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
