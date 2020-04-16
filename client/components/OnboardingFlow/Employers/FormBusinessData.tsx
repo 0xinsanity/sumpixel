@@ -11,6 +11,7 @@ import {UserContext} from '../../../lib/UserProvider'
 import Loading from '../../General/Loading'
 import {BigBlackButton} from '../../General/BigBlackButton'
 import OpenPage from '../../General/OpenPage'
+import {LocationAutocomplete} from '../../General/LocationAutocomplete'
 const {Option} = Select
 
 interface FormBusinessDataProps extends FormProps {
@@ -112,13 +113,8 @@ const FormBusinessData: React.FC<FormBusinessDataProps> = (props) => {
                 <Input defaultValue={modifyProfile ? '' : (currentUser as Employer).phoneNumber || ""} placeholder="+1 (555) 555-5555"/>
             </Form.Item>
 
-            <Form.Item
-                label="Location"
-                name="location"
-                rules={getRules("Location")}
-            >
-                <Input defaultValue={modifyProfile ? '' : (currentUser as Employer).location || ""} placeholder="New York City"/>
-            </Form.Item>
+            <LocationAutocomplete isModifyProfilePage={isModifyProfilePage} defaultValue={isModifyProfilePage ? '' : currentUser.location || ""}/>
+
 
             {!isModifyProfilePage ? 
             <Form.Item 

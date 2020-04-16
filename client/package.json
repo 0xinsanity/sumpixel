@@ -17,6 +17,7 @@
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
     "antd": "^4.0.4",
+    "antd-mask-input": "^0.1.13",
     "axios": "^0.19.2",
     "firebase": "^7.13.1",
     "less": "^3.9.0",
@@ -29,6 +30,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-modal": "^3.11.2",
+    "react-places-autocomplete": "^7.2.1",
     "styled-components": "^5.0.1"
   },
   "devDependencies": {

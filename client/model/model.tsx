@@ -66,6 +66,12 @@ export interface CommForEmployer {
     decision: EmployerDecisionHire
 }
 
+export enum PricingModel {
+    SMALL = "$75,000-100,000",
+    MEDIUM = "$100,000-125,000",
+    LARGE = "$125,000+"
+}
+
 export enum EmployerDecisionHire {
     REJECT = "REJECT",
     HIRE = "HIRE",

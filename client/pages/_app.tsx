@@ -75,6 +75,28 @@ const GlobalInjection = createGlobalStyle`
         box-shadow: none;
     }
 
+    .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+        background: rgba(94, 11, 239, 0.1);
+        color: #5E0BEF;
+    }
+
+    .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+        background: rgba(94, 11, 239, 0.1);
+        color: #5E0BEF;
+    }
+
+    .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus-within {
+        box-shadow: none;
+    }
+
+    .ant-steps-item-icon {
+        font-family: 'Mark Pro';
+    }
+
+    .ant-upload {
+        width: 100%;
+    }
+
     @media (max-width: 768px) {
         .ant-page-header-heading-extra {
             display: contents;
@@ -96,6 +118,7 @@ export default function App({ Component, pageProps }) {
                     analytics.load("A78umhbZc8eGvu77kkqRBfUr3KMEfxrQ");
                     analytics.page();
                     }}();`}}/>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsH3v71frryhXLSRdGysoqbn2MnZJ6J5U&libraries=places"></script>
             </Head>
             <NextSeo 
                 title="Sumpixel: Dashboard"

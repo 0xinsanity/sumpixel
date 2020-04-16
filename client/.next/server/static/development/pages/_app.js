@@ -562,6 +562,28 @@ const GlobalInjection = styled_components__WEBPACK_IMPORTED_MODULE_4__["createGl
         box-shadow: none;
     }
 
+    .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+        background: rgba(94, 11, 239, 0.1);
+        color: #5E0BEF;
+    }
+
+    .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+        background: rgba(94, 11, 239, 0.1);
+        color: #5E0BEF;
+    }
+
+    .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus-within {
+        box-shadow: none;
+    }
+
+    .ant-steps-item-icon {
+        font-family: 'Mark Pro';
+    }
+
+    .ant-upload {
+        width: 100%;
+    }
+
     @media (max-width: 768px) {
         .ant-page-header-heading-extra {
             display: contents;
@@ -588,6 +610,8 @@ function App({
                     analytics.page();
                     }}();`
     }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("script", {
+    src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDsH3v71frryhXLSRdGysoqbn2MnZJ6J5U&libraries=places"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_seo__WEBPACK_IMPORTED_MODULE_5__["NextSeo"], {
     title: "Sumpixel: Dashboard",
     description: "Whether you're an employer or designer, access your dashboard here.",

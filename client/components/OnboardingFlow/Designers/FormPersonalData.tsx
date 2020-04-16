@@ -1,8 +1,8 @@
 import React, {useState, useContext} from 'react'
-import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message } from 'antd';
+import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message, Radio } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import _ from 'lodash'
-import {User, VisaStatus, NavBarStatus, UNIVERSAL_COLOR} from '../../../model/model'
+import {User, VisaStatus, NavBarStatus, UNIVERSAL_COLOR, PricingModel} from '../../../model/model'
 import FormProps from '../FormProps'
 import {UploadFile} from 'antd/lib/upload/interface'
 import {storage_ref, myFirebase} from '../../../lib/firebase'
@@ -12,7 +12,19 @@ import Loading from '../../General/Loading'
 import {BigBlackButton} from '../../General/BigBlackButton'
 import Router from 'next/router';
 import OpenPage from '../../General/OpenPage'
+import {RButton} from '../EmployerDesigner'
+import styled from 'styled-components'
+import MaskedInput from 'antd-mask-input'
+import {LocationAutocomplete} from '../../General/LocationAutocomplete'
 const {Option} = Select
+
+const VerticalRButton = styled(RButton)`
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 16px;
+`
 
 interface FormPersonalDataProps extends FormProps {
     modifyProfile?: boolean
@@ -133,23 +145,22 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
                     name="phoneNumber"
                     rules={getRules("Phone Number")}
                 >
-                    <Input defaultValue={isModifyProfilePage ? '' : currentUser.phoneNumber || ""} placeholder="+1 (555) 555-5555"/>
+                    <MaskedInput mask="+1 (111) 111-1111" defaultValue={isModifyProfilePage ? '' : currentUser.phoneNumber || ""} placeholder="+1 (555) 555-5555"/>
                 </Form.Item>
 
-                <Form.Item
-                    label="Location"
-                    name="location"
-                    rules={getRules("Location")}
-                >
-                    <Input defaultValue={isModifyProfilePage ? '' : currentUser.location || ""} placeholder="New York City"/>
-                </Form.Item>
+                <LocationAutocomplete isModifyProfilePage={isModifyProfilePage} defaultValue={isModifyProfilePage ? '' : currentUser.location || ""}/>
 
                 <Form.Item
-                    label="Desired Salary"
+                    label="Salary"
                     name="salary"
-                    rules={getRules("Desired Salary")}
+                    rules={getRules("Salary")}
                 >
-                    <Input defaultValue={isModifyProfilePage ? '' : (currentUser as User).salary || ""} placeholder="$100,000-$150,000 per year"/>
+
+                    <Radio.Group buttonStyle="solid" style={{width: '100%'}}>
+                        <VerticalRButton value={PricingModel.SMALL}>{PricingModel.SMALL}</VerticalRButton>
+                        <VerticalRButton value={PricingModel.MEDIUM}>{PricingModel.MEDIUM}</VerticalRButton>
+                        <VerticalRButton value={PricingModel.LARGE}>{PricingModel.LARGE}</VerticalRButton>
+                    </Radio.Group>
                 </Form.Item>
 
                 <Form.Item
@@ -157,7 +168,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
                     name="preferredRole"
                     rules={getRules("Preferred Role")}
                 >
-                    <Input defaultValue={isModifyProfilePage ? '' : (currentUser as User).preferredRole || ""} placeholder="UI/UX Designer"/>
+                    <Input defaultValue={isModifyProfilePage ? '' : (currentUser as User).preferredRole || ""} placeholder="Senior UI Designer"/>
                 </Form.Item>
 
                 <Form.Item
@@ -166,6 +177,19 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
                     rules={getRules("Portfolio")}
                 >
                     <Input defaultValue={isModifyProfilePage ? '' : (currentUser as User).portfolio || ""} placeholder="https://www.myportfolio.com"/>
+                </Form.Item>
+
+                <Form.Item
+                    label="Visa Status"
+                    name="visa_status"
+                    rules={getRules("Visa Status")}
+                    
+                >
+                    <Select defaultValue={modifyProfile ? '' : (currentUser as User).visa || ""} placeholder="Select an option:">
+                        {_.map(VisaStatus, (status) => {
+                            return <Option style={{fontFamily: 'Mark Pro'}} value={status}>{status}</Option>
+                        })}
+                    </Select>
                 </Form.Item>
 
                 <Form.Item
@@ -200,23 +224,10 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
 
                             updateFileList(fileList_update)
                         }}>
-                        <Button>
+                        <Button style={{width: '100%', fontFamily: 'Mark Pro'}}>
                             <UploadOutlined /> {!isModifyProfilePage ? "Click to Upload" : "Upload New Resume"}
                         </Button>
                     </Upload>
-                </Form.Item>
-
-                <Form.Item
-                    label="Visa Status"
-                    name="visa_status"
-                    rules={getRules("Visa Status")}
-                    
-                >
-                    <Select defaultValue={modifyProfile ? '' : (currentUser as User).visa || ""} placeholder="Select an option:">
-                        {_.map(VisaStatus, (status) => {
-                            return <Option value={status}>{status}</Option>
-                        })}
-                    </Select>
                 </Form.Item>
 
                 <Form.Item

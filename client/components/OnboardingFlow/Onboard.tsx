@@ -16,6 +16,14 @@ import { SumpixelCard } from '../General/SumpixelCard'
 import BackNext from '../General/BackNext'
 import {ContainerCard, Question} from './EmployerDesigner'
 
+const FormContainer = styled.div`
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+
 interface OnboardProps {
     deleteUser: () => void
 }
@@ -69,16 +77,20 @@ export const Onboard: React.FC<OnboardProps> = props => {
             if (navBarStatus == NavBarStatus.Designer) {
                 currentForm = 
                             <ContainerCard style={{paddingBottom: 0}}>
-                                <Question>Let's build your profile.</Question>
-                                <FormPersonalData 
-                                    changeCurrentUser={async (user) => await updateUser(user)}/>
+                                    <Question>Let's build your profile.</Question>
+                                    <FormContainer>
+                                        <FormPersonalData 
+                                            changeCurrentUser={async (user) => await updateUser(user)}/>                
+                                    </FormContainer>
                             </ContainerCard>;
             } else {
                 currentForm =
                             <ContainerCard style={{paddingBottom: 25}}>
                                 <Question>Let's build your profile.</Question>
-                                <FormBusinessData 
-                                    changeCurrentUser={async (user) => await updateEmployer(user)}/>
+                                    <FormContainer>
+                                        <FormBusinessData 
+                                            changeCurrentUser={async (user) => await updateEmployer(user)}/>
+                                    </FormContainer>
                             </ContainerCard>;
             }
             break;

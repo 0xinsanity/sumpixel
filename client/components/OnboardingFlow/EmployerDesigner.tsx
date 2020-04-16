@@ -49,8 +49,8 @@ const EmployerDesigner: React.FC<EmployerProps> = (props) => {
     return (
         <ContainerCard>
             <Question>Are you an employer or a designer?</Question>
-            <Radio.Group onChange={(e) => onClick(e.target.value)} value={currentStatus}>
-                <RButton value={NavBarStatus.Employer}>Employer</RButton>
+            <Radio.Group buttonStyle="solid" onChange={(e) => onClick(e.target.value)} value={currentStatus}>
+                <RButton style={{marginRight: 17}} value={NavBarStatus.Employer}>Employer</RButton>
                 <RButton value={NavBarStatus.Designer}>Designer</RButton>
             </Radio.Group>
         </ContainerCard>

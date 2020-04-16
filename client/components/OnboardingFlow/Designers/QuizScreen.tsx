@@ -65,7 +65,7 @@ const QuizScreen: React.FC<FormProps> = (props) => {
                 Choose a Design Type and Take Your Quiz!
             </Typography.Title>
             <Col style={{marginTop: 10, marginBottom: 20, display: 'flex', justifyContent: 'center'}}>
-                <Radio.Group onChange={(e) => onChange(e.target.value)} value={currentQuiz.key}>
+                <Radio.Group buttonStyle="solid" onChange={(e) => onChange(e.target.value)} value={currentQuiz.key}>
                     {_.map(designerTypes, (type: QuizProp) => {
                         return <RButton style={{fontSize: 14, 
                                             padding: 35,

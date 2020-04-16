@@ -250,6 +250,85 @@ const Loading = props => {
 
 /***/ }),
 
+/***/ "./components/General/LocationAutocomplete.tsx":
+/*!*****************************************************!*\
+  !*** ./components/General/LocationAutocomplete.tsx ***!
+  \*****************************************************/
+/*! exports provided: LocationAutocomplete */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocationAutocomplete", function() { return LocationAutocomplete; });
+/* harmony import */ var react_places_autocomplete__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-places-autocomplete */ "react-places-autocomplete");
+/* harmony import */ var react_places_autocomplete__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_places_autocomplete__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_3__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+
+
+const PlaceTextContainer = styled_components__WEBPACK_IMPORTED_MODULE_3___default.a.div`
+    height: 45px;
+    padding: 4px;
+    padding-left: 14px;
+    border-bottom: 1px solid #DAE2EF;
+    border-left: 1px solid #DAE2EF;
+    border-right: 1px solid #DAE2EF;
+    display: flex;
+    align-items: center;
+`;
+const PlaceText = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(antd__WEBPACK_IMPORTED_MODULE_1__["Typography"].Text)`
+    font-family: 'Mark Pro';
+`;
+const LocationAutocomplete = props => {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Location",
+    name: "location",
+    rules: [{
+      required: !props.isModifyProfilePage,
+      message: !props.isModifyProfilePage ? `Location is required` : ''
+    }]
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_places_autocomplete__WEBPACK_IMPORTED_MODULE_0___default.a, null, ({
+    getInputProps,
+    getSuggestionItemProps,
+    suggestions,
+    loading
+  }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], _extends({}, getInputProps({
+    id: "address-input"
+  }), {
+    defaultValue: props.defaultValue,
+    placeholder: "New York City"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PlaceText, {
+    className: "autocomplete-dropdown-container"
+  }, loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PlaceTextContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PlaceText, null, "Loading...")) : null, suggestions.map(suggestion => {
+    const className = suggestion.active ? "suggestion-item--active" : "suggestion-item";
+    const style = suggestion.active ? {
+      backgroundColor: "#fafafa",
+      cursor: "pointer"
+    } : {
+      backgroundColor: "#ffffff",
+      cursor: "pointer"
+    };
+    const spread = { ...getSuggestionItemProps(suggestion, {
+        className,
+        style
+      })
+    };
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PlaceTextContainer, _extends({}, spread, {
+      key: suggestion.id
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(PlaceText, null, suggestion.description));
+  })))));
+};
+
+/***/ }),
+
 /***/ "./components/General/OpenPage.tsx":
 /*!*****************************************!*\
   !*** ./components/General/OpenPage.tsx ***!
@@ -379,6 +458,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _General_Loading__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../General/Loading */ "./components/General/Loading.tsx");
 /* harmony import */ var _General_BigBlackButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../General/BigBlackButton */ "./components/General/BigBlackButton.tsx");
 /* harmony import */ var _General_OpenPage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../General/OpenPage */ "./components/General/OpenPage.tsx");
+/* harmony import */ var _EmployerDesigner__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../EmployerDesigner */ "./components/OnboardingFlow/EmployerDesigner.tsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var antd_mask_input__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd-mask-input */ "antd-mask-input");
+/* harmony import */ var antd_mask_input__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(antd_mask_input__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _General_LocationAutocomplete__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../General/LocationAutocomplete */ "./components/General/LocationAutocomplete.tsx");
+
+
+
+
 
 
 
@@ -392,6 +481,13 @@ __webpack_require__.r(__webpack_exports__);
 const {
   Option
 } = antd__WEBPACK_IMPORTED_MODULE_1__["Select"];
+const VerticalRButton = styled_components__WEBPACK_IMPORTED_MODULE_11___default()(_EmployerDesigner__WEBPACK_IMPORTED_MODULE_10__["RButton"])`
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 16px;
+`;
 
 const FormPersonalData = props => {
   const {
@@ -513,30 +609,35 @@ const FormPersonalData = props => {
     label: "Phone Number",
     name: "phoneNumber",
     rules: getRules("Phone Number")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd_mask_input__WEBPACK_IMPORTED_MODULE_12___default.a, {
+    mask: "+1 (111) 111-1111",
     defaultValue: isModifyProfilePage ? '' : currentUser.phoneNumber || "",
     placeholder: "+1 (555) 555-5555"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Location",
-    name: "location",
-    rules: getRules("Location")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: isModifyProfilePage ? '' : currentUser.location || "",
-    placeholder: "New York City"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Desired Salary",
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_LocationAutocomplete__WEBPACK_IMPORTED_MODULE_13__["LocationAutocomplete"], {
+    isModifyProfilePage: isModifyProfilePage,
+    defaultValue: isModifyProfilePage ? '' : currentUser.location || ""
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Salary",
     name: "salary",
-    rules: getRules("Desired Salary")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: isModifyProfilePage ? '' : currentUser.salary || "",
-    placeholder: "$100,000-$150,000 per year"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    rules: getRules("Salary")
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Radio"].Group, {
+    buttonStyle: "solid",
+    style: {
+      width: '100%'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VerticalRButton, {
+    value: _model_model__WEBPACK_IMPORTED_MODULE_4__["PricingModel"].SMALL
+  }, _model_model__WEBPACK_IMPORTED_MODULE_4__["PricingModel"].SMALL), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VerticalRButton, {
+    value: _model_model__WEBPACK_IMPORTED_MODULE_4__["PricingModel"].MEDIUM
+  }, _model_model__WEBPACK_IMPORTED_MODULE_4__["PricingModel"].MEDIUM), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VerticalRButton, {
+    value: _model_model__WEBPACK_IMPORTED_MODULE_4__["PricingModel"].LARGE
+  }, _model_model__WEBPACK_IMPORTED_MODULE_4__["PricingModel"].LARGE))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Preferred Role",
     name: "preferredRole",
     rules: getRules("Preferred Role")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
     defaultValue: isModifyProfilePage ? '' : currentUser.preferredRole || "",
-    placeholder: "UI/UX Designer"
+    placeholder: "Senior UI Designer"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Portfolio",
     name: "portfolio",
@@ -545,6 +646,20 @@ const FormPersonalData = props => {
     defaultValue: isModifyProfilePage ? '' : currentUser.portfolio || "",
     placeholder: "https://www.myportfolio.com"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+    label: "Visa Status",
+    name: "visa_status",
+    rules: getRules("Visa Status")
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
+    defaultValue: modifyProfile ? '' : currentUser.visa || "",
+    placeholder: "Select an option:"
+  }, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.map(_model_model__WEBPACK_IMPORTED_MODULE_4__["VisaStatus"], status => {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
+      style: {
+        fontFamily: 'Mark Pro'
+      },
+      value: status
+    }, status);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "Resume",
     name: "resume",
     rules: getRules("Resume")
@@ -576,18 +691,12 @@ const FormPersonalData = props => {
 
       updateFileList(fileList_update);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__["UploadOutlined"], null), " ", !isModifyProfilePage ? "Click to Upload" : "Upload New Resume"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Visa Status",
-    name: "visa_status",
-    rules: getRules("Visa Status")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Select"], {
-    defaultValue: modifyProfile ? '' : currentUser.visa || "",
-    placeholder: "Select an option:"
-  }, lodash__WEBPACK_IMPORTED_MODULE_3___default.a.map(_model_model__WEBPACK_IMPORTED_MODULE_4__["VisaStatus"], status => {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Option, {
-      value: status
-    }, status);
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    style: {
+      width: '100%',
+      fontFamily: 'Mark Pro'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_2__["UploadOutlined"], null), " ", !isModifyProfilePage ? "Click to Upload" : "Upload New Resume"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     label: "LinkedIn",
     name: "linkedin"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
@@ -675,9 +784,13 @@ const EmployerDesigner = props => {
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ContainerCard, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Question, null, "Are you an employer or a designer?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Radio"].Group, {
+    buttonStyle: "solid",
     onChange: e => onClick(e.target.value),
     value: currentStatus
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RButton, {
+    style: {
+      marginRight: 17
+    },
     value: _model_model__WEBPACK_IMPORTED_MODULE_2__["NavBarStatus"].Employer
   }, "Employer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RButton, {
     value: _model_model__WEBPACK_IMPORTED_MODULE_2__["NavBarStatus"].Designer
@@ -708,6 +821,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _General_Loading__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../General/Loading */ "./components/General/Loading.tsx");
 /* harmony import */ var _General_BigBlackButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../General/BigBlackButton */ "./components/General/BigBlackButton.tsx");
 /* harmony import */ var _General_OpenPage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../General/OpenPage */ "./components/General/OpenPage.tsx");
+/* harmony import */ var _General_LocationAutocomplete__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../General/LocationAutocomplete */ "./components/General/LocationAutocomplete.tsx");
+
 
 
 
@@ -815,14 +930,10 @@ const FormBusinessData = props => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
     defaultValue: modifyProfile ? '' : currentUser.phoneNumber || "",
     placeholder: "+1 (555) 555-5555"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
-    label: "Location",
-    name: "location",
-    rules: getRules("Location")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    defaultValue: modifyProfile ? '' : currentUser.location || "",
-    placeholder: "New York City"
-  })), !isModifyProfilePage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_LocationAutocomplete__WEBPACK_IMPORTED_MODULE_8__["LocationAutocomplete"], {
+    isModifyProfilePage: isModifyProfilePage,
+    defaultValue: isModifyProfilePage ? '' : currentUser.location || ""
+  }), !isModifyProfilePage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, {
     valuePropName: 'checked'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Checkbox"], {
     style: {
@@ -870,11 +981,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Designers_FormPersonalData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Designers/FormPersonalData */ "./components/OnboardingFlow/Designers/FormPersonalData.tsx");
 /* harmony import */ var _Employers_FormBusinessData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Employers/FormBusinessData */ "./components/OnboardingFlow/Employers/FormBusinessData.tsx");
 /* harmony import */ var _EmployerDesigner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./EmployerDesigner */ "./components/OnboardingFlow/EmployerDesigner.tsx");
-/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../lib/UserProvider */ "./lib/UserProvider.tsx");
-/* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../lib/server */ "./lib/server.tsx");
-/* harmony import */ var _General_OpenPage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../General/OpenPage */ "./components/General/OpenPage.tsx");
-/* harmony import */ var _General_SumpixelCard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../General/SumpixelCard */ "./components/General/SumpixelCard.tsx");
-/* harmony import */ var _General_BackNext__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../General/BackNext */ "./components/General/BackNext.tsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "styled-components");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _lib_UserProvider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../lib/UserProvider */ "./lib/UserProvider.tsx");
+/* harmony import */ var _lib_server__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../lib/server */ "./lib/server.tsx");
+/* harmony import */ var _General_OpenPage__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../General/OpenPage */ "./components/General/OpenPage.tsx");
+/* harmony import */ var _General_SumpixelCard__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../General/SumpixelCard */ "./components/General/SumpixelCard.tsx");
+/* harmony import */ var _General_BackNext__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../General/BackNext */ "./components/General/BackNext.tsx");
 
 
 
@@ -888,6 +1001,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+const FormContainer = styled_components__WEBPACK_IMPORTED_MODULE_7___default.a.div.withConfig({
+  displayName: "Onboard__FormContainer",
+  componentId: "sc-1kdj2hg-0"
+})(["max-width:500px;display:flex;flex-direction:column;justify-content:center;align-items:center;"]);
 const Onboard = props => {
   const [currentStep, changeStep] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0);
   const [navBarStatus, changeNavbarStatus] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(_model_model__WEBPACK_IMPORTED_MODULE_3__["NavBarStatus"].Undecided);
@@ -896,18 +1014,18 @@ const Onboard = props => {
     changeUser,
     loading,
     setLoading
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_7__["UserContext"]);
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_lib_UserProvider__WEBPACK_IMPORTED_MODULE_8__["UserContext"]);
 
   const updateUser = async updatedUser => {
     window.analytics.track('Create User');
     changeUser(updatedUser);
-    await Object(_lib_server__WEBPACK_IMPORTED_MODULE_8__["createUser"])(updatedUser);
+    await Object(_lib_server__WEBPACK_IMPORTED_MODULE_9__["createUser"])(updatedUser);
   };
 
   const updateEmployer = async updatedUser => {
     window.analytics.track('Create Employer');
     changeUser(updatedUser);
-    await Object(_lib_server__WEBPACK_IMPORTED_MODULE_8__["createEmployer"])(updatedUser);
+    await Object(_lib_server__WEBPACK_IMPORTED_MODULE_9__["createEmployer"])(updatedUser);
   };
 
   const backClick = () => {
@@ -947,26 +1065,26 @@ const Onboard = props => {
           style: {
             paddingBottom: 0
           }
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_EmployerDesigner__WEBPACK_IMPORTED_MODULE_6__["Question"], null, "Let's build your profile."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Designers_FormPersonalData__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_EmployerDesigner__WEBPACK_IMPORTED_MODULE_6__["Question"], null, "Let's build your profile."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Designers_FormPersonalData__WEBPACK_IMPORTED_MODULE_4__["default"], {
           changeCurrentUser: async user => await updateUser(user)
-        }));
+        })));
       } else {
         currentForm = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_EmployerDesigner__WEBPACK_IMPORTED_MODULE_6__["ContainerCard"], {
           style: {
             paddingBottom: 25
           }
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_EmployerDesigner__WEBPACK_IMPORTED_MODULE_6__["Question"], null, "Let's build your profile."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Employers_FormBusinessData__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_EmployerDesigner__WEBPACK_IMPORTED_MODULE_6__["Question"], null, "Let's build your profile."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Employers_FormBusinessData__WEBPACK_IMPORTED_MODULE_5__["default"], {
           changeCurrentUser: async user => await updateEmployer(user)
-        }));
+        })));
       }
 
       break;
 
     case 2:
       if (navBarStatus == _model_model__WEBPACK_IMPORTED_MODULE_3__["NavBarStatus"].Designer) {
-        Object(_General_OpenPage__WEBPACK_IMPORTED_MODULE_9__["default"])(setLoading, '/dashboard_user');
+        Object(_General_OpenPage__WEBPACK_IMPORTED_MODULE_10__["default"])(setLoading, '/dashboard_user');
       } else {
-        Object(_General_OpenPage__WEBPACK_IMPORTED_MODULE_9__["default"])(setLoading, '/dashboard_employer');
+        Object(_General_OpenPage__WEBPACK_IMPORTED_MODULE_10__["default"])(setLoading, '/dashboard_employer');
       }
 
       break;
@@ -986,7 +1104,7 @@ const Onboard = props => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     height: 50,
     src: __webpack_require__(/*! ../../assets/sumpixel-logo-white.png */ "./assets/sumpixel-logo-white.png")
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_SumpixelCard__WEBPACK_IMPORTED_MODULE_10__["SumpixelCard"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_SumpixelCard__WEBPACK_IMPORTED_MODULE_11__["SumpixelCard"], {
     withLogo: false
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OnboardNavbar__WEBPACK_IMPORTED_MODULE_1__["OnboardNavbar"], {
     currentStep: currentStep
@@ -994,7 +1112,7 @@ const Onboard = props => {
     style: {
       padding: 20
     }
-  }, currentForm), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BackNext__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, currentForm), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BackNext__WEBPACK_IMPORTED_MODULE_12__["default"], {
     backClick: backClick,
     nextClick: nextClick,
     currentState: currentStep,
@@ -1377,19 +1495,28 @@ const getQAById = async id => {
 /*!*************************!*\
   !*** ./model/model.tsx ***!
   \*************************/
-/*! exports provided: UNIVERSAL_COLOR, UNIVERSAL_BACKGROUND, EmployerDecisionHire, DesignerDecisionTalk, VisaStatus, NavBarStatus */
+/*! exports provided: UNIVERSAL_COLOR, UNIVERSAL_BACKGROUND, PricingModel, EmployerDecisionHire, DesignerDecisionTalk, VisaStatus, NavBarStatus */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNIVERSAL_COLOR", function() { return UNIVERSAL_COLOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNIVERSAL_BACKGROUND", function() { return UNIVERSAL_BACKGROUND; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PricingModel", function() { return PricingModel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmployerDecisionHire", function() { return EmployerDecisionHire; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DesignerDecisionTalk", function() { return DesignerDecisionTalk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VisaStatus", function() { return VisaStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavBarStatus", function() { return NavBarStatus; });
 const UNIVERSAL_COLOR = '#5E0BEF';
 const UNIVERSAL_BACKGROUND = '#F7F9FB';
+let PricingModel;
+
+(function (PricingModel) {
+  PricingModel["SMALL"] = "$75,000-100,000";
+  PricingModel["MEDIUM"] = "$100,000-125,000";
+  PricingModel["LARGE"] = "$125,000+";
+})(PricingModel || (PricingModel = {}));
+
 let EmployerDecisionHire;
 
 (function (EmployerDecisionHire) {
@@ -1519,6 +1646,17 @@ module.exports = require("antd");
 
 /***/ }),
 
+/***/ "antd-mask-input":
+/*!**********************************!*\
+  !*** external "antd-mask-input" ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("antd-mask-input");
+
+/***/ }),
+
 /***/ "axios":
 /*!************************!*\
   !*** external "axios" ***!
@@ -1604,6 +1742,17 @@ module.exports = require("next/router");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "react-places-autocomplete":
+/*!********************************************!*\
+  !*** external "react-places-autocomplete" ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-places-autocomplete");
 
 /***/ }),
 
