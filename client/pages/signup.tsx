@@ -33,8 +33,10 @@ const SignUp: React.FC = (props) => {
                 displayName: displayName
             }).then(() => {
                 // Delays are necessary to ensure display name is updated correctly
-                window.analytics.track('Firebase Auth Signup');
-                OpenPage(setLoading, '/onboarding')
+                setTimeout(() => {
+                    window.analytics.track('Firebase Auth Signup');
+                    OpenPage(setLoading, '/onboarding')
+                }, 1000)
             })
         }).catch((error) => {
             setLoading(false)

@@ -869,8 +869,10 @@ const SignUp = props => {
         displayName: displayName
       }).then(() => {
         // Delays are necessary to ensure display name is updated correctly
-        window.analytics.track('Firebase Auth Signup');
-        Object(_components_General_OpenPage__WEBPACK_IMPORTED_MODULE_7__["default"])(setLoading, '/onboarding');
+        setTimeout(() => {
+          window.analytics.track('Firebase Auth Signup');
+          Object(_components_General_OpenPage__WEBPACK_IMPORTED_MODULE_7__["default"])(setLoading, '/onboarding');
+        }, 1000);
       });
     }).catch(error => {
       setLoading(false);
