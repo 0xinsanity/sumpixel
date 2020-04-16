@@ -451,14 +451,31 @@ def get_qa_by_id(id: str):
 
     form = typeform.forms.get(form_type)['fields']
     response = find(typeform.responses.list(form_type)['items'], {'hidden': {'id': id}})
+    print(response)
     q_and_a = []
     for answer in response['answers']:
-        response = answer.get('text')
+        if answer.get('choices') != None and answer.get('choices').get('labels') != None:
+            labels = answer.get('choices').get('labels')
+            print(labels)
+            answer_text = ", ".join(labels)
+        elif answer.get('text') != None:
+            answer_text = answer.get('text')
+
         question = find(form, {'id': answer.get('field')['id']}).get('title')
-        if response != None and "Would you like to get our monthly newsletter" not in question:
-            q_and_a.append({'question': question, 'answer': response})
+        if answer_text != None and "Would you like to get our monthly newsletter" not in question:
+            q_and_a.append({'question': question, 'answer': answer_text})
         
     return q_and_a
+
+@app.get("/get_user_ids")
+def get_user_ids():
+    doc_ref = db.collection('users').stream()
+
+    docs = []
+    for doc in doc_ref:
+        docs.append(doc.id)
+    
+    return docs
 
 def get_user_helper(id: str):
     doc_ref = db.collection('users').document(id)

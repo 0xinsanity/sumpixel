@@ -103,3 +103,8 @@ export const getDesignerFromCommunication = async (id: string): Promise<User> =>
 export const getQAById = async (id: string): Promise<QA[]> => {
     return await request('get_qa_by_id', {id})
 }
+
+export const getUserIds = async (): Promise<string[]> => {
+    return await request('get_user_ids', {})
+}
+
