@@ -61,7 +61,7 @@ const DashboardUser: React.FC = (props) => {
                             </TabPane>
                             <TabPane tab={"Modify Profile"} key={"2"}>
                                 <Background>
-                                    <div style={{display: 'flex', padding: 40, justifyContent: 'left'}}>
+                                    <div style={{display: 'flex', padding: 40, justifyContent: 'center'}}>
                                         <FormPersonalData changeCurrentUser={updateUser} modifyProfile={true} />
                                     </div>
                                 </Background>

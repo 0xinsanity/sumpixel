@@ -111,7 +111,7 @@ const DashboardEmployer: React.FC = (props) => {
                     </TabPane>
                     <TabPane tab={TabObjs[2].name} key={TabObjs[2].key}>
                         <Background>
-                            <div style={{display: 'flex', padding: 40, justifyContent: 'left'}}>
+                            <div style={{display: 'flex', padding: 40, justifyContent: 'center'}}>
                                 <FormBusinessData changeCurrentUser={updateEmployer} modifyProfile={true} />
                             </div>
                         </Background>

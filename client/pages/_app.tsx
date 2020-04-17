@@ -4,7 +4,6 @@ import Head from 'next/head'
 import '../assets/theme.less'
 import {createGlobalStyle} from 'styled-components'
 import { NextSeo } from 'next-seo';
-import "profile-picture/build/ProfilePicture.css"
 
 const GlobalInjection = createGlobalStyle`
     .ant-tabs {

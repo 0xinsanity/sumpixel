@@ -1663,7 +1663,7 @@ const DashboardEmployer = props => {
       style: {
         display: 'flex',
         padding: 40,
-        justifyContent: 'left'
+        justifyContent: 'center'
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_OnboardingFlow_Employers_FormBusinessData__WEBPACK_IMPORTED_MODULE_4__["default"], {
       changeCurrentUser: updateEmployer,
