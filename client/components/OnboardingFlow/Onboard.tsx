@@ -77,7 +77,7 @@ export const Onboard: React.FC<OnboardProps> = props => {
             if (navBarStatus == NavBarStatus.Designer) {
                 currentForm = 
                             <ContainerCard style={{paddingBottom: 0}}>
-                                    <Question>Let's build your profile.</Question>
+                                    <Question style={{paddingBottom: 30}}>Let's build your profile.</Question>
                                     <FormContainer>
                                         <FormPersonalData 
                                             changeCurrentUser={async (user) => await updateUser(user)}/>                

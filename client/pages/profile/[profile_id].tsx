@@ -52,6 +52,7 @@ const Profile: React.FC = () => {
     const [currentProfile, changeCurrentProfile]  = useState<User>(undefined)
     const [profileString, changeProfileString] = useState<string>('Profile')
     const [qAndA, changeQandA] = useState<QA[]>(null)
+    const [profileLink, changeProfileLink] = useState<string>(undefined)
     let showStats = currentUser !== null && ((currentUser as Employer).companyName !== undefined)
 
     useEffect(() => {
@@ -71,6 +72,11 @@ const Profile: React.FC = () => {
             console.log('here')
             getQAById(id).then((qAndA: QA[]) => {
                 changeQandA(qAndA)
+            })
+            storage_ref.child('profilePic/' + profile.profilePic).getDownloadURL().then((url => {
+                changeProfileLink(url)
+            })).catch((error) => {
+                console.error(error)
             })
             showStats = showStats && profile['graded']
             if (showStats) {
@@ -132,6 +138,7 @@ const Profile: React.FC = () => {
                 </Head>
                 <SimpleNavigationBar 
                     subtitle={profileString}
+                    avatarSrc={profileLink}
                 >
                     <UpperFullContainer>
                         <TextContainer>

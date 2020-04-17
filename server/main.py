@@ -58,6 +58,7 @@ class User(BaseModel):
     visa: str
     preferredRole: str
     resume: str
+    profilePic: str = None
     linkedin: str = None
     designType: str = None
     dribbble: str = None
@@ -78,6 +79,7 @@ class UserModified(BaseModel):
     visa: str = None
     preferredRole: str = None
     resume: str = None
+    profilePic: str = None
     linkedin: str = None
     designType: str = None
     dribbble: str = None

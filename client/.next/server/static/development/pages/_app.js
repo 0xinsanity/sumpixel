@@ -469,6 +469,17 @@ const getUserIds = async () => {
 
 /***/ }),
 
+/***/ "./node_modules/profile-picture/build/ProfilePicture.css":
+/*!***************************************************************!*\
+  !*** ./node_modules/profile-picture/build/ProfilePicture.css ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
 /***/ "./pages/_app.tsx":
 /*!************************!*\
   !*** ./pages/_app.tsx ***!
@@ -490,6 +501,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var next_seo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! next-seo */ "next-seo");
 /* harmony import */ var next_seo__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_seo__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var profile_picture_build_ProfilePicture_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! profile-picture/build/ProfilePicture.css */ "./node_modules/profile-picture/build/ProfilePicture.css");
+/* harmony import */ var profile_picture_build_ProfilePicture_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(profile_picture_build_ProfilePicture_css__WEBPACK_IMPORTED_MODULE_6__);
+
 
 
 
@@ -586,6 +600,11 @@ const GlobalInjection = styled_components__WEBPACK_IMPORTED_MODULE_4__["createGl
 
     .ant-upload {
         width: 100%;
+    }
+
+    .ant-upload-picture-card-wrapper {
+        display: flex;
+        justify-content: center;
     }
 
     @media (max-width: 768px) {

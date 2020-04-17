@@ -1,5 +1,6 @@
 import React, {useContext} from 'react'
-import {PageHeader, Button, Tabs, message, Typography} from 'antd'
+import {PageHeader, Button, Tabs, message, Typography, Avatar} from 'antd'
+import { UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components'
 import {UserContext} from '../../lib/UserProvider'
 import { Employer } from '../../model/model'
@@ -29,10 +30,11 @@ const SubTitle = styled(Typography.Title)`
 
 interface NavigationBarProps {
     subtitle: string
+    avatarSrc?: string
 }
 
 const SimpleNavigationBar: React.FC<NavigationBarProps> = (props) => {
-    const {subtitle} = props
+    const {subtitle, avatarSrc} = props
 
     return (
         <SumpixelHeader 
@@ -40,7 +42,8 @@ const SimpleNavigationBar: React.FC<NavigationBarProps> = (props) => {
                             <img height={43} src={require('../../assets/sumpixel-logo.png')}/>
                         </a>}
             >
-            <Line/>            
+            <Line/> 
+            <Avatar style={{marginTop: 20}} size={200} icon={<UserOutlined/>} src={avatarSrc}/>           
             <SubTitle>{subtitle}</SubTitle>
             {props.children}
         </SumpixelHeader>

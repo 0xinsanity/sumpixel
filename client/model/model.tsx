@@ -15,6 +15,7 @@ export interface User {
     linkedin?: string;
     dribbble?: string;
     resume?: string;
+    profilePic?: string;
     designType?: string;
     completedQuiz?: boolean;
     grade?: DesignerGrade;

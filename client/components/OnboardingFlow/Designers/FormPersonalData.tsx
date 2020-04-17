@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
-import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message, Radio } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Checkbox, Row, Col, Select, Upload, message, Radio, Avatar } from 'antd';
+import { UploadOutlined, UserOutlined } from '@ant-design/icons';
 import _ from 'lodash'
 import {User, VisaStatus, NavBarStatus, UNIVERSAL_COLOR, PricingModel} from '../../../model/model'
 import FormProps from '../FormProps'
@@ -16,6 +16,7 @@ import {RButton} from '../EmployerDesigner'
 import styled from 'styled-components'
 import MaskedInput from 'antd-mask-input'
 import {LocationAutocomplete} from '../../General/LocationAutocomplete'
+import {AvatarUpload} from './AvatarUpload'
 const {Option} = Select
 
 const VerticalRButton = styled(RButton)`
@@ -36,6 +37,7 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
     const {currentUser, changeUser, loading, setLoading}  = useContext(UserContext)
     const [checked, changeChecked] = useState(false)
     const [fileList, updateFileList] = useState<UploadFile[]>([])
+    const [profilePic, changeProfilePic] = useState<File>(undefined)
 
     if (currentUser == undefined) {
         return (<Loading />)
@@ -60,6 +62,10 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
             resume: currentUser.id + '.pdf',
             linkedin: values.linkedin,
             dribbble: values.dribbble
+        }
+
+        if (profilePic !== undefined) {
+            newUser["profilePic"] = currentUser.id + ".png"
         }
         console.table(_.pickBy(newUser, _.identity))
 
@@ -87,6 +93,14 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
                 updateUser(values)
             })
         }    
+
+        if (profilePic === undefined) {
+            updateUser(values)
+        } else {
+            storage_ref.child('profilePic/' + currentUser.id + '.png').put(profilePic).then((snapshot) => {
+                updateUser(values)
+            })
+        }
     }
 
     const viewProfile = () => {
@@ -107,6 +121,14 @@ const FormPersonalData: React.FC<FormPersonalDataProps> = (props) => {
                 onFinishFailed={onFinishFailed}
                 onFinish={onFinish}
             >
+                <Form.Item
+                    label=""
+                    name="profilePic"
+                >   
+                    <div style={{width: '100%', justifyContent: 'center', display: 'flex' }}>
+                        <AvatarUpload changeProfilePic={(profilePic: File) => changeProfilePic(profilePic)}/>
+                    </div>
+                </Form.Item>
                 {!isModifyProfilePage ? 
                     <>
                         <Input.Group>

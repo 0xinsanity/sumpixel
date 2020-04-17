@@ -4,6 +4,7 @@ import Head from 'next/head'
 import '../assets/theme.less'
 import {createGlobalStyle} from 'styled-components'
 import { NextSeo } from 'next-seo';
+import "profile-picture/build/ProfilePicture.css"
 
 const GlobalInjection = createGlobalStyle`
     .ant-tabs {
@@ -95,6 +96,11 @@ const GlobalInjection = createGlobalStyle`
 
     .ant-upload {
         width: 100%;
+    }
+
+    .ant-upload-picture-card-wrapper {
+        display: flex;
+        justify-content: center;
     }
 
     @media (max-width: 768px) {
