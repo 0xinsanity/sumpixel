@@ -225,7 +225,7 @@ const DesignerList = props => {
     key: "contact",
     render: contact => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_General_BigBlackButton__WEBPACK_IMPORTED_MODULE_7__["BigBlackButton"], {
       onClick: () => onMoreInfo(contact)
-    }, "Connect")
+    }, "View Profile")
   })));
 };
 
@@ -1025,11 +1025,11 @@ const TextAboveAnswer = props => {
   var dribble_url = dribbble,
       linkedin_url = linkedin;
 
-  if (!dribbble.includes('//')) {
+  if (dribbble !== null && !dribbble.includes('//')) {
     dribble_url = "https://" + dribbble;
   }
 
-  if (!linkedin.includes('//')) {
+  if (linkedin !== null && !linkedin.includes('//')) {
     linkedin_url = "https://" + linkedin;
   }
 
