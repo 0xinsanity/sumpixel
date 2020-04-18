@@ -142,6 +142,7 @@ const Profile: React.FC = () => {
                 >
                     <UpperFullContainer>
                         <TextContainer>
+                            <TextAboveAnswer style={{width: 100}} above={'Location'} below={currentProfile.location}/>
                             <TextAboveAnswer above={'Desired Salary'} below={currentProfile.salary}/>
                             <TextAboveAnswer above={'Preferred Role'} below={currentProfile.preferredRole}/>
                             <TextAboveAnswer above={'Quiz'} below={currentProfile.designType}/>

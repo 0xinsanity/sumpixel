@@ -24,7 +24,8 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
 slack_client = slack.WebClient(token=os.environ.get('SLACK_API_CLIENT'))
-typeform = Typeform(os.environ.get('TYPEFORM_KEY'))
+#typeform = Typeform(os.environ.get('TYPEFORM_KEY'))
+typeform = Typeform('9iQCFMbuaj95R6XZxVTFdwbgaGPG9jFjdZbx5huuseGw')
 scheduler = BackgroundScheduler()
 
 origins = [
@@ -453,15 +454,21 @@ def get_qa_by_id(id: str):
 
     form = typeform.forms.get(form_type)['fields']
     response = find(typeform.responses.list(form_type)['items'], {'hidden': {'id': id}})
-    print(response)
     q_and_a = []
     for answer in response['answers']:
+        print(answer)
         if answer.get('choices') != None and answer.get('choices').get('labels') != None:
             labels = answer.get('choices').get('labels')
-            print(labels)
             answer_text = ", ".join(labels)
+            
         elif answer.get('text') != None:
             answer_text = answer.get('text')
+        elif answer.get('yes_no') != None:
+            answer_text = answer.get('boolean')
+        elif answer.get('choice') != None:
+            answer_text = answer.get('choice').get('label')
+        else:
+            answer_text = None
 
         question = find(form, {'id': answer.get('field')['id']}).get('title')
         if answer_text != None and "Would you like to get our monthly newsletter" not in question:
