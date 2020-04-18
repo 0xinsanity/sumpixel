@@ -132,6 +132,11 @@ const Profile: React.FC = () => {
         return (<></>)
     }
 
+    var portfolio = currentProfile.portfolio
+    if (!portfolio.includes('//')) {
+        portfolio = "https://" + portfolio
+    }
+
     return (<>
                 <Head>
                     <title>{profileString}</title>
@@ -146,7 +151,7 @@ const Profile: React.FC = () => {
                             <TextAboveAnswer above={'Desired Salary'} below={currentProfile.salary}/>
                             <TextAboveAnswer above={'Preferred Role'} below={currentProfile.preferredRole}/>
                             <TextAboveAnswer above={'Quiz'} below={currentProfile.designType}/>
-                            <TextAboveAnswer above={'Portfolio'} link={currentProfile.portfolio} below={'Website'}/>
+                            <TextAboveAnswer above={'Portfolio'} link={portfolio} below={'Website'}/>
                             <TextAboveAnswer above={'Resume'} onClick={downloadResume} below={'Download'}/>
                             <TextAboveAnswer above={'Visa Status'} below={currentProfile.visa}/>
                             <Socials linkedin={currentProfile.linkedin} dribbble={currentProfile.dribbble}/>
