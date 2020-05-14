@@ -16,7 +16,7 @@ const TextAboveAnswer: React.FC<TextAboveAnswerProps> = (props) => {
     if (dribbble !== null && !dribbble.includes('//')) {
         dribble_url = "https://" + dribbble
     }
-    if (linkedin !== null && !linkedin.includes('//')) {
+     if (linkedin !== null && !linkedin.includes('//')) {
         linkedin_url = "https://" + linkedin
     }
 

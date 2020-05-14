@@ -537,19 +537,21 @@ def emails_complete_quiz():
     
     for user in doc_users:
         doc = user.to_dict()
-        message = Mail(
-            from_email="noah.hanover@sumpixel.com",
-            to_emails=doc['email']
-        )
+        # TODO: Replace with Unsubscribe Option
+        if doc['id'] != 'WRLohVzOhdSnSfXN5ReJDp8YsVG2':
+            message = Mail(
+                from_email="noah.hanover@sumpixel.com",
+                to_emails=doc['email']
+            )
 
-        message.dynamic_template_data = {'first_name': doc['firstName']}
-        message.template_id = 'd-e7c2d7d4b5b84b6eb0148d47fc8d4b67'
+            message.dynamic_template_data = {'first_name': doc['firstName']}
+            message.template_id = 'd-e7c2d7d4b5b84b6eb0148d47fc8d4b67'
 
-        try:
-            response = sg.send(message)
-        except Exception as e:
-            print(e)
-        print(response)
+            try:
+                response = sg.send(message)
+            except Exception as e:
+                print(e)
+            print(response)
     
 
 if __name__ == "__main__":
