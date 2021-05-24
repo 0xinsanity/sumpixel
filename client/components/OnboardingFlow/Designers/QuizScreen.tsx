@@ -29,10 +29,10 @@ const QuizScreen: React.FC<FormProps> = (props) => {
     const {currentUser}  = useContext(UserContext)
     var typeform = useRef(null)
 
-    const designerTypes = [{key: 0, name: "UI", link: "https://sumpixelbiz.typeform.com/to/riENWs?id=" + currentUser.id}, 
-                            {key: 1, name: "UX", link: "https://sumpixelbiz.typeform.com/to/TqV8Jo?id=" + currentUser.id}, 
-                            {key: 2, name: "Brand", link: "https://sumpixelbiz.typeform.com/to/BOBhxP?id=" + currentUser.id}, 
-                            {key: 3, name: "Product", link: "https://sumpixelbiz.typeform.com/to/irGM8E?id=" + currentUser.id}]
+    const designerTypes = [{key: 0, name: "UI", link: "https://form.typeform.com/to/riENWs?id=" + currentUser.id}, 
+                            {key: 1, name: "UX", link: "https://form.typeform.com/to/TqV8Jo?id=" + currentUser.id}, 
+                            {key: 2, name: "Brand", link: "https://form.typeform.com/to/BOBhxP?id=" + currentUser.id}, 
+                            {key: 3, name: "Product", link: "https://form.typeform.com/to/irGM8E?id=" + currentUser.id}]
 
     const [currentQuiz, changeQuiz] = useState<QuizProp>(designerTypes[0])
 
