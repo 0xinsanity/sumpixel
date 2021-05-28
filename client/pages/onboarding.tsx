@@ -27,6 +27,9 @@ const Onboarding: React.FC = (props) => {
         <>
             <Head>
                 <title>Onboarding</title>
+                <script dangerouslySetInnerHTML={{__html: `
+                    gtag('event', 'conversion', {'send_to': 'AW-361015819/V4yOCKrU0qsCEIvUkqwB'});
+                `}} />
             </Head>
             <LoginBackground style={{alignItems: 'flex-start', paddingTop: 80, height: 'auto', minHeight: '100vh', paddingBottom: 65}}>
                 <Onboard deleteUser={deleteUser}/>
